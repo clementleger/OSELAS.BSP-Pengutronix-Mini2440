@@ -1,0 +1,36 @@
+# keep in sync with stable releases
+patch-2.6.38.1.bz2
+patch-2.6.38.1-2.bz2
+patch-2.6.38.2-3.bz2
+patch-2.6.38.3-4.bz2
+
+PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
+PATCH_2_4_s3c2440_mini2440_Add_touchscreen_support_for_mini2440.diff
+PATCH_3_4_s3c2440_mini2440_Select_touchscreen_by_default.diff
+PATCH_4_4_s3c2440_mini2440_Use_leds-gpio_driver_for_board_leds_handling.diff
+
+# build time fixes
+Drop_exporting_s3c24xx_ts_set_platdata.diff
+fix_gpio_register.diff
+
+# due to wrong option, mounting NAND is slow
+speed_up_NAND_mounting.diff
+
+# just a little bit pedantic
+make_all_const.diff
+
+# Clock handling in the 2.6.38 NFC driver is broken (unbalanced)
+PATCH_1_1_nand_Fix_S3C_NAND_clock_stop.diff
+
+# remove unused code in the framebuffer driver
+remove_device_file.diff
+make_debug_decision_const.diff
+just_a_cleanup.diff
+
+# Show something on the screen, even when no graphic console is enabled
+enable_screen_without_console.diff
+
+# only with this patch I can hear some sounds
+make_sound_work.diff
+
+set-marker.diff
