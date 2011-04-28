@@ -1,0 +1,9 @@
+auto lo
+iface lo inet loopback
+
+# auto eth0
+# iface eth0 inet static
+#	address a.b.c.d
+#	netmask a.b.c.d
+#	broadcast a.b.c.d
+#	gateway a.b.c.d
