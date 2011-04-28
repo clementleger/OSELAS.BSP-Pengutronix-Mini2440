@@ -1,0 +1,16 @@
+## SECTION=hosttools
+
+config HOST_LIBUSB
+	bool
+
+config HOST_LIBUSB_COMPAT
+	bool
+	select HOST_LIBUSB
+
+config HOST_USBPUSH
+	tristate
+	prompt "usbpush"
+	select HOST_LIBUSB_COMPAT
+	help
+	  Using this ram loader it is possible to download (and execute) code
+	  from the host PC into the SDRAM of a mini2440 development board.
