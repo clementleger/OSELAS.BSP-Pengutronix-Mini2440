@@ -1,0 +1,14 @@
+Due to massive differences in NAND flash treatment, the 64 MiB and
+the non-64 MiB mini2440 have to be distinguished!
+
+For the 64 MiB NAND mini2440 are valid:
+
+- platformconfig-NAND-64M
+- barebox-NAND-64M.config
+- barebox-64m-env/
+
+For all other non-64 MiB NAND mini2440 are valid:
+
+- platformconfig-NAND-128M
+- barebox-NAND-128M.config
+- barebox-128m-env/

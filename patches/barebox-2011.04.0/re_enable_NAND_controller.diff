@@ -1,0 +1,30 @@
+From: Juergen Beisert <juergen@kreuzholzen.de>
+Subject: S3C24xx/NFC: Re-enable the controller after NAND boot test
+
+After running the 'nand_boot_test' command, any usage of the NAND fails with
+a IO error. This happens due to the load routine disables the NAND controller
+after loading the image.
+
+This patch re-enables the NAND controller again after running the test.
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+
+---
+ drivers/mtd/nand/nand_s3c2410.c |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+Index: barebox-2011.04.0/drivers/mtd/nand/nand_s3c2410.c
+===================================================================
+--- barebox-2011.04.0.orig/drivers/mtd/nand/nand_s3c2410.c
++++ barebox-2011.04.0/drivers/mtd/nand/nand_s3c2410.c
+@@ -571,6 +571,10 @@ static int do_nand_boot_test(struct comm
+ 
+ 	s3c24x0_nand_load_image(dest, size, 0, pagesize);
+ 
++	/* re-enable the controller again, as this was a test only */
++	enable_nand_controller((void *)S3C24X0_NAND_BASE,
++				BOARD_DEFAULT_NAND_TIMING);
++
+ 	return 0;
+ }
+ 

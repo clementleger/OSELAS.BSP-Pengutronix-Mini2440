@@ -1,0 +1,100 @@
+From: Juergen Beisert <juergen@kreuzholzen.de>
+Subject: Distinguish the various NAND sizes
+
+Its important to distinguish the NAND size, as the 64 MiB NAND has 16 kiB block
+size and the 128 MiB and above have 128 kiB block sizes.
+
+To make booting from NAND more reliable, we must keep some spare blocks per
+partition when bad blocks are occur. But it makes no sense to reserve 8 blocks
+in the 64 MiB NAND case.
+
+So the NAND layout looks like this:
+
+64 MiB NAND case:
+
+ 256 kiB barebox bootloader (16 blocks, at least 10 used)
+ 64 kiB bootloader's environment (4 blocks, at least one used)
+
+128 MiB NAND case:
+
+ 512 kiB barebox bootloader (4 blocks, at least 2 used)
+ 378 kiB bootloader's environment (3 blocks, at least one used)
+
+Note: Using this patch needs some adaptions in the default environment.
+At least the "nand_parts" variable must be adapted!
+
+Signed-off-by: Juergen Beisert <juergen@kreuzholzen.de>
+
+---
+ arch/arm/boards/mini2440/mini2440.c |   16 +++++++++++++++-
+ arch/arm/mach-s3c24xx/Kconfig       |   22 ++++++++++++++++++++++
+ 2 files changed, 37 insertions(+), 1 deletion(-)
+
+Index: barebox-2011.04.0/arch/arm/boards/mini2440/mini2440.c
+===================================================================
+--- barebox-2011.04.0.orig/arch/arm/boards/mini2440/mini2440.c
++++ barebox-2011.04.0/arch/arm/boards/mini2440/mini2440.c
+@@ -259,15 +259,29 @@ static int mini2440_devices_init(void)
+ 	register_device(&sdram_dev);
+ 	register_device(&dm9000_dev);
+ #ifdef CONFIG_NAND
++
++#ifdef CONFIG_MINI2440_64
+ 	/* ----------- add some vital partitions -------- */
+ 	devfs_del_partition("self_raw");
+ 	devfs_add_partition("nand0", 0x00000, 0x40000, PARTITION_FIXED, "self_raw");
+ 	dev_add_bb_dev("self_raw", "self0");
+ 
+ 	devfs_del_partition("env_raw");
+-	devfs_add_partition("nand0", 0x40000, 0x20000, PARTITION_FIXED, "env_raw");
++	devfs_add_partition("nand0", 0x40000, 0x10000, PARTITION_FIXED, "env_raw");
++	dev_add_bb_dev("env_raw", "env0");
++#endif
++#ifdef CONFIG_MINI2440_128
++	/* ----------- add some vital partitions -------- */
++	devfs_del_partition("self_raw");
++	devfs_add_partition("nand0", 0x00000, 0x80000, PARTITION_FIXED, "self_raw");
++	dev_add_bb_dev("self_raw", "self0");
++
++	devfs_del_partition("env_raw");
++	devfs_add_partition("nand0", 0x80000, 0x60000, PARTITION_FIXED, "env_raw");
+ 	dev_add_bb_dev("env_raw", "env0");
+ #endif
++
++#endif
+ 	register_device(&mci_dev);
+ 	armlinux_add_dram(&sdram_dev);
+ 	armlinux_set_bootparams((void *)sdram_dev.map_base + 0x100);
+Index: barebox-2011.04.0/arch/arm/mach-s3c24xx/Kconfig
+===================================================================
+--- barebox-2011.04.0.orig/arch/arm/mach-s3c24xx/Kconfig
++++ barebox-2011.04.0/arch/arm/mach-s3c24xx/Kconfig
+@@ -67,6 +67,28 @@ config MACH_A9M2410DEV
+ 
+ endchoice
+ 
++choice
++	prompt "mini2440 NAND size"
++	depends on MACH_MINI2440
++
++config MINI2440_64
++	bool
++	prompt "64 MiB NAND"
++	help
++	  Select this entry if your mini2440 is shipped with a NAND memory
++	  of size 64 MiB. The memory comes with the printing
++	  "K9F1208"
++
++config MINI2440_128
++	bool
++	prompt "128 MiB NAND or above"
++	help
++	  Select this entry if your mini2440 is shipped with a NAND memory
++	  larger than 64 MiB. These memories are coming with the printing
++	  "K9F1G08", "K9F2G08" or "K9F8G08"
++
++endchoice
++
+ endmenu
+ 
+ menu "S3C24X0 Features              "

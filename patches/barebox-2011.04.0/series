@@ -1,0 +1,12 @@
+# just more info
+add_more_info.diff
+
+# NFC fixes (already in mainline)
+re_enable_NAND_controller.diff
+remove_dead_code.diff
+remove_unused_code.diff
+consider_correct_page_size.diff
+fix_ecc_handling_for_large_page.diff
+fix_oob_handling_doc.diff
+distinguish_64M_and_128M_NAND.diff
+set-marker.diff
