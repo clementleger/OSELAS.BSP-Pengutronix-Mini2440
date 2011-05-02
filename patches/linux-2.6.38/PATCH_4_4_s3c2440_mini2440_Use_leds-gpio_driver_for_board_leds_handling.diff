@@ -159,7 +159,7 @@ Index: linux-2.6.38/arch/arm/mach-s3c2440/mach-mini2440.c
  /* AUDIO */
  
  static struct s3c24xx_uda134x_platform_data mini2440_audio_pins = {
-@@ -561,10 +550,7 @@ static struct platform_device *mini2440_
+@@ -562,10 +551,7 @@ static struct platform_device *mini2440_
  	&s3c_device_rtc,
  	&s3c_device_usbgadget,
  	&mini2440_device_eth,

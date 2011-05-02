@@ -3,6 +3,7 @@ patch-2.6.38.1.bz2
 patch-2.6.38.1-2.bz2
 patch-2.6.38.2-3.bz2
 patch-2.6.38.3-4.bz2
+patch-2.6.38.4-5.bz2
 
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
 PATCH_2_4_s3c2440_mini2440_Add_touchscreen_support_for_mini2440.diff
