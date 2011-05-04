@@ -34,4 +34,5 @@ enable_screen_without_console.diff
 # only with this patch I can hear some sounds
 make_sound_work.diff
 
+add_hwmon.diff
 set-marker.diff
