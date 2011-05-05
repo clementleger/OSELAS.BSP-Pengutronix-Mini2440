@@ -72,7 +72,7 @@ Index: linux-2.6.38/arch/arm/mach-s3c2440/mach-mini2440.c
 +	.in[4] = &mini2440_adc_chcfg[4],
 +	.in[5] = &mini2440_adc_chcfg[5],
 +	.in[6] = &mini2440_adc_chcfg[6],
-+	.in[7] = &mini2440_adc_chcfg[6],
++	.in[7] = &mini2440_adc_chcfg[7],
 +};
 +
  static struct platform_device *mini2440_devices[] __initdata = {
