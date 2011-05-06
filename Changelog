@@ -1,3 +1,23 @@
+2011-05-06	Juergen Beisert <jbe@pengutronix.de>
+
+	* Prepare the platform for the PTXdist 2011.05.0 release
+
+2011-05-04	Juergen Beisert <jbe@pengutronix.de>
+
+	* Fix acces to the 7th ADC channel
+
+2011-05-04	Juergen Beisert <jbe@pengutronix.de>
+
+	* Add hwmon feature for ADC access
+
+2011-05-02	Juergen Beisert <jbe@pengutronix.de>
+
+	* Keep kernel in sync with stable: 2.6.35.5
+
+2011-05-01	Juergen Beisert <jbe@pengutronix.de>
+
+	* Default audio settings fixed
+
 2011-04-28	Juergen Beisert <jbe@pengutronix.de>
 
 	* Platform: Initial revision of the mini2440 platform
