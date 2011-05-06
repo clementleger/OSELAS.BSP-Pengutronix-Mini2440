@@ -1,6 +1,7 @@
 2011-05-06	Juergen Beisert <jbe@pengutronix.de>
 
 	* Prepare the platform for the PTXdist 2011.05.0 release
+	* Barebox: Use the current 2011.05.0 release
 
 2011-05-04	Juergen Beisert <jbe@pengutronix.de>
 
