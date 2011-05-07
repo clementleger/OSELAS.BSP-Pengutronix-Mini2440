@@ -1,3 +1,8 @@
+2011-05-07	Juergen Beisert <jbe@pengutronix.de>
+
+	* Board Support Package: Using platform-FriendlyARM-Mini2440-2011.05.0
+	* Board Support Package: Release May 2011 (2011.05.0)
+
 2011-05-04	Juergen Beisert <jbe@pengutronix.de>
 
 	* Board Support Package: Use ptxdist-2011.05.0
