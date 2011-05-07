@@ -1,0 +1,23 @@
+From: Juergen Beisert <jbe@pengutronix.de>
+Subject: Make sound work on mini2440
+
+Got this hint from open-nandra
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+
+---
+ sound/soc/codecs/uda134x.c |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: linux-2.6.38/sound/soc/codecs/uda134x.c
+===================================================================
+--- linux-2.6.38.orig/sound/soc/codecs/uda134x.c
++++ linux-2.6.38/sound/soc/codecs/uda134x.c
+@@ -26,6 +26,7 @@
+ 
+ #include "uda134x.h"
+ 
++#define POWER_OFF_ON_STANDBY
+ 
+ #define UDA134X_RATES SNDRV_PCM_RATE_8000_48000
+ #define UDA134X_FORMATS (SNDRV_PCM_FMTBIT_S8 | SNDRV_PCM_FMTBIT_S16_LE | \

@@ -1,0 +1,184 @@
+state.S3C24XXUDA134X {
+	control.1 {
+		comment.access 'read write'
+		comment.type INTEGER
+		comment.count 1
+		comment.range '0 - 63'
+		iface MIXER
+		name 'Master Playback Volume'
+		value 54
+	}
+	control.2 {
+		comment.access 'read write'
+		comment.type INTEGER
+		comment.count 1
+		comment.range '0 - 7'
+		iface MIXER
+		name 'Capture Volume'
+		value 0
+	}
+	control.3 {
+		comment.access 'read write'
+		comment.type INTEGER
+		comment.count 1
+		comment.range '0 - 31'
+		iface MIXER
+		name 'Analog1 Volume'
+		value 27
+	}
+	control.4 {
+		comment.access 'read write'
+		comment.type INTEGER
+		comment.count 1
+		comment.range '0 - 31'
+		iface MIXER
+		name 'Analog2 Volume'
+		value 27
+	}
+	control.5 {
+		comment.access 'read write'
+		comment.type INTEGER
+		comment.count 1
+		comment.range '0 - 7'
+		iface MIXER
+		name 'Mic Sensitivity'
+		value 0
+	}
+	control.6 {
+		comment.access 'read write'
+		comment.type INTEGER
+		comment.count 1
+		comment.range '0 - 31'
+		iface MIXER
+		name 'Mic Volume'
+		value 0
+	}
+	control.7 {
+		comment.access 'read write'
+		comment.type INTEGER
+		comment.count 1
+		comment.range '0 - 15'
+		iface MIXER
+		name 'Tone Control - Bass'
+		value 7
+	}
+	control.8 {
+		comment.access 'read write'
+		comment.type INTEGER
+		comment.count 1
+		comment.range '0 - 3'
+		iface MIXER
+		name 'Tone Control - Treble'
+		value 1
+	}
+	control.9 {
+		comment.access 'read write'
+		comment.type ENUMERATED
+		comment.count 1
+		comment.item.0 Flat
+		comment.item.1 Minimum1
+		comment.item.2 Minimum2
+		comment.item.3 Maximum
+		iface MIXER
+		name 'Sound Processing Filter'
+		value Flat
+	}
+	control.10 {
+		comment.access 'read write'
+		comment.type ENUMERATED
+		comment.count 1
+		comment.item.0 None
+		comment.item.1 '32Khz'
+		comment.item.2 '44.1Khz'
+		comment.item.3 '48Khz'
+		iface MIXER
+		name 'PCM Playback De-emphasis'
+		value '48Khz'
+	}
+	control.11 {
+		comment.access 'read write'
+		comment.type ENUMERATED
+		comment.count 1
+		comment.item.0 Differential
+		comment.item.1 Analog1
+		comment.item.2 Analog2
+		comment.item.3 Both
+		iface MIXER
+		name 'Input Mux'
+		value Differential
+	}
+	control.12 {
+		comment.access 'read write'
+		comment.type BOOLEAN
+		comment.count 1
+		iface MIXER
+		name 'AGC Switch'
+		value true
+	}
+	control.13 {
+		comment.access 'read write'
+		comment.type INTEGER
+		comment.count 1
+		comment.range '0 - 3'
+		iface MIXER
+		name 'AGC Target Volume'
+		value 2
+	}
+	control.14 {
+		comment.access 'read write'
+		comment.type INTEGER
+		comment.count 1
+		comment.range '0 - 7'
+		iface MIXER
+		name 'AGC Timing'
+		value 6
+	}
+	control.15 {
+		comment.access 'read write'
+		comment.type BOOLEAN
+		comment.count 1
+		iface MIXER
+		name 'DAC +6dB Switch'
+		value true
+	}
+	control.16 {
+		comment.access 'read write'
+		comment.type BOOLEAN
+		comment.count 1
+		iface MIXER
+		name 'ADC +6dB Switch'
+		value true
+	}
+	control.17 {
+		comment.access 'read write'
+		comment.type BOOLEAN
+		comment.count 1
+		iface MIXER
+		name 'ADC Polarity Switch'
+		value true
+	}
+	control.18 {
+		comment.access 'read write'
+		comment.type BOOLEAN
+		comment.count 1
+		iface MIXER
+		name 'DAC Polarity Switch'
+		value true
+	}
+	control.19 {
+		comment.access 'read write'
+		comment.type BOOLEAN
+		comment.count 1
+		iface MIXER
+		name 'Double Speed Playback Switch'
+		value true
+	}
+	control.20 {
+		comment.access 'read write'
+		comment.type BOOLEAN
+		comment.count 1
+		iface MIXER
+		name 'DC Filter Enable Switch'
+		value true
+	}
+}
