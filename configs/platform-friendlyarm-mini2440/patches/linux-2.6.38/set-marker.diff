@@ -11,7 +11,7 @@ Index: linux-2.6.37/Makefile
  PATCHLEVEL = 6
  SUBLEVEL = 38
 -EXTRAVERSION = .5
-+EXTRAVERSION = .5-ptx-2011.05.0
++EXTRAVERSION = .5-ptx-master
  NAME = Flesh-Eating Bats with Fangs
  
  # *DOCUMENTATION*
