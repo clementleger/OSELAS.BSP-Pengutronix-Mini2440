@@ -1,3 +1,8 @@
+2011-05-09	Marek Belisko <marek.belisko@open-nandra.com>
+
+	* Kernel 2.6.38: Fix the broken audio support in a correct manner
+	          (backport from current 2.6.39/40 development)
+
 2011-05-07	Juergen Beisert <jbe@pengutronix.de>
 
 	* Platform: Release May 2011 (2011.05.0)
