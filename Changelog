@@ -1,5 +1,6 @@
 2011-05-19	Juergen Beisert <jbe@pengutronix.de>
 
+	* Kernel 2.6.38: Add forgotten AT24 EEPROM driver
 	* Kernel 2.6.39: Add recent kernel to the platform
 
 2011-05-09	Marek Belisko <marek.belisko@open-nandra.com>
