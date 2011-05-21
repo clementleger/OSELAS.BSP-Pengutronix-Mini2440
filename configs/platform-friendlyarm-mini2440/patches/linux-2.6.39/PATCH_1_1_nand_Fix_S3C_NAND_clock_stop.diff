@@ -1,0 +1,165 @@
+From: Jiri Pinkava <jiri.pinkava@vscht.cz>
+Subject: [PATCH] nand: Fix S3C NAND clock stop
+
+Current implementation of s3c2410_nand_select_chip call
+clk_disable every time when chip = -1 (de-select). This happend
+multiple times even if chip was already de-selected. This causes
+disabling clock even if they are already disabled and due to
+nature of clock subsytem implementation this causes nand clock
+to be disabled and newer enabled again.
+
+Signed-off-by: Jiri Pinkava <jiri.pinkava@vscht.cz>
+---
+ drivers/mtd/nand/s3c2410.c |   57 +++++++++++++++++++++++++++++++++------------
+ 1 file changed, 42 insertions(+), 15 deletions(-)
+
+Index: linux-2.6.38/drivers/mtd/nand/s3c2410.c
+===================================================================
+--- linux-2.6.38.orig/drivers/mtd/nand/s3c2410.c
++++ linux-2.6.38/drivers/mtd/nand/s3c2410.c
+@@ -96,6 +96,12 @@ enum s3c_cpu_type {
+ 	TYPE_S3C2440,
+ };
+ 
++enum s3c_nand_clk_state {
++	CLOCK_DISABLE	= 0,
++	CLOCK_ENABLE,
++	CLOCK_SUSPEND,
++};
++
+ /* overview of the s3c2410 nand state */
+ 
+ /**
+@@ -111,6 +117,7 @@ enum s3c_cpu_type {
+  * @mtd_count: The number of MTDs created from this controller.
+  * @save_sel: The contents of @sel_reg to be saved over suspend.
+  * @clk_rate: The clock rate from @clk.
++ * @clk_state: The current clock state.
+  * @cpu_type: The exact type of this controller.
+  */
+ struct s3c2410_nand_info {
+@@ -129,6 +136,7 @@ struct s3c2410_nand_info {
+ 	int				mtd_count;
+ 	unsigned long			save_sel;
+ 	unsigned long			clk_rate;
++	enum s3c_nand_clk_state		clk_state;
+ 
+ 	enum s3c_cpu_type		cpu_type;
+ 
+@@ -159,11 +167,33 @@ static struct s3c2410_platform_nand *to_
+ 	return dev->dev.platform_data;
+ }
+ 
+-static inline int allow_clk_stop(struct s3c2410_nand_info *info)
++static inline int allow_clk_suspend(struct s3c2410_nand_info *info)
+ {
+ 	return clock_stop;
+ }
+ 
++/**
++ * s3c2410_nand_clk_set_state - Enable, disable or suspend NAND clock.
++ * @info: The controller instance.
++ * @new_state: State to which clock should be set.
++ */
++static void s3c2410_nand_clk_set_state(struct s3c2410_nand_info *info,
++		enum s3c_nand_clk_state new_state)
++{
++	if (!allow_clk_suspend(info) && new_state == CLOCK_SUSPEND)
++		return;
++
++	if (info->clk_state == CLOCK_ENABLE) {
++		if (new_state != CLOCK_ENABLE)
++			clk_disable(info->clk);
++	} else {
++		if (new_state == CLOCK_ENABLE)
++			clk_enable(info->clk);
++	}
++
++	info->clk_state = new_state;
++}
++
+ /* timing calculations */
+ 
+ #define NS_IN_KHZ 1000000
+@@ -333,8 +363,8 @@ static void s3c2410_nand_select_chip(str
+ 	nmtd = this->priv;
+ 	info = nmtd->info;
+ 
+-	if (chip != -1 && allow_clk_stop(info))
+-		clk_enable(info->clk);
++	if (chip != -1)
++		s3c2410_nand_clk_set_state(info, CLOCK_ENABLE);
+ 
+ 	cur = readl(info->sel_reg);
+ 
+@@ -356,8 +386,8 @@ static void s3c2410_nand_select_chip(str
+ 
+ 	writel(cur, info->sel_reg);
+ 
+-	if (chip == -1 && allow_clk_stop(info))
+-		clk_disable(info->clk);
++	if (chip == -1)
++		s3c2410_nand_clk_set_state(info, CLOCK_SUSPEND);
+ }
+ 
+ /* s3c2410_nand_hwcontrol
+@@ -694,8 +724,7 @@ static int s3c24xx_nand_remove(struct pl
+ 	/* free the common resources */
+ 
+ 	if (info->clk != NULL && !IS_ERR(info->clk)) {
+-		if (!allow_clk_stop(info))
+-			clk_disable(info->clk);
++		s3c2410_nand_clk_set_state(info, CLOCK_DISABLE);
+ 		clk_put(info->clk);
+ 	}
+ 
+@@ -949,7 +978,7 @@ static int s3c24xx_nand_probe(struct pla
+ 		goto exit_error;
+ 	}
+ 
+-	clk_enable(info->clk);
++	s3c2410_nand_clk_set_state(info, CLOCK_ENABLE);
+ 
+ 	/* allocate and map the resource */
+ 
+@@ -1028,9 +1057,9 @@ static int s3c24xx_nand_probe(struct pla
+ 		goto exit_error;
+ 	}
+ 
+-	if (allow_clk_stop(info)) {
++	if (allow_clk_suspend(info)) {
+ 		dev_info(&pdev->dev, "clock idle support enabled\n");
+-		clk_disable(info->clk);
++		s3c2410_nand_clk_set_state(info, CLOCK_SUSPEND);
+ 	}
+ 
+ 	pr_debug("initialised ok\n");
+@@ -1061,8 +1090,7 @@ static int s3c24xx_nand_suspend(struct p
+ 
+ 		writel(info->save_sel | info->sel_bit, info->sel_reg);
+ 
+-		if (!allow_clk_stop(info))
+-			clk_disable(info->clk);
++		s3c2410_nand_clk_set_state(info, CLOCK_DISABLE);
+ 	}
+ 
+ 	return 0;
+@@ -1074,7 +1102,7 @@ static int s3c24xx_nand_resume(struct pl
+ 	unsigned long sel;
+ 
+ 	if (info) {
+-		clk_enable(info->clk);
++		s3c2410_nand_clk_set_state(info, CLOCK_ENABLE);
+ 		s3c2410_nand_inithw(info);
+ 
+ 		/* Restore the state of the nFCE line. */
+@@ -1084,8 +1112,7 @@ static int s3c24xx_nand_resume(struct pl
+ 		sel |= info->save_sel & info->sel_bit;
+ 		writel(sel, info->sel_reg);
+ 
+-		if (allow_clk_stop(info))
+-			clk_disable(info->clk);
++		s3c2410_nand_clk_set_state(info, CLOCK_SUSPEND);
+ 	}
+ 
+ 	return 0;
