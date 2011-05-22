@@ -1,3 +1,7 @@
+2011-05-22	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 2.6.38: Keep in sync with stable release 2.6.38.7
+
 2011-05-19	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 2.6.38: Add forgotten AT24 EEPROM driver
