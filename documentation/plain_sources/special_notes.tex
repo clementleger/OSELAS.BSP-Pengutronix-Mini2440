@@ -1,0 +1,430 @@
+%
+% Charset: utf8
+% Content type: Plain LATEX
+% Content: This chapter give some Mini2440 specific hints how to use the
+%          hardware provided by the Mini2440.
+%
+% Copyright Jürgen Beisert <jbe@pengutronix.de>, 2011
+%
+% This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+% To view a copy of this license, visit:
+%           http://creativecommons.org/licenses/by/3.0/
+% or send a letter to:
+% Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+%
+% Refer the file CREDITS for all people working on this document.
+% %
+% This file content will be part of the "OSELAS.BSP-Pengutronix-Mini2440-Quickstart.pdf"
+%
+% Note: This document uses some externaly defined LATEX commands. If you try to
+% run LATEX only on this file it will fail due to the absense of these commands.
+% All these commands are starting with 'ptxdist'.
+%
+
+\newcommand{\perCpuName}{S3C2440}
+
+\section{Available Kernel Releases}	\label{sec:kernelreleases}
+
+The predifined Mini2440 platform configuration always uses the most
+available Linux kernel release. But if users are sticking to an older Linux
+kernel release, also the older releases are still available. Here is a list
+of currently available Linux kernel releases in the \ptxdistBSPName{}:
+
+\begin{itemize}
+	\item 2.6.39 (default)
+	\item 2.6.38.7
+\end{itemize}
+
+If another release than the default one should be used to build this board
+support package, we just have to run \texttt{ptxdist platfomconfig} and
+change the kernel setting prior the build.
+
+% ----------------------------------------------------------------------------
+
+\newcommand{\perDisplayName}{LCDN3502-23B}
+\newcommand{\perDisplayRes}{240x320}
+
+\section{Framebuffer}					\label{sec:fb}
+% --------------------
+
+This driver gains access to the display via device node \texttt{/dev/fb0}.
+For this BSP the \perDisplayName{} display with a resolution of
+\perDisplayRes{} is supported.
+
+A simple test of this feature can be run with:
+
+\begin{ptxshell}{|}
+# |fbtest|
+\end{ptxshell}
+
+This will show various pictures on the display.
+
+You can check your framebuffer resolution with the command
+\begin{ptxshell}{|}
+# |fbset|
+\end{ptxshell}
+
+NOTE: \texttt{fbset} cannot be used to change display resolution or color depth.
+Depending on the framebuffer device different kernel command line are mostly
+needed to do this. Please refer to the manual of your display driver for more
+details.
+
+% ----------------------------------------------------------------------------
+
+\newcommand{\perGpioChip}{192}
+\newcommand{\perGpioNumber}{193}
+
+\section{GPIO}					\label{sec:GPIO}
+% ------------
+
+Like most modern System-on-Chip CPUs, the \perCpuName{} has numerous GPIO pins.
+Some of them are unaccessible for the userspace as Linux drivers use them
+internally. Others are also used by drivers but are exposed to userspace via
+sysfs. Finally, the remaining GPIOs can be requested for custom use by
+userspace, also via sysfs.
+
+Refer to the in-kernel documentation \texttt{Documentation/gpio.txt} for
+complete details how to use the sysfs-interface for manually exporting GPIOs.
+
+% ----------------------------------------------------------------------------
+
+\subsection{GPIO Usage Example}		\label{sec:gpioexample}
+
+When generic architecture GPIO support is enabled in the kernel, some new
+entries are appearing in sysfs. Everything is controlled via read- and writable
+files to generate events on the digital lines.
+
+We find all control files in \texttt{/sys/class/gpio}. In that path, there are
+a number of \texttt{gpiochipXXX} entries, with \texttt{XXX} being a decimal
+number. Each of those folders provides information about a single gpio
+controller registerd on the Mini2440 board, for example with
+\texttt{gpiochip\perGpioChip}:
+
+\begin{ptxshell}[escapechar=^]{|}
+# |ls /sys/class/gpio/gpiochip^\perGpioChip^|
+base       label      ngpio      subsystem  uevent
+\end{ptxshell}
+
+The entry \texttt{base} contains information about the base GPIO number and
+\texttt{ngpio} contains the whole amount of GPIOs provided by this GPIO
+controller.\\
+We use \texttt{GPIO\perGpioNumber{}} as an example to show the usage of single
+GPIOs.
+
+\begin{ptxshell}[escapechar=^]{|}
+# |echo ^\ptxshellcmd\perGpioNumber^ > /sys/class/gpio/export|
+\end{ptxshell}
+
+This way we export \texttt{gpio\perGpioNumber{}} for userspace usage. If the
+export was succesful, we will find a new directory named
+\texttt{/sys/class/gpio/gpio\perGpioNumber{}} afterwards. Within this directory
+we will be able to find the entries to access the functions of this gpio.
+If we wish to set the direction and initial level of the GPIO, we can use the
+command:
+
+\begin{ptxshell}[escapechar=^]{|}
+# |echo high > /sys/class/gpio^\perGpioNumber^/direction|
+\end{ptxshell}
+
+This way we export \texttt{GPIO\perGpioNumber{}} for userspace usage and define
+our GPIO's direction attribute to an output with initially high level. We can
+change the value or direction of this GPIO by using the entries
+\texttt{direction} or \texttt{value}.
+
+Note: This method is not very fast, so for quickly changing GPIOs it is still
+necessary to write a kernel driver. The shown method works fine for example to
+influence an LED directly from userspace.
+
+To unexport an already exported GPIO, write the corresponding gpio-number into
+\texttt{/sys/class/gpio/export}.
+
+\begin{ptxshell}[escapechar=^]{|}
+# |echo ^\perGpioNumber^ > /sys/class/gpio/unexport|
+\end{ptxshell}
+
+Now the directory \texttt{/sys/class/gpio/gpio\perGpioNumber} will disapear.
+
+Note: The GPIO\perGpioNumber{} is available at connector 4, pin 17 for
+measurement.
+
+% ----------------------------------------------------------------------------
+
+\section{I\texttwosuperior C Master}			\label{sec:I2C}
+% -------------------------------------
+
+The \perCpuName{} processor based Mini2440 supports a dedicated
+I\texttwosuperior C controller onchip. The kernel supports this controller as a
+master controller.
+
+Additional I\texttwosuperior C device drivers can use the standard
+I\texttwosuperior C device API to gain access to their devices through this
+master controller.
+For further information about the I\texttwosuperior C framework see
+\texttt{Documentation/i2c} in the kernel source tree.
+
+% ----------------------------------------------------------------------------
+
+\newcommand{\perEepromName}{AT24c08}
+\newcommand{\perEepromSize}{1024 bytes}
+\newcommand{\perEepromPath}{0-0050}
+
+\subsection{I\texttwosuperior C Device \perEepromName {}}	\label{sec:EEPROM}
+% ------------------------------------------------------------
+
+This device is a \perEepromSize{} non-volatile memory for general purpose usage.
+
+This type of memory is accessible through the sysfs filesystem. To read the
+EEPROM content simply \texttt{open()} the entry
+\texttt{/sys/bus/i2c/devices/\perEepromPath{}/eeprom} and use
+\texttt{fseek()} and \texttt{read()} to get the values.
+
+% ----------------------------------------------------------------------------
+
+\newcommand{\perLedName}{led1}
+\newcommand{\perAvailableTriggers}{[none] nand-disk mmc0 timer backlight}
+
+\newcommand{\LedPath}{/sys/class/leds/\perLedName\#}
+
+\section{LEDs}				\label{sec:LED}
+% ------------
+
+The LEDs on the Mini2440 can be controlled via the LED-subsystem of the Linux
+kernel. It provides methods for switching them on and off as well as using
+so-called triggers, which trigger the LED according to f.e. a simple timer.
+That enables us to make it blink with any frequency we want.
+
+All LEDs can be found in the directory \texttt{/sys/class/leds}. Each one has
+its own subdirectory. We will use \texttt{\perLedName} for the following
+examples.
+
+Per directory, you have a file named \texttt{brightness} which can be read and
+written with a decimal value between 0 and 255. The first one means LED off,
+the latter maximum brightness. Inbetween values scale the brightness if the LED
+supports that. If not, non-zero means just LED on.
+
+\begin{ptxshell}[escapechar=|]{^}
+|\LedPath| echo 255 > brightness; # LED on
+|\LedPath| echo 128 > brightness; # LED at 50% (if supported)
+|\LedPath| echo 0 > brightness; # LED off
+\end{ptxshell}
+
+LEDs can be connected to triggers. A list of available triggers we can get from the
+\texttt{trigger} entry
+
+\begin{ptxshell}[escapechar=|]{^}
+|\LedPath| cat trigger
+|\perAvailableTriggers{}|
+\end{ptxshell}
+
+The embraced entry is the currectly connected trigger to this LED.
+
+To change the trigger source to the \textit{timer}, just run a:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\LedPath| echo timer > trigger
+\end{ptxshell}
+
+If the timer-trigger is activated you should see two additional files in the
+current directory, namely \texttt{delay\_on} and \texttt{delay\_off}. You can
+read and write decimal values there, which will set the corresponding delay in
+milliseconds. As an example:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\LedPath| echo 250 > delay_on
+|\LedPath| echo 750 > delay_off
+\end{ptxshell}
+
+will blink the LED being on for 250ms and off for 750 ms.
+
+Replace \texttt{timer} with \texttt{none} to disable the trigger again. Or
+select a different one from the list read from the \texttt{trigger} entry.
+
+Refer to \texttt{Documentation/leds-class.txt} in-kernel documentation for
+further details about this subsystem.
+
+% ----------------------------------------------------------------------------
+
+\section{MMC/SD Card}					\label{sec:SDC}
+%-----------------------
+
+The Mini2440 supports \textit{Secure Digital Cards} and
+\textit{Multi Media Cards} to be used as general purpose blockdevices. These
+devices can be used in the same way as any other blockdevice.
+
+\begin{important}
+These kind of devices are hot pluggable, so you must pay attention not to
+unplugg the device while its still mounted. This may result in data loss.
+\end{important}
+
+After inserting an MMC/SD card, the kernel will generate new device nodes in
+\texttt{dev/}. The full device can be reached via its \texttt{/dev/mmcblk0}
+device node, MMC/SD card partitions will occure in the following way:
+
+\begin{ptxshell}{|}
+/dev/mmcblk0p|Y|
+\end{ptxshell}
+\texttt{\textbf{Y}} counts as the partition number starting from 1 to the max
+count of partitions on this device.
+
+Note: These partition device nodes will only occure if the card contains a
+valid partition table ("harddisk" like handling). If it does not contain one,
+the whole device can be used for a filesystem ("floppy" like handling). In
+this case \texttt{/dev/mmcblk0} must be used for formatting and mounting.
+
+The partitions can be formatted with any kind of filesystem and also handled in
+a standard manner, e.g. the \texttt{mount} and \texttt{umount} command work as
+expected.
+
+% ----------------------------------------------------------------------------
+
+\newcommand{\perNetworkChip}{ DM9000}
+\newcommand{\perNetworkInterface}{eth0}
+
+\section{Network}				\label{sec:NET}
+% ------------------
+
+The Mini2440 module has a\perNetworkChip{} ethernet chip onboard,
+which is being used to provide the \texttt{\perNetworkInterface{}} network
+interface. The interface offers a standard Linux network port which can be
+programmed using the BSD socket interface.
+
+% ----------------------------------------------------------------------------
+
+\section{SPI Master}				\label{sec:SPI}
+% ---------------------
+
+The Mini2440 board supports an SPI bus, based on the \perCpuName 's
+integrated SPI controller. It is connected to the onboard devices using the
+standard kernel method, so all methods described here are not special to the
+Mini2440.
+
+Connected devices can be found in the sysfs at the path
+\texttt{/sys/bus/spi/devices}. It depends on the corresponding SPI slave device
+driver if it provides access to the SPI slave device through this way (sysfs),
+or any different kind of API.
+
+\begin{important}
+Currently no SPI slave devices are registered, so the
+\texttt{/sys/bus/spi/devices} directory is empty.
+\end{important}
+
+%
+% Idea: Describe how to add an existing SPI device driver to the platform
+%
+
+% ----------------------------------------------------------------------------
+
+\input{Customer/peripheral-library/touch.tex}		\label{sec:TOUCH}
+
+To see the exact events the touch generates, we can also use the
+\texttt{evtest} tool.
+
+\begin{ptxshell}[escapechar=|]{^}
+# evtest /dev/input/event1
+Input driver version is 1.0.1
+Input device ID: bus 0x19 vendor 0xdead product 0xbeef version 0x102
+Input device name: "S3C24XX TouchScreen"
+Supported events:
+  Event type 0 (Sync)
+  Event type 1 (Key)
+    Event code 330 (Touch)
+  Event type 3 (Absolute)
+    Event code 0 (X)
+     Value      0
+     Min        0
+     Max     1023
+  Event code 1 (Y)
+     Value      0
+     Min        0
+     Max     1023
+Testing ... (interrupt to exit)
+\end{ptxshell}
+
+Whenever we touch the screen this tool lists the values the driver reports.
+
+% ----------------------------------------------------------------------------
+
+\section{USB Host Controller Unit}			\label{sec:USBHOST}
+% -----------------------------------
+
+The Mini2440 supports a standard OHCI Rev. 1.0a compliant host controller
+onboard for low and full speed connections.
+
+%
+% Idea: Describe how to add support for various USB devices
+%
+
+% ----------------------------------------------------------------------------
+
+\newcommand{\perWatchdogTimeout}{15}
+
+\section{Watchdog}			\label{sec:WD}
+% -------------------
+
+The internal watchdog will be activated when an application opens the device
+\texttt{/dev/watchdog}. Default timeout is \perWatchdogTimeout{} seconds.
+An application must periodically write to this device. It does not matter what
+is written. Just the interval between these writes should not exceed the
+timeout value, otherwise the system will be reset.
+
+For testing the hardware, there is also a shell command which can do the
+triggering:
+
+\begin{ptxshell}{|}
+# watchdog -t <trigger-time-in-seconds> /dev/watchdog
+\end{ptxshell}
+
+This command is part of the busybox shell environment. Keep in mind, that
+it should only be used for testing. If the watchdog gets fed by it, a crash of
+the real application will go unnoticed.
+
+For the Mini2440 the default 60 seconds interval period the
+tool is using is too long. The driver for the \perCpuName{} only supports up to
+a 40 seconds interval. So, the additional parameter \texttt{-T 40} must be
+given.
+
+%----------------------------------------------------------------------------
+
+%
+% What is still missing?
+%
+% - how to use the 6 keys on the Mini2440
+% - how to work with the ADCs (and with W1 to see how it works)
+% - how to use the Minit2440 as a gadget (printer, serial or ...)
+% - on the FriendlyARM someone asks how to implement a W1 controller
+% - description whats to be done in case of SDRAM errors (this bootloader
+%   sets up a faster speed than the vivi does)
+% - how to play sounds
+% - what is to be done, if one is using a different LC display than my LCDN3502
+%
+% Ideas:
+% - how to speed up booting
+% - boot splash
+% - how to bring in Qt and an example application
+%
+
+%----------------------------------------------------------------------------
+
+\section{Get the latest BSP Release for the Mini2440}
+
+Information and the latest release of the Mini2440 BSP you can find
+at our website at
+
+\url{http://www.oselas.org/oselas/bsp/index\_en.html}
+
+%----------------------------------------------------------------------------
+
+\section{Be Part of the Mini2440 BSP Development}
+
+If you want to use the latest and greatest board support package for the
+Mini2440 you can use the git repository as your working source
+instead of a release archive.
+
+The git repository can be found here:
+
+\begin{center}
+\texttt{http://git-public.pengutronix.de/git-public/OSELAS.BSP-Pengutronix-Mini2440.git}
+\end{center}
+
+If you want to contribute to this project by sending patches, these patches
+should always be based on the \textbf{master} branch of this repository.

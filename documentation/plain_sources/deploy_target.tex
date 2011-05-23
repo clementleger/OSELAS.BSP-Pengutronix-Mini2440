@@ -1,0 +1,284 @@
+%
+% Charset: utf8
+% File type: Plain LATEX
+% Content: This chapter describes the deployment of the Mini2440.
+%
+% Copyright Jürgen Beisert <jbe@pengutronix.de>, 2011
+%
+% This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+% To view a copy of this license, visit:
+%           http://creativecommons.org/licenses/by/3.0/
+% or send a letter to:
+% Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+%
+% Refer the file CREDITS for all people working on this document.
+%
+% This file content will be part of the "OSELAS.BSP-Pengutronix-Mini2440-Quickstart.pdf"
+%
+% Note: This document uses some externaly defined LATEX commands. If you try to
+% run LATEX only on this file it will fail due to the absense of these commands
+% All these commands are starting with 'ptxdist'.
+%
+
+\subsection{Deploying the Mini2440}	\label{sec:deploying}
+
+After building all relevant images, in the next step we must bring in the new
+software into our target.
+
+What we need for this step to do:
+
+\begin{itemize}
+ \item a working network infrastructure
+ \item host with network and USB capabilities
+ \item a working TFTP server on our host
+ \item some cables
+ \begin{itemize}
+  \item network
+  \item USB-A to USB-B
+  \item RS232
+ \end{itemize}
+ \item serial terminal running on our host
+\end{itemize}
+
+We assume here:
+
+\begin{itemize}
+ \item the directory of the TFTP server is \texttt{/tftpboot}
+ \item network is already configured for the host and the target
+       (refer section \ref{sec:networkadaptions})
+ \item all connections are done (network, USB, serial)
+ \item the serial terminal is able to handle 8 bits at 115200 Bd
+\end{itemize}
+
+To bring in the new software we start to bring in the new bootlader. This is
+the trickiest part, as we need special tools on our host and the target and
+we have to deal with confusing error messages.
+
+First of all, we must change the \textbf{S2} switch on our Mini2440
+into the \texttt{NOR} position to start the internal \textit{vivi} bootloader.
+After switching on the Mini2440, the vivi bootloader will greet us
+with:
+
+\begin{ptxshell}[escapechar=|]{^}
+##### FriendlyARM BIOS for 2440 #####
+[x] bon part 0 320k 2368k
+[v] Download vivi
+[k] Download linux kernel
+[y] Download root_yaffs image
+[a] Absolute User Application
+[n] Download Nboot
+[l] Download WinCE boot-logo
+[w] Download WinCE NK.bin
+[d] Download & Run
+[z] Download zImage into RAM
+[g] Boot linux from RAM
+[f] Format the nand flash
+[b] Boot the system
+[s] Set the boot parameters
+[u] Backup NAND Flash to HOST through USB(upload)
+[r] Restore NAND Flash from HOST through USB
+[q] Goto shell of vivi
+[i] Version: 1026-12
+Enter your selection:
+\end{ptxshell}
+
+We want to use the \textit{vivi} bootloader to bring in the new barebox bootloader
+into Mini2440's RAM. In order to do so, we need the size in bytes of
+barebox's binary:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| ls -l |\ptxdistPlatformDir |images/barebox-image
+-rw-r--r-- 1 jb user 147844 Apr 27 14:00 |\ptxdistPlatformDir |images/barebox-image
+\end{ptxshell}
+
+The size of this binary may differ in your case. In our case here it is
+\textit{147844}.
+
+With this size we instruct the \textit{vivi} bootloader to expect this amount of
+bytes from the USB and store it to the internal RAM. To do so, we enter
+'\textit{q}' to enter vivi's shell. Then we start the download command.
+
+\begin{ptxshell}[escapechar=|]{^}
+Enter your selection: q
+Supervivi> load ram 0x31000000 147844 u
+\end{ptxshell}
+
+Please consider the \textit{147844} number here. This number must be adapted to
+your own size of barebox's image size.
+
+At this point of time many error messages can happen. The Mini2440
+may output \texttt{USB host is not connected yet}. In this case disconnect
+the USB cable again, powercycle the Mini2440 and try again.
+
+At the host side the system may not be able to enumerate the Mini2440
+correctly. In this case also disconnect the Mini2440, powercycle it
+and connect it again.
+
+If the host was able to enumerate the Mini2440 successfully can be
+checked with the \texttt{lsusb} command. If the following line occurs in the
+list, the Mini2440 is successfully enumerated:
+
+\begin{ptxshell}[escapechar=|]{^}
+Bus 001 Device 023: ID 5345:1234 Owon PDS6062T Oscilloscope
+\end{ptxshell}
+
+Note: The bus and device number may differ in your case.
+
+If the USB connection is up and working on both sides, we can start to push
+the new bootloader into the target. This BSP comes with the required tool to do
+so.
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| sudo |\ptxdistPlatformDir |sysroot-host/bin/usbpush |\ptxdistPlatformDir |images/barebox-image
+\end{ptxshell}
+
+When the transfer was successfull, the \texttt{usbpush} host tool will output:
+
+\begin{ptxshell}[escapechar=|]{^}
+csum = 0x74f9
+send_file: addr = 0x30000000, len = 0x00024124
+\end{ptxshell}
+
+At the target side we will see:
+
+\begin{ptxshell}[escapechar=|]{^}
+Now, Downloading [ADDRESS:31000000h,TOTAL:147854]
+RECEIVED FILE SIZE:  147854 (144KB/S, 1S)
+Downloaded file at 0x31000000, size = 147844 bytes
+\end{ptxshell}
+
+Note: The numbers shown may differ from the number you will see.
+
+After the transfer was successfull, we can now run the downloaded bootloader:
+
+\begin{ptxshell}[escapechar=|]{^}
+Supervivi>  go 0x31000000
+go to 0x31000000
+  argument 0 = 0x00000000
+  argument 1 = 0x00000000
+  argument 2 = 0x00000000
+  argument 3 = 0x00000000
+\end{ptxshell}
+
+This will start the barebox bootloader on the Mini2440 that will
+greet us with:
+
+\begin{ptxshell}[escapechar=|]{^}
+barebox 2011.05.0-mini2440-ptx-2011.05.0 (May 7 2011 - 14:00:29)
+
+Board: Mini 2440
+NAND device: Manufacturer ID: 0xec, Chip ID: 0x76 (Samsung NAND 64MiB 3,3V 8-bit)
+Bad block table found at page 131040, version 0x01
+Bad block table found at page 131008, version 0x01
+dm9000 i/o: 0x20000300, id: 0x90000a46
+eth@eth0: got MAC address from EEPROM: FF:FF:FF:FF:FF:FF
+refclk:    12000 kHz
+mpll:     405000 kHz
+upll:      48000 kHz
+fclk:     405000 kHz
+hclk:     101250 kHz
+pclk:      50625 kHz
+SDRAM1:   CL4@101MHz
+SDRAM2:   CL4@101MHz
+Malloc space: 0x33a00000 -> 0x33e00000 (size  4 MB)
+Stack space : 0x339f8000 -> 0x33a00000 (size 32 kB)
+envfs: wrong magic on /dev/env0
+no valid environment found on /dev/env0. Using default environment
+running /env/bin/init...
+
+Hit any key to stop autoboot:  3
+\end{ptxshell}
+
+We can stop the autoboot timeout by hitting any key. We are now in the shell
+environment of barebox. To update the NAND content in the next step we need
+a working network first. One check is to show the current setting of the
+network interface. You should see your own settings here, done in section
+\ref{sec:networkadaptions}. Here an example for a static network configuration:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ devinfo eth0
+base  : 0x00000000
+size  : 0x00000000
+driver: none
+
+Parameters:
+          ipaddr = 192.168.1.240
+         ethaddr = 00:04:f3:00:06:35
+         gateway = 192.168.1.2
+         netmask = 255.255.255.0
+        serverip = 192.168.1.7
+\end{ptxshell}
+
+If you do not see reasonable values here and you are using the DHCP option, run
+the \texttt{dhcp} command first:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ dhcp
+DHCP client bound to address 192.168.1.27
+\end{ptxshell}
+
+If you do not use DHCP for network configuration, you must edit the file
+\texttt{/env/config} first.
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ edit /env/config
+\end{ptxshell}
+
+Note: Barebox supports auto completion of commands, paths and filenames. Use
+the well known TAB key.
+
+Edit the lines beginning with \texttt{eth0.*} and give them reasonable values.
+We can leave the editor by hitting CTRL-D to save our changes, or CTRL-C to
+discard any change. If we want these new settings to be persistent, we can save
+them now to the NAND:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ saveenv
+\end{ptxshell}
+
+To make the new static network configuration work, we must source the
+\texttt{config} file again:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ . /env/config
+\end{ptxshell}
+
+Running the \texttt{devinfo eth0} command again should now show reasonable
+values for the network interface. If it really works can be tested by pinging
+other hosts:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ ping 192.168.1.7
+host 192.168.1.7 is alive
+\end{ptxshell}
+
+In order to store all relevant components into the NAND, we can use some builtin
+features of barebox right now.
+
+First we must copy at the host side all generated images from the board support
+package to the directory used by the TFTP server:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| cp |\ptxdistPlatformDir |images/barebox-image /tftpboot/barebox-mini2440
+|\$| cp |\ptxdistPlatformDir |images/root.jffs2 /tftpboot/root-mini2440.jffs2
+|\$| cp |\ptxdistPlatformDir |images/linuximage /tftpboot/uImage-mini2440
+\end{ptxshell}
+
+Then we can run a script at the Mini2440's side:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ update -t barebox -d nand
+mini2440:/ update -t rootfs -d nand
+mini2440:/ update -t kernel -d nand
+\end{ptxshell}
+
+That's all. To boot with the new firmware, we must change the \textbf{S2} switch
+now back into the \texttt{NAND} position. Powercycle the Mini2440
+or press its reset button and the new software will start.
+
+%
+% Ideas:
+% - Add info about how to test the barebox written to the NAND (if it was
+%   sucessfull)
+% - Add info how to check the downloaded file if it is the correct one
+%

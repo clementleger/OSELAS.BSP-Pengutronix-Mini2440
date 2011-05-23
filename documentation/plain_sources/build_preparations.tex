@@ -1,0 +1,166 @@
+%
+% Charset: utf8
+% Content type: Plain LATEX
+% Content: This chapter describes the preparations and adaptions to be done
+%          prior building the Mini2440 board support package.
+%
+% Copyright Jürgen Beisert <jbe@pengutronix.de>, 2011
+%
+% This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+% To view a copy of this license, visit:
+%           http://creativecommons.org/licenses/by/3.0/
+% or send a letter to:
+% Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+%
+% Refer the file CREDITS for all people working on this document.
+%
+% This file content will be part of the "OSELAS.BSP-Pengutronix-Mini2440-Quickstart.pdf"
+%
+% Note: This document uses some externaly defined LATEX commands. If you try to
+% run LATEX only on this file it will fail due to the absense of these commands
+% All these new commands are starting with 'ptxdist'.
+%
+
+\section{Feature Dependend Configurations}	\label{sec:featuremini2440}
+
+The FriendlyARM Mini2440 comes in various incarnations. Mostly they differ in
+the NAND memory size, but also other features may present or not. Read the
+following sub-sections to adapt this board support package to meet exactly
+your Mini2440.
+
+Note: In this documentation the FriendlyARM Mini2440 with 64 MiB of NAND
+memory is referred only. But everything mentioned herein is also valid for
+Mini2440 shipped with more than 64 MiB of NAND.
+
+\subsection{Identify Your Mini2440}		\label{sec:identifymini2440}
+
+The FriendlyARM Mini2440s are shipped with various NAND memory sizes. The
+smallest one seems to be the 64 MiB one, the largest one comes with 1 GiB
+of NAND memory.
+
+As this kind of memory needs some special treatment depending on its internal
+layout, we must distinguish them prior generating some images. This board
+support package comes with two configurations:
+
+\begin{itemize}
+ \item \texttt{platformconfig-NAND-64M} for the Mini2440 with 64
+  MiB of NAND memory
+  \begin{itemize}
+   \item the NAND device is marked with the text \texttt{K9F1208}
+  \end{itemize}
+ \item \texttt{platformconfig-NAND-128M} for the Mini2440 with
+  128 MiB of NAND memory or more
+  \begin{itemize}
+    \item these NAND devices are marked with the text \texttt{K9F1G08},
+   \texttt{K9F2G08} or \texttt{K9F8G08}.
+  \end{itemize}
+\end{itemize}
+
+This is important while the platform selection step in section
+\ref{sec:selectingahardwareplatform}.
+As this section mentions the 64 MiB NAND configuration only
+(\texttt{platformconfig-NAND-64M}), we must select the 128 MiB configuration
+(\texttt{platformconfig-NAND-128M}) instead, if we are using a NAND memory
+larger than 64 MiB.
+
+\begin{important}
+Running a 64 MiB configuration on a 128 MiB (or above) Mini2440 will
+give us many confusing error messages (the same the other way around).
+\end{important}
+
+What differs in both configurations:
+\begin{itemize}
+ \item erase block size (16 kiB versus 128 kiB)
+ \item JFFS2 root filesystem creation (needs different parameters)
+ \item count of spare blocks (important for NAND memory usage)
+ \item partition sizes (due to different spare block counts)
+\end{itemize}
+
+\subsection{Network Adaptions}		\label{sec:networkadaptions}
+
+Adaptions to the local network can be made for the runtime of the bootloader
+or Linux based system.
+
+\subsubsection{Bootloader Barebox}		\label{sec:bootloadernetwork}
+
+As there is no generic network setting available, some adaptions to our own
+network should be done prior building the board support package.
+
+To do so, we should open one of the following files with our favourite editor:
+
+\begin{itemize}
+ \item \texttt{configs/mini2440-master/barebox-64m-env/config} if we are using
+ a Mini2440 with 64 MiB NAND
+ \item \texttt{configs/mini2440-master/barebox-128m-env/config} if we are using
+ a Mini2440 with 128 MiB or larger NAND
+\end{itemize}
+
+These settings are relevant only for the bootloader. The file content will be
+the default settings later on, when we are using the Mini2440. Default
+settings mean they can be permanently changed at runtime later on. But whenever
+the bootloader loses its environment it will fall back to the settings in this
+file. So, to avoid more changes at runtime than required, we should do the
+settings carefully here.
+
+We can keep the \texttt{ip=dhcp} option enabled. This requires a DHCP server in
+the network to be able to update the NAND memory content or to use NFS root
+filesystem while development. But also in this case at least the
+\texttt{eth0.ethaddr} must be set, to give our network device an unique MAC
+address.
+
+If no DHCP server is available, a static network setting can be used instead.
+We just comment out the \texttt{ip=dhcp} option and enable all the
+\texttt{eth0.*} lines and give them usefull values.
+
+If we want to use an NFS based root filesystem, we also should adapt the
+\texttt{nfsroot} setting.
+
+\begin{important}
+Don't forget the setting of an unique MAC address. At least the entry
+\texttt{eth0.ethaddr} must be set.
+\end{important}
+
+\subsubsection{Linux Kernel}			\label{sec:linuxnetwork}
+
+To define network settings used at the runtime of the Linux kernel, we must
+adapt the file
+\texttt{onfigs/platform-friendlyarm-mini2440/projectroot/etc/network/interfaces}
+instead.
+
+\subsection{Feature Adaptions}		\label{sec:featureadaptions}
+
+Other features of the Mini2440 are:
+
+\begin{itemize}
+ \item the connected LC display
+ \item if a touch is present
+ \item if a camera is present
+\end{itemize}
+
+These features can be enabled/disabled or configured at runtime with the kernel
+parameter \texttt{mini2440=}. The content of this parameter is also configured
+in the \texttt{config} files mentioned above.
+
+The most interesting part is the connected LC display. It must be configured
+correctly to make it work at runtime. Here a list of currently known LC displays:
+
+\begin{itemize}
+ \item 3.5" TFT + touchscreen (LCDN3502/NL2432HC22-23B)
+ \item 7" TFT + touchscreen
+ \item VGA shield
+ \item 3.5" TFT + touchscreen (T35)
+ \item 5.6" TFT + touchscreen (AT056TN52)
+ \item 3.5" TFT + touchscreen (X35)
+\end{itemize}
+
+The list above corresponds to the number (beginning with 0) given to the
+\texttt{mini2440=} kernel parameter to define the LC display in use.
+
+After these adaptions are made, we can continue building the board support package.
+
+When starting the kernel later on, it will output the list of supported displays
+with the currently selected one embraced.
+
+\begin{ptxshell}[escapechar=|]{^}
+MINI2440: LCD [0:240x320] 1:800x480 2:1024x768 3:240x320 4:640x480 5:240x320
+\end{ptxshell}
