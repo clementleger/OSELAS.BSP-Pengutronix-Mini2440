@@ -1,8 +1,8 @@
 %
 % Charset: utf8
 % Content type: Plain LATEX
-% Content: This chapter describes how the bootloader 'Barebox' is working and
-%          how to modify things to get them work.
+% Content: This chapter describes how the bootloader 'Barebox' functions and
+%          how to modify things to get Barebox to work properly.
 %
 % Copyright Jürgen Beisert <jbe@pengutronix.de>, 2011
 %
@@ -24,14 +24,14 @@
 \section{Notes About Barebox}			\label{sec:bareboxnotes}
 
 Everything mentioned here (variable names and file names) in the run-time
-environment Barebox is using, is for convenience only. The developers of Barebox
+environment that Barebox uses, is for convenience only. The developers of Barebox
 decided to provide a generic run-time environment that satisfies the most
-common requirements. And all descriptions below will refer to this generic
+common requirements. All descriptions below will refer to this generic
 run-time environment and its behaviour.
 
-But there are no restrictions in how to adapt this environment for ones own
-needs. There is only one compiled in way, how Barebox enters its shell: by
-running the \texttt{/env/bin/init}. This file is the key to change Barebox's
+There are no restrictions in how to adapt this environment for ones own
+needs. There is only one compiled in way, how Barebox enters it's shell is
+compiled-in. Running the \texttt{/env/bin/init}, allows one to modify Barebox's
 behaviour.
 
 %
@@ -43,27 +43,27 @@ behaviour.
 \subsection{Run-Time Environment}			\label{sec:bbenv}
 
 The Barebox binary handles only the target initializing and provides device
-drivers and various commands to do things after the initialization. Its up to
+drivers and various commands to do things after the initialization. It is up to
 the user to use these features to make her/his target work. This works on a
-shell code base. For example Barebox tries to run the \texttt{/env/bin/init}
-script right after the initialization is finished. And this file is expected
+shell code base. For example Barebox, tries to run the \texttt{/env/bin/init}
+script right after the initialization is finished. This file is expected
 as a part of the environment.
 
 From the technical point of view, the Barebox environment is a simple
-archive which contains files and directories. At startup this archive will
+archive which contains files and directories. At startup, this archive will
 be extracted to the \texttt{env/} directory and can be used afterwards on a
 regular file base. Note: the \texttt{/} directory in Barebox is a RAM
 filesystem.
 
 As Barebox tries to run the \texttt{/env/bin/init} script after the
-initialization, an environment is always required. The archive that is base of
-each environment can be a compiled-in component or can be loaded at run-time
-from a persistent media.
+initialization, an environment is always required. The archive that each
+environment is based on, can be a compiled-in component or can be loaded at
+run-time from a persistent media.
 
 The compiled-in environment archive is a read only archive defined at
 compile-time of Barebox. The environment archive from the persistent
-media is (most of the time) a read/write archive: It can be changed at any
-point of time and saved back to make the change persistent.
+media is (most of the time) a read/write archive. It can be changed at any
+time and saved back to make the change persistent.
 
 Barebox always tries to load the environment archive from the registered
 persistent media first. If this fails, Barebox defaults to the compiled-in
@@ -75,10 +75,14 @@ environment archive.
 \subsection{How does the Partitioning Work in Barebox}	\label{sec:bbpartitioning}
 
 Partitioning is a way to handle large media in smaller logical units. This
-simplyfies updates of different components and keep others untouched. For
-example one can update the kernel to fix a bug in a driver but keep the
-root filesystem unchanged. Also redundant boot can be realized with more than
+simplyfies updates of different components and leaves others untouched. For
+example, one can update the kernel to fix a bug in a driver but keep the
+root filesystem unchanged. Also, redundant boot can be realized with more than
 one partition per component.
+
+%
+% Idea: Add a description what "redundant boot" means
+%
 
 Barebox uses partitioning of the available persistent media (for example, NOR
 or NAND flash, but also harddisks or SD cards) to handle and store the
@@ -88,31 +92,30 @@ Some of the available persistent media can store its partition information on
 the media itself. For example hard disks, compact flash cards or SD cards can
 provide their own partition table.
 
-In this case, Barebox can read back this table from the media and can handle
-these partitions in their size and location in a correct manner.
+In this case, Barebox can read back this table from the media and handle
+these partition's sizes and locations in a correct manner.
 
-But there are still some media that do not provide this kind of partition table.
+But, there are still some media that do not provide this kind of partition table.
 The well known plain flash devices (of type NOR or NAND) are such candidates.
-These devices are needing a slightly different handling. The most common way is
-the way the kernel is using as the so called \textit{Command line partition
-table parsing} for the MTD (Memory Technology Devices) devices. Its rather
-simple: A user gives a kernel parameter with the list of names and sizes that
-describes the partition layout of the corressponding flash memory.
+These devices need slightly different handling. The most common method the
+kernel uses is the \textit{Command line partition table parsing} for the MTD
+(Memory Technology Devices) devices. A user gives a kernel parameter with the
+list of names and sizes that describes the partition layout of the
+corressponding flash memory.
 
 %
 % How to describe this? If Barebox do not use the plain flash, there is no need
 % to partitioning it. This is the case if a target comes with NOR _and_ NAND
-% memory and starts from the NOR. If Barebox do not touch the NAND flash memory,
-% why it should partitioning it? On the other hand: For the NOR we need some
-% kind of partitioning in this case: Because we are starting from this memory,
-% and we must protect the bootloader from erasing by accident for example.
+% memory and starts from the NOR. If Barebox does not touch the NAND flash memory,
+% there is no need to partition it. On the other hand, for NOR flash we need some
+% kind of partitioning. In this case, because we are starting from this memory,
+% we must protect the bootloader from accidental erasure.
 %
 
-And Barebox follows this way: it uses the same syntax to describe the partition
-layout than the kernel. So, a user has to define the layout only once and the
-bootloader and the running kernel will use it in the same way. I they wouldn't
-use it in the same way, one could destroy the data in the partitions from the
-other.
+Barebox uses the same syntax to describe the partition and kernel layout. So,
+a user only has to define the layout once. It will be shared between Barebox
+and the Linux kernel. If one doesn't use consistent layout, one could destroy
+the data in one partitions by changes in another parition.
 
 This partition layout string is defined to:
 
@@ -121,14 +124,14 @@ This partition layout string is defined to:
 \end{ptxshell}
 
 \texttt{<size>} is a number followed by its unit. The unit can be \texttt{k} for
-\textit{kibi byte}, \texttt{M} for \textit{mega byte} and \texttt{G} for
+\textit{kilo byte}, \texttt{M} for \textit{mega byte} and \texttt{G} for
 \textit{giga byte}. For \texttt{<size>} also the special letter \texttt{-}
-can be given. This means the remainung space up to the end of the media. The
-\texttt{<name>} can be anything one like, but must not contain any space!
+can be given. This means, fill the remaining space up to the end of the media. The
+\texttt{<name>} can be anything one likes, but must not contain any spaces!
 
-Here is the mostly used partition layout configuration:
+Here is the most common partition layout configuration:
 
-In the Barebox's run-time environment it can look like:
+In Barebox's run-time environment it looks like:
 
 \texttt{256k(barebox),64k(bareboxenv),2048k(kernel),-(root)}
 
@@ -145,7 +148,7 @@ In the Barebox's run-time environment it can look like:
 
 The size and location of some of these partitions can be modified at run-time
 via the variable \texttt{nand_parts} in the \texttt{env/config} file. Here the
-user can increase the kernel partition, or add some more partitions to the
+user can increase the kernel partition, or add more partitions to the
 \textit{free part} of the list.
 
 However, two of the listed partitions are special: the location and size of
@@ -155,7 +158,7 @@ the bootloader (\textit{barebox}) partition and of the run-time environment
 % "[...] \textbf{AND} the location of the kernel."
 %
 % No, this partition is not fixed in its location. It just starts after the
-% 'bareboxenv' partition.
+% 'bareboxenv' partition. OK!
 %
 
 These must be known soon after reset. So, we have a chicken/egg problem: to
@@ -221,17 +224,16 @@ and looks like this:
 \end{ptxshell}
 
 Please ensure after changing any of the above partitions in size or location
-that Barebox is re-compiled and re-flashed and keep the compiled-in environment
+that Barebox is re-compiled and re-flashed to keep the compiled-in environment
 in sync with the platform source code.
 
 Also consider: for the partitions that are free in size and location, you can
-change these settings at run-time and store it to the persistent run-time
-environment. But, if this persistent run-time environment gets lost Barebox
-will default to the compiled-in environment. If this compiled-in environment
-has different partition sizes and locations, error messages will occur. This
-is because reading from partitions with wrong settings in size and location
-will fail.
+change these settings at run-time and store it to the persistent environment.
+But, if this persistent environment gets lost Barebox will default to the
+compiled-in environment. If this compiled-in environment has different
+partition sizes and locations, error messages will occur. This is because
+reading from partitions with wrong settings in size and location will fail.
 
-So, the best procedure is to change the compiled-in run-time environment to
-ensure the partition layout is always consistent, even if the modified
-persistent run-time environment gets lost.
+So, the best procedure is to change the compiled-in environment to ensure the
+partition layout is always consistent, even if the modified persistent
+environment gets lost.
