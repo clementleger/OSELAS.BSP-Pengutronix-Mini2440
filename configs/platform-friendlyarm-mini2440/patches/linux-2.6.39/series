@@ -5,6 +5,9 @@ PATCH_2_4_s3c2440_mini2440_Add_touchscreen_support_for_mini2440.diff
 PATCH_3_4_s3c2440_mini2440_Select_touchscreen_by_default.diff
 PATCH_4_4_s3c2440_mini2440_Use_leds-gpio_driver_for_board_leds_handling.diff
 
+# this patch was intended for YAFFS users, but also JFFS2 uses the OOB area
+PATCH_nand_base_Always_initialise_oob_poi_before_writing_OOB_data.diff
+
 # build time fixes
 Drop_exporting_s3c24xx_ts_set_platdata.diff
 fix_gpio_register.diff
@@ -27,4 +30,7 @@ just_a_cleanup.diff
 enable_screen_without_console.diff
 
 add_hwmon.diff
+fix_ts_race.diff
+
+# odor marker
 set-marker.diff

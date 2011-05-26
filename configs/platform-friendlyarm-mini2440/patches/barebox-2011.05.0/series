@@ -4,5 +4,8 @@ add_more_info.diff
 # last minute additions
 distinguish_64M_and_128M_NAND.diff
 
+# fix some corner cases
+fix_generic_nand_issue.diff
+
 # odor marker
 set-marker.diff
