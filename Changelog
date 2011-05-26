@@ -1,5 +1,7 @@
 2011-05-26	Juergen Beisert <jbe@pengutronix.de>
 
+	* Kernel 2.6.38: Fix a race in the touch driver
+	* Kernel 2.6.39: Fix a race in the touch driver
 	* Barebox: Add a fix for wrong NAND OOB handling
 	* Kernel 2.6.38: Add a fix for wrong NAND OOB handling
 	* Kernel 2.6.39: Add a fix for wrong NAND OOB handling
