@@ -135,7 +135,7 @@ In the Barebox's run-time environment it can look like:
 \begin{itemize}
  \item bootloader itself (\textit{barebox}): this binary brings up the target
   after power on or reset
- \item run-time environment (\textit{bareboxenv}): used by Barebox to bring up
+ \item persistent environment (\textit{bareboxenv}): used by Barebox to bring up
   the whole system in the way that the user has configured it
  \item operating system (\textit{kernel}): the kernel image, Barebox will load
   and run it
@@ -159,14 +159,14 @@ the bootloader (\textit{barebox}) partition and of the run-time environment
 %
 
 These must be known soon after reset. So, we have a chicken/egg problem: to
-read the run-time environment, Barebox must know where the run-time environment
+read the persistent environment, Barebox must know where the persistent environment
 is located. To do so, Barebox initially creates the \textit{barebox} and
-\textit{bareboxenv} partitions and after loading the run-time environment
+\textit{bareboxenv} partitions and after loading the persistent environment
 Barebox then adds the \textbf{remaining} partitions based on the
 \texttt{nand_parts} variable.
 
 This handling implies the internally registered partitions for Barebox and the
-run-time environment must be the same in size and location as the partitions
+persistent environment must be the same in size and location as the partitions
 described in the \texttt{nand_parts} variable.
 
 This then means, if one would like to change the size of the \textit{barebox}
@@ -194,8 +194,8 @@ This setup defines
 \begin{itemize}
  \item 256 kiB for the bootloader (\textit{barebox}) at the beginning of the
   persistent media.
- \item 64 kiB for the run-time environment (\textit{bareboxenv}) following the
-  bootloader partition
+ \item 64 kiB for the persistent environment (\textit{bareboxenv}) following
+  the bootloader partition
  \item 2 MiB for the kernel (\textit{kernel})
  \item the remaining space on the persistent media for the root filesystem
   (\textit{root})
