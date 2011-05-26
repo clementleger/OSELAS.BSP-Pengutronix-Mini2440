@@ -7,6 +7,8 @@ patch-2.6.38.4-5.bz2
 patch-2.6.38.5-6.bz2
 patch-2.6.38.6-7.bz2
 
+PATCH_nand_base_Always_initialise_oob_poi_before_writing_OOB_data.diff
+
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
 PATCH_2_4_s3c2440_mini2440_Add_touchscreen_support_for_mini2440.diff
 PATCH_3_4_s3c2440_mini2440_Select_touchscreen_by_default.diff

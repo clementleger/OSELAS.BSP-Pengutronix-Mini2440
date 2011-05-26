@@ -1,3 +1,8 @@
+2011-05-26	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 2.6.38: Add a fix for wrong NAND OOB handling
+	* Kernel 2.6.39: Add a fix for wrong NAND OOB handling
+
 2011-05-22	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 2.6.38: Keep in sync with stable release 2.6.38.7
