@@ -44,7 +44,8 @@ $(STATEDIR)/host-libusb-compat.extract:
 
 HOST_LIBUSB_COMPAT_PATH	:= PATH=$(HOST_PATH)
 HOST_LIBUSB_COMPAT_ENV 	:= $(HOST_ENV)
-HOST_LIBUSB_COMPAT_AUTOCONF := $(HOST_AUTOCONF)
+HOST_LIBUSB_COMPAT_AUTOCONF := $(HOST_AUTOCONF) \
+	--disable-static
 
 # ----------------------------------------------------------------------------
 # Clean
