@@ -26,6 +26,8 @@ Preparations
 [ ] does the manual use the same/right file names for the archives?
 [ ] is the toolchain built in the way the manual mentions?
 [ ] does the project build in the way the manual mentions?
+[ ] does the project build on a 64 bit machine?
+[ ] does the project build on a multi core machine?
 
 Base System
 -----------
