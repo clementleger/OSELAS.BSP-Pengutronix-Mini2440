@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_HOST_LIBUSB_COMPAT) += host-libusb-compat
 #
 # Paths and names
 #
-HOST_LIBUSB_COMPAT_DIR	:= $(HOST_BUILDDIR)/$(LIBUSB_COMPAT)
+HOST_LIBUSB_COMPAT_DIR	= $(HOST_BUILDDIR)/$(LIBUSB_COMPAT)
 
 # ----------------------------------------------------------------------------
 # Get
