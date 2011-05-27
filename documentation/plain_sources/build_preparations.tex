@@ -1,7 +1,7 @@
 %
 % Charset: utf8
 % Content type: Plain LATEX
-% Content: This chapter describes the preparations and adaptions to be done
+% Content: This chapter describes the preparations to be done
 %          prior building the Mini2440 board support package.
 %
 % Copyright Jürgen Beisert <jbe@pengutronix.de>, 2011
@@ -24,27 +24,26 @@
 \section{Feature Dependend Configurations}	\label{sec:featuremini2440}
 
 The FriendlyARM Mini2440 comes in various incarnations. Mostly they differ in
-the NAND memory size, but also other features may present or not. Read the
+the NAND memory size, but also other features may be present or not. Read the
 following sub-sections to adapt this board support package to meet exactly
-your Mini2440.
+your Mini2440 requirements.
 
 Note: In this documentation the FriendlyARM Mini2440 with 64 MiB of NAND
-memory is referred only. But everything mentioned herein is also valid for
-Mini2440 shipped with more than 64 MiB of NAND.
+memory is reference platform. However, everything mentioned herein is also
+valid for Mini2440s shipped with more than 64 MiB of NAND.
 
 \subsection{Identify Your Mini2440}		\label{sec:identifymini2440}
 
 The FriendlyARM Mini2440s are shipped with various NAND memory sizes. The
-smallest one seems to be the 64 MiB one, the largest one comes with 1 GiB
-of NAND memory.
+smallest is a 64 MiB unit, the largest one comes with 1 GiB of NAND memory.
 
 As this kind of memory needs some special treatment depending on its internal
-layout, we must distinguish them prior generating some images. This board
+layout, we must distinguish them prior to generating any images. This board
 support package comes with two configurations:
 
 \begin{itemize}
- \item \texttt{platformconfig-NAND-64M} for the Mini2440 with 64
-  MiB of NAND memory
+ \item \texttt{platformconfig-NAND-64M} for the Mini2440 with 64 MiB of NAND
+   memory
   \begin{itemize}
    \item the NAND device is marked with the text \texttt{K9F1208}
   \end{itemize}
@@ -56,9 +55,9 @@ support package comes with two configurations:
   \end{itemize}
 \end{itemize}
 
-This is important while the platform selection step in section
+This is important while performing the platform selection step in section
 \ref{sec:selectingahardwareplatform}.
-As this section mentions the 64 MiB NAND configuration only
+As this section references the 64 MiB NAND configuration
 (\texttt{platformconfig-NAND-64M}), we must select the 128 MiB configuration
 (\texttt{platformconfig-NAND-128M}) instead, if we are using a NAND memory
 larger than 64 MiB.
@@ -83,7 +82,7 @@ or Linux based system.
 
 \subsubsection{Bootloader Barebox}		\label{sec:bootloadernetwork}
 
-As there is no generic network setting available, some adaptions to our own
+As there is no generic network setting available, some changes to our own
 network should be done prior building the board support package.
 
 To do so, we should open one of the following files with our favourite editor:
@@ -97,20 +96,20 @@ To do so, we should open one of the following files with our favourite editor:
 
 These settings are relevant only for the bootloader. The file content will be
 the default settings later on, when we are using the Mini2440. Default
-settings mean they can be permanently changed at runtime later on. But whenever
+settings mean they can be permanently changed at runtime later on. But, whenever
 the bootloader loses its environment it will fall back to the settings in this
-file. So, to avoid more changes at runtime than required, we should do the
+file. So, to avoid making more changes at runtime than required, we should do the
 settings carefully here.
 
 We can keep the \texttt{ip=dhcp} option enabled. This requires a DHCP server in
 the network to be able to update the NAND memory content or to use NFS root
-filesystem while development. But also in this case at least the
+filesystem while developing our application. In this case at least the
 \texttt{eth0.ethaddr} must be set, to give our network device an unique MAC
 address.
 
 If no DHCP server is available, a static network setting can be used instead.
 We just comment out the \texttt{ip=dhcp} option and enable all the
-\texttt{eth0.*} lines and give them usefull values.
+\texttt{eth0.*} lines and give them appropriate values.
 
 If we want to use an NFS based root filesystem, we also should adapt the
 \texttt{nfsroot} setting.
@@ -132,8 +131,8 @@ instead.
 Other features of the Mini2440 are:
 
 \begin{itemize}
- \item the connected LC display
- \item if a touch is present
+ \item the attached LCD
+ \item if the touch facility is used
  \item if a camera is present
 \end{itemize}
 
@@ -141,8 +140,8 @@ These features can be enabled/disabled or configured at runtime with the kernel
 parameter \texttt{mini2440=}. The content of this parameter is also configured
 in the \texttt{config} files mentioned above.
 
-The most interesting part is the connected LC display. It must be configured
-correctly to make it work at runtime. Here a list of currently known LC displays:
+It is important that the LCD is configured correctly, so that it works at
+runtime. Here is a list of currently known LCDs:
 
 \begin{itemize}
  \item 3.5" TFT + touchscreen (LCDN3502/NL2432HC22-23B)
@@ -154,9 +153,9 @@ correctly to make it work at runtime. Here a list of currently known LC displays
 \end{itemize}
 
 The list above corresponds to the number (beginning with 0) given to the
-\texttt{mini2440=} kernel parameter to define the LC display in use.
+\texttt{mini2440=} kernel parameter to define the LCD in use.
 
-After these adaptions are made, we can continue building the board support package.
+After these changes are made, we can continue building the board support package.
 
 When starting the kernel later on, it will output the list of supported displays
 with the currently selected one embraced.
