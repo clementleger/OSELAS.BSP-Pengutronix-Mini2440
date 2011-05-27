@@ -42,7 +42,7 @@ behaviour.
 
 \subsection{Run-Time Environment}			\label{sec:bbenv}
 
-The Barebox binary handles only the target initializing and provides device
+The Barebox binary handles only target initialization and provides device
 drivers and various commands to do things after the initialization. It is up to
 the user to use these features to make her/his target work. This works on a
 shell code base. For example Barebox, tries to run the \texttt{/env/bin/init}
@@ -75,7 +75,7 @@ environment archive.
 \subsection{How does the Partitioning Work in Barebox}	\label{sec:bbpartitioning}
 
 Partitioning is a way to handle large media in smaller logical units. This
-simplyfies updates of different components and leaves others untouched. For
+simplifies updates of different components and leaves others untouched. For
 example, one can update the kernel to fix a bug in a driver but keep the
 root filesystem unchanged. Also, redundant boot can be realized with more than
 one partition per component.
@@ -88,7 +88,7 @@ Barebox uses partitioning of the available persistent media (for example, NOR
 or NAND flash, but also harddisks or SD cards) to handle and store the
 required parts to make a target work.
 
-Some of the available persistent media can store its partition information on
+Some of the available persistent media can store it's partition information on
 the media itself. For example hard disks, compact flash cards or SD cards can
 provide their own partition table.
 
@@ -115,7 +115,7 @@ corressponding flash memory.
 Barebox uses the same syntax to describe the partition and kernel layout. So,
 a user only has to define the layout once. It will be shared between Barebox
 and the Linux kernel. If one doesn't use consistent layout, one could destroy
-the data in one partitions by changes in another parition.
+the data in one partition by changes in another parition.
 
 This partition layout string is defined to:
 
@@ -124,8 +124,8 @@ This partition layout string is defined to:
 \end{ptxshell}
 
 \texttt{<size>} is a number followed by its unit. The unit can be \texttt{k} for
-\textit{kilo byte}, \texttt{M} for \textit{mega byte} and \texttt{G} for
-\textit{giga byte}. For \texttt{<size>} also the special letter \texttt{-}
+\textit{kilobyte}, \texttt{M} for \textit{megabyte} and \texttt{G} for
+\textit{gigabyte}. For \texttt{<size>} also the special letter \texttt{-}
 can be given. This means, fill the remaining space up to the end of the media. The
 \texttt{<name>} can be anything one likes, but must not contain any spaces!
 
