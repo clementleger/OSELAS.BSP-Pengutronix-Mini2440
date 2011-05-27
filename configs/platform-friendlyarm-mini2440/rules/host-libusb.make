@@ -46,8 +46,7 @@ HOST_LIBUSB_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_LIBUSB_AUTOCONF	:= $(HOST_AUTOCONF) \
-	--disable-shared \
-	--disable-build-docs
+	--disable-static
 
 # ----------------------------------------------------------------------------
 # Clean

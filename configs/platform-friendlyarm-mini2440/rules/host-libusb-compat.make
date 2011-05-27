@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_HOST_LIBUSB_COMPAT) += host-libusb-compat
 #
 # Paths and names
 #
-HOST_LIBUSB_COMPAT_DIR	:= $(HOST_BUILDDIR)/$(LIBUSB_COMPAT)
+HOST_LIBUSB_COMPAT_DIR	= $(HOST_BUILDDIR)/$(LIBUSB_COMPAT)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -44,7 +44,8 @@ $(STATEDIR)/host-libusb-compat.extract:
 
 HOST_LIBUSB_COMPAT_PATH	:= PATH=$(HOST_PATH)
 HOST_LIBUSB_COMPAT_ENV 	:= $(HOST_ENV)
-HOST_LIBUSB_COMPAT_AUTOCONF := $(HOST_AUTOCONF)
+HOST_LIBUSB_COMPAT_AUTOCONF := $(HOST_AUTOCONF) \
+	--disable-static
 
 # ----------------------------------------------------------------------------
 # Clean
