@@ -315,7 +315,22 @@ Currently no SPI slave devices are registered, so the
 
 % ----------------------------------------------------------------------------
 
-\input{Customer/peripheral-library/touch.tex}		\label{sec:TOUCH}
+\section{Touchscreen}					\label{sec:TOUCH}
+% --------------------
+
+A simple test of this feature can be run with:
+
+\begin{ptxshell}{|}
+# ts_calibrate
+\end{ptxshell}
+
+to calibrate the touch and with:
+
+\begin{ptxshell}{|}
+# ts_test
+\end{ptxshell}
+
+to run a simple application using this feature.
 
 To see the exact events the touch generates, we can also use the
 \texttt{evtest} tool.
@@ -390,9 +405,9 @@ given.
 % What is still missing?
 %
 % - how to use the 6 keys on the Mini2440
-% - how to work with the ADCs (and with W1 to see how it works)
+% - how to work with the ADCs
 % - how to use the Mini2440 as a gadget (printer, serial or ...)
-% - on the FriendlyARM someone asks how to implement a W1 controller
+% - on the FriendlyARM forum someone asks how to implement a W1 controller
 % - description whats to be done in case of SDRAM errors (this bootloader
 %   sets up a faster speed than the vivi does)
 % - how to play sounds
