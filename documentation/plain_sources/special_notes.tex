@@ -25,19 +25,18 @@
 
 \section{Available Kernel Releases}	\label{sec:kernelreleases}
 
-The predifined Mini2440 platform configuration always uses the most
-available Linux kernel release. But if users are sticking to an older Linux
-kernel release, also the older releases are still available. Here is a list
-of currently available Linux kernel releases in the \ptxdistBSPName{}:
+The predifined Mini2440 platform configuration always uses the latest Linux
+kernel release. If users want to stay with an older Linux kernel release,
+they are also available. Here is a list of currently available Linux kernel
+releases in the \ptxdistBSPName{}:
 
 \begin{itemize}
 	\item 2.6.39 (default)
 	\item 2.6.38.7
 \end{itemize}
 
-If another release than the default one should be used to build this board
-support package, we just have to run \texttt{ptxdist platfomconfig} and
-change the kernel setting prior the build.
+If you want to build the BSP with an non-default kernel release, just run
+\texttt{ptxdist platformconfig} and change the kernel setting prior to building.
 
 % ----------------------------------------------------------------------------
 
@@ -65,9 +64,8 @@ You can check your framebuffer resolution with the command
 \end{ptxshell}
 
 NOTE: \texttt{fbset} cannot be used to change display resolution or color depth.
-Depending on the framebuffer device different kernel command line are mostly
-needed to do this. Please refer to the manual of your display driver for more
-details.
+Depending on the framebuffer device different kernel command line may be needed
+to do this. Please refer to your display driver manual for details.
 
 % ----------------------------------------------------------------------------
 
@@ -91,13 +89,13 @@ complete details how to use the sysfs-interface for manually exporting GPIOs.
 \subsection{GPIO Usage Example}		\label{sec:gpioexample}
 
 When generic architecture GPIO support is enabled in the kernel, some new
-entries are appearing in sysfs. Everything is controlled via read- and writable
+entries appear in sysfs. Everything is controlled via read and writable
 files to generate events on the digital lines.
 
-We find all control files in \texttt{/sys/class/gpio}. In that path, there are
+We find all the control files in \texttt{/sys/class/gpio}. In that path, there
 a number of \texttt{gpiochipXXX} entries, with \texttt{XXX} being a decimal
-number. Each of those folders provides information about a single gpio
-controller registerd on the Mini2440 board, for example with
+number. Each of these folders provide information about a single gpio
+controller registered on the Mini2440 board, for example with
 \texttt{gpiochip\perGpioChip}:
 
 \begin{ptxshell}[escapechar=^]{|}
@@ -106,10 +104,9 @@ base       label      ngpio      subsystem  uevent
 \end{ptxshell}
 
 The entry \texttt{base} contains information about the base GPIO number and
-\texttt{ngpio} contains the whole amount of GPIOs provided by this GPIO
-controller.\\
-We use \texttt{GPIO\perGpioNumber{}} as an example to show the usage of single
-GPIOs.
+\texttt{ngpio} contains all GPIOs provided by this GPIO controller.\\
+We use \texttt{GPIO\perGpioNumber{}} as an example to show the usage of a
+single GPIO pin.
 
 \begin{ptxshell}[escapechar=^]{|}
 # |echo ^\ptxshellcmd\perGpioNumber^ > /sys/class/gpio/export|
@@ -132,7 +129,7 @@ change the value or direction of this GPIO by using the entries
 \texttt{direction} or \texttt{value}.
 
 Note: This method is not very fast, so for quickly changing GPIOs it is still
-necessary to write a kernel driver. The shown method works fine for example to
+necessary to write a kernel driver. The method shown works well, for example to
 influence an LED directly from userspace.
 
 To unexport an already exported GPIO, write the corresponding gpio-number into
@@ -190,7 +187,7 @@ EEPROM content simply \texttt{open()} the entry
 
 The LEDs on the Mini2440 can be controlled via the LED-subsystem of the Linux
 kernel. It provides methods for switching them on and off as well as using
-so-called triggers, which trigger the LED according to f.e. a simple timer.
+so-called triggers.  For example, you could trigger the LED using a timer.
 That enables us to make it blink with any frequency we want.
 
 All LEDs can be found in the directory \texttt{/sys/class/leds}. Each one has
@@ -201,6 +198,10 @@ Per directory, you have a file named \texttt{brightness} which can be read and
 written with a decimal value between 0 and 255. The first one means LED off,
 the latter maximum brightness. Inbetween values scale the brightness if the LED
 supports that. If not, non-zero means just LED on.
+
+% not aware that brightness is dependent on support from the LED itself.  Isn't
+% <brightness> just affecting the duty cycle of a PWM? Are there some special L
+% support this type of operation?
 
 \begin{ptxshell}[escapechar=|]{^}
 |\LedPath| echo 255 > brightness; # LED on
@@ -253,12 +254,12 @@ devices can be used in the same way as any other blockdevice.
 
 \begin{important}
 These kind of devices are hot pluggable, so you must pay attention not to
-unplugg the device while its still mounted. This may result in data loss.
+unplug the device while its still mounted. This may result in data loss.
 \end{important}
 
 After inserting an MMC/SD card, the kernel will generate new device nodes in
 \texttt{dev/}. The full device can be reached via its \texttt{/dev/mmcblk0}
-device node, MMC/SD card partitions will occure in the following way:
+device node, MMC/SD card partitions will occur in the following way:
 
 \begin{ptxshell}{|}
 /dev/mmcblk0p|Y|
@@ -266,7 +267,7 @@ device node, MMC/SD card partitions will occure in the following way:
 \texttt{\textbf{Y}} counts as the partition number starting from 1 to the max
 count of partitions on this device.
 
-Note: These partition device nodes will only occure if the card contains a
+Note: These partition device nodes will only occur if the card contains a
 valid partition table ("harddisk" like handling). If it does not contain one,
 the whole device can be used for a filesystem ("floppy" like handling). In
 this case \texttt{/dev/mmcblk0} must be used for formatting and mounting.
@@ -300,7 +301,7 @@ Mini2440.
 
 Connected devices can be found in the sysfs at the path
 \texttt{/sys/bus/spi/devices}. It depends on the corresponding SPI slave device
-driver if it provides access to the SPI slave device through this way (sysfs),
+driver providing access to the SPI slave device through this way (sysfs),
 or any different kind of API.
 
 \begin{important}
@@ -390,7 +391,7 @@ given.
 %
 % - how to use the 6 keys on the Mini2440
 % - how to work with the ADCs (and with W1 to see how it works)
-% - how to use the Minit2440 as a gadget (printer, serial or ...)
+% - how to use the Mini2440 as a gadget (printer, serial or ...)
 % - on the FriendlyARM someone asks how to implement a W1 controller
 % - description whats to be done in case of SDRAM errors (this bootloader
 %   sets up a faster speed than the vivi does)
@@ -401,14 +402,14 @@ given.
 % - how to speed up booting
 % - boot splash
 % - how to bring in Qt and an example application
-%
+% - how to bring up a local terminal and accept USB keyboard input
 
 %----------------------------------------------------------------------------
 
 \section{Get the latest BSP Release for the Mini2440}
 
-Information and the latest release of the Mini2440 BSP you can find
-at our website at
+Information and the latest release of the Mini2440 BSP can be found on
+our website at:
 
 \url{http://www.oselas.org/oselas/bsp/index\_en.html}
 
@@ -417,8 +418,8 @@ at our website at
 \section{Be Part of the Mini2440 BSP Development}
 
 If you want to use the latest and greatest board support package for the
-Mini2440 you can use the git repository as your working source
-instead of a release archive.
+Mini2440 you can use the git repository as your working source, instead
+of a release archive.
 
 The git repository can be found here:
 
