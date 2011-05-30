@@ -92,7 +92,7 @@ When generic architecture GPIO support is enabled in the kernel, some new
 entries appear in sysfs. Everything is controlled via read and writable
 files to generate events on the digital lines.
 
-We find all the control files in \texttt{/sys/class/gpio}. In that path, there
+We find all the control files in \texttt{/sys/class/gpio}. In that path, there are
 a number of \texttt{gpiochipXXX} entries, with \texttt{XXX} being a decimal
 number. Each of these folders provide information about a single gpio
 controller registered on the Mini2440 board, for example with
@@ -199,8 +199,8 @@ written with a decimal value between 0 and 255. The first one means LED off,
 the latter maximum brightness. Inbetween values scale the brightness if the LED
 supports that. If not, non-zero means just LED on.
 
-% not aware that brightness is dependent on support from the LED itself.  Isn't
-% <brightness> just affecting the duty cycle of a PWM? Are there some special L
+% not aware that brightness is dependent on support from the LED itself.  Isn't choosing
+% <brightness> just affecting the duty cycle of a PWM? Are there some special LEDs that
 % support this type of operation?
 
 \begin{ptxshell}[escapechar=|]{^}
