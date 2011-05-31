@@ -77,8 +77,15 @@ What differs in both configurations:
 
 \subsection{Network Adaptions}		\label{sec:networkadaptions}
 
-Adaptions to the local network can be made for the runtime of the bootloader
-or Linux based system.
+The default network configurations for the bootloader and the Linux kernel are
+located in different files in this board support package. These files must be
+changed in order to meet the local network requirements, to enable the
+bootloader and the Linux kernel to communicate via network.
+
+\begin{important}
+The network configuration can still be changed later on when the Mini2440 is
+up and running. Changing it prior the build is more for convenience.
+\end{important}
 
 \subsubsection{Bootloader Barebox}		\label{sec:bootloadernetwork}
 
