@@ -358,6 +358,46 @@ Testing ... (interrupt to exit)
 
 Whenever we touch the screen this tool lists the values the driver reports.
 
+\subsection{If the Touchscreen does not work}
+
+A functional touchscreen depends on some external configurations and parameters.
+Firstly, the touchscreen driver for the S3C2440 CPU must be enabled in the
+kernel. If it is supported, it can be checked at run-time with the following
+command:
+
+\begin{ptxshell}{|}
+# ls /sys/bus/platform/drivers
+\end{ptxshell}
+
+A \texttt{samsung-ts} must be listed in this directory. If not, the kernel
+must be re-configured to support this device.
+
+Secondly, a functional touchscreen depends on is the registered touchscreen
+device. If it is registered, this can be checked at run-time with this command:
+
+\begin{ptxshell}{|}
+# ls /sys/bus/platform/devices
+\end{ptxshell}
+
+A \texttt{s3c2440-ts} must be listed in this directory. If not, something
+is preventing the kernel from registering this device. The touchscreen on this
+platform is an optional part, so it must be enabled on demand to make it work.
+The touchscreen is enabled by the \texttt{mini2440=} kernel parameter. If the
+running kernel receives the correct parameter this setting can be checked with:
+
+\begin{ptxshell}{|}
+# cat /proc/cmdline
+console=ttySAC0,115200 mini2440=0tb mtdparts=nand:256k(barebox),64k(bareboxenv),2048k(kernel),-(root)
+\end{ptxshell}
+
+Referring to the \texttt{mini2440=0tb} parameter, specifically to the 't'.
+If the 't' is present the touchscreen gets registered at run-time and can be
+used. If the 't' is missing the touchscreen will NOT be registered.
+
+To add a missing 't', restart the target, stop Barebox from booting and edit
+the bootparameter in the \texttt{/env/config} file. Save the new settings and
+boot again.
+
 % ----------------------------------------------------------------------------
 
 \section{USB Host Controller Unit}			\label{sec:USBHOST}
