@@ -15,11 +15,11 @@ Signed-off-by: Marek Belisko <marek.belisko@open-nandra.com>
  arch/arm/mach-s3c2440/mach-mini2440.c |   37 ++++++++++++++++++++++++++++++++++
  1 file changed, 37 insertions(+)
 
-Index: linux-2.6.38/arch/arm/mach-s3c2440/mach-mini2440.c
+Index: linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
 ===================================================================
---- linux-2.6.38.orig/arch/arm/mach-s3c2440/mach-mini2440.c
-+++ linux-2.6.38/arch/arm/mach-s3c2440/mach-mini2440.c
-@@ -185,6 +185,43 @@ static struct s3c2410fb_display mini2440
+--- linux-2.6.39.orig/arch/arm/mach-s3c2440/mach-mini2440.c
++++ linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
+@@ -167,6 +167,43 @@ static struct s3c2410fb_display mini2440
  		.lcdcon5	= (S3C2410_LCDCON5_FRM565 |
  				   S3C2410_LCDCON5_HWSWP),
  	},

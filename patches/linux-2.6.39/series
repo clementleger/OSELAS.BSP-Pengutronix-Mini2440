@@ -1,5 +1,7 @@
 # keep in sync with stable releases
 
+patch-2.6.39-1.bz2
+
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
 PATCH_2_4_s3c2440_mini2440_Add_touchscreen_support_for_mini2440.diff
 PATCH_3_4_s3c2440_mini2440_Select_touchscreen_by_default.diff

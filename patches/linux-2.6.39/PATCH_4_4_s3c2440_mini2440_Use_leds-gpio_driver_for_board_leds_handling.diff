@@ -12,10 +12,10 @@ Signed-off-by: Marek Belisko <marek.belisko@open-nandra.com>
  arch/arm/mach-s3c2440/mach-mini2440.c |  122 +++++++++++++++-------------------
  1 file changed, 54 insertions(+), 68 deletions(-)
 
-Index: linux-2.6.38/arch/arm/mach-s3c2440/mach-mini2440.c
+Index: linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
 ===================================================================
---- linux-2.6.38.orig/arch/arm/mach-s3c2440/mach-mini2440.c
-+++ linux-2.6.38/arch/arm/mach-s3c2440/mach-mini2440.c
+--- linux-2.6.39.orig/arch/arm/mach-s3c2440/mach-mini2440.c
++++ linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
 @@ -39,7 +39,6 @@
  
  #include <plat/regs-serial.h>
@@ -24,7 +24,7 @@ Index: linux-2.6.38/arch/arm/mach-s3c2440/mach-mini2440.c
  #include <mach/regs-mem.h>
  #include <mach/regs-lcd.h>
  #include <mach/irqs.h>
-@@ -437,81 +436,71 @@ static struct platform_device mini2440_b
+@@ -419,81 +418,71 @@ static struct platform_device mini2440_b
  };
  
  /* LEDS */
@@ -159,7 +159,7 @@ Index: linux-2.6.38/arch/arm/mach-s3c2440/mach-mini2440.c
  /* AUDIO */
  
  static struct s3c24xx_uda134x_platform_data mini2440_audio_pins = {
-@@ -562,10 +551,7 @@ static struct platform_device *mini2440_
+@@ -544,10 +533,7 @@ static struct platform_device *mini2440_
  	&s3c_device_rtc,
  	&s3c_device_usbgadget,
  	&mini2440_device_eth,
