@@ -17,11 +17,13 @@ HOST_PACKAGES-$(PTXCONF_HOST_USBPUSH) += host-usbpush
 # Paths and names
 #
 HOST_USBPUSH_VERSION	:= 0.1
+HOST_USBPUSH_MD5	:= 5b08cd14a15a66bdf43063684badc74f
 HOST_USBPUSH		:= usbpush-$(HOST_USBPUSH_VERSION)
 HOST_USBPUSH_SUFFIX	:= tar.bz2
 HOST_USBPUSH_URL	:= http://www.pengutronix.de/dl.php?file=/$(HOST_USBPUSH).$(HOST_USBPUSH_SUFFIX)
 HOST_USBPUSH_SOURCE	:= $(SRCDIR)/$(HOST_USBPUSH).$(HOST_USBPUSH_SUFFIX)
 HOST_USBPUSH_DIR	:= $(HOST_BUILDDIR)/$(HOST_USBPUSH)
+HOST_USBPUSH_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Get

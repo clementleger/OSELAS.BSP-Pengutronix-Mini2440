@@ -1,3 +1,7 @@
+2011-06-04	Juergen Beisert <jbe@pengutronix.de>
+
+	* various MD5 sums added to be compliant with the new PTXdist
+
 2011-06-03	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 2.6.39: Keep in sync with stable release 2.6.39.1
