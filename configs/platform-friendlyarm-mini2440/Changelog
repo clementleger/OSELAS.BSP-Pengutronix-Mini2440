@@ -1,3 +1,22 @@
+2011-06-04	Juergen Beisert <jbe@pengutronix.de>
+
+	* various MD5 sums added to be compliant with the new PTXdist
+	* Kernel 2.6.39:
+		- Enable static USB mass storage and SCSI support
+		- Enable VFAT support
+	* Kernel 2.6.38:
+		- Enable static USB mass storage and SCSI support
+		- Enable VFAT support
+	* Kernel 2.6.38: Release ptx-2011.06.0
+	* Kernel 2.6.39: Release ptx-2011.06.0
+	* Barebox 2011.05.0: Release ptx-2011.06.0
+	* Platform: Release June 2011 (2011.06.0)
+
+2011-06-03	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 2.6.39: Keep in sync with stable release 2.6.39.1
+	* Kernel 2.6.38: Keep in sync with stable release 2.6.38.8
+
 2011-05-26	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 2.6.38: Fix a race in the touch driver
@@ -31,7 +50,7 @@
 
 2011-05-04	Juergen Beisert <jbe@pengutronix.de>
 
-	* Fix acces to the 7th ADC channel
+	* Fix access to the 7th ADC channel
 
 2011-05-04	Juergen Beisert <jbe@pengutronix.de>
 

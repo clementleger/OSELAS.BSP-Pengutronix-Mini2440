@@ -27,13 +27,13 @@ back to OOB data.
 Signed-off-by: Adam Thomson <adam.thomson@alcatel-lucent.com>
 ---
  drivers/mtd/nand/nand_base.c |    6 +++---
- 1 files changed, 3 insertions(+), 3 deletions(-)
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/mtd/nand/nand_base.c b/drivers/mtd/nand/nand_base.c
-index 8c21b89..cb1dec1 100644
---- a/drivers/mtd/nand/nand_base.c
-+++ b/drivers/mtd/nand/nand_base.c
-@@ -1843,9 +1843,9 @@ static int nand_do_write_ops(struct mtd_info *mtd, loff_t to,
+Index: linux-2.6.39/drivers/mtd/nand/nand_base.c
+===================================================================
+--- linux-2.6.39.orig/drivers/mtd/nand/nand_base.c
++++ linux-2.6.39/drivers/mtd/nand/nand_base.c
+@@ -2210,9 +2210,9 @@ static int nand_do_write_ops(struct mtd_
  	    (chip->pagebuf << chip->page_shift) < (to + ops->len))
  		chip->pagebuf = -1;
  
@@ -44,5 +44,5 @@ index 8c21b89..cb1dec1 100644
 +	   left over OOB data from a previous OOB read. */
 +	memset(chip->oob_poi, 0xff, mtd->oobsize);
  
- 	while(1) {
- 		int bytes = mtd->writesize;
+ 	/* Don't allow multipage oob writes with offset */
+ 	if (oob && ops->ooboffs && (ops->ooboffs + ops->ooblen > oobmaxlen))
