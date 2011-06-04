@@ -192,7 +192,7 @@ Stop the autoboot timeout by hitting any key. We are now in the shell
 environment of barebox. To update the NAND content in the next step we need
 a working network first. One check is to show the current setting of the
 network interface. You should see your own settings here, done in section
-\ref{sec:networkadaptions}. Here an example for a static network configuration:
+\ref{sec:networkadaptions}. Here is an example for a static network configuration:
 
 \begin{ptxshell}[escapechar=|]{^}
 mini2440:/ devinfo eth0
@@ -235,7 +235,7 @@ them now to NAND:
 mini2440:/ saveenv
 \end{ptxshell}
 
-To make the new static network configuration work, we must source the
+To make the new static network configuration work, we must execute the
 \texttt{config} file again:
 
 \begin{ptxshell}[escapechar=|]{^}
@@ -243,7 +243,7 @@ mini2440:/ . /env/config
 \end{ptxshell}
 
 Running the \texttt{devinfo eth0} command again should now show the values for
-the network interface that you put in earlier. To check if it as really working
+the network interface that you put in earlier. To check if it is really working,
 try pinging other hosts:
 
 \begin{ptxshell}[escapechar=|]{^}
@@ -252,9 +252,9 @@ host 192.168.1.7 is alive
 \end{ptxshell}
 
 In order to store all the relevant components into the NAND, we can now use
-some builtin features of barebox.
+some of the builtin features in barebox.
 
-First we must copy at the host side all generated images from the board support
+First we must copy, at the host side, all generated images from the board support
 package to the directory used by the TFTP server:
 
 \begin{ptxshell}[escapechar=|]{^}
@@ -273,14 +273,14 @@ mini2440:/ update -t kernel -d nand
 
 That's all. To boot with the new firmware, we must change the \textbf{S2} switch
 now back to the \texttt{NAND} position. Powercycle the Mini2440
-or press its reset button and the new software will start.
+or press it's reset button and the new software will start.
 
 %
 % Ideas:
 % - Add info about how to test the barebox written to the NAND (if it was
-%   sucessful)
+%   successful)
 % - Add info on how to check the downloaded file is the correct one
 % - maybe some comment about <erase /dev/nand0> and the use of <reset>
 % - if you don't change anything using the edit command do you need to <saveenv>?  With
-%   u-boot most tutorials suggested a <saveenv>
+%   u-boot, most tutorials suggested a <saveenv>
 % - What is dangerous about a <printenv>?

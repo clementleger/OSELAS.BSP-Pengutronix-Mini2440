@@ -35,6 +35,8 @@ releases in the \ptxdistBSPName{}:
 	\item 2.6.38.7
 \end{itemize}
 
+% 2.6.39?  It hasn't been released yet.
+
 If you want to build the BSP with an non-default kernel release, just run
 \texttt{ptxdist platformconfig} and change the kernel setting prior to building.
 
@@ -76,7 +78,7 @@ to do this. Please refer to your display driver manual for details.
 % ------------
 
 Like most modern System-on-Chip CPUs, the \perCpuName{} has numerous GPIO pins.
-Some of them are unaccessible for the userspace as Linux drivers use them
+Some of them are inaccessible for the userspace, as Linux drivers use them
 internally. Others are also used by drivers but are exposed to userspace via
 sysfs. Finally, the remaining GPIOs can be requested for custom use by
 userspace, also via sysfs.
@@ -94,7 +96,7 @@ files to generate events on the digital lines.
 
 We find all the control files in \texttt{/sys/class/gpio}. In that path, there are
 a number of \texttt{gpiochipXXX} entries, with \texttt{XXX} being a decimal
-number. Each of these folders provide information about a single gpio
+number. Each of these folders provide information about a single GPIO
 controller registered on the Mini2440 board, for example with
 \texttt{gpiochip\perGpioChip}:
 
@@ -113,9 +115,9 @@ single GPIO pin.
 \end{ptxshell}
 
 This way we export \texttt{gpio\perGpioNumber{}} for userspace usage. If the
-export was succesful, we will find a new directory named
+export was successful, we will find a new directory named
 \texttt{/sys/class/gpio/gpio\perGpioNumber{}} afterwards. Within this directory
-we will be able to find the entries to access the functions of this gpio.
+we will be able to find the entries to access the functions of this GPIO.
 If we wish to set the direction and initial level of the GPIO, we can use the
 command:
 
@@ -139,7 +141,7 @@ To unexport an already exported GPIO, write the corresponding gpio-number into
 # |echo ^\perGpioNumber^ > /sys/class/gpio/unexport|
 \end{ptxshell}
 
-Now the directory \texttt{/sys/class/gpio/gpio\perGpioNumber} will disapear.
+Now the directory \texttt{/sys/class/gpio/gpio\perGpioNumber} will disappear.
 
 Note: The GPIO\perGpioNumber{} is available at connector 4, pin 17 for
 measurement.
@@ -194,14 +196,10 @@ All LEDs can be found in the directory \texttt{/sys/class/leds}. Each one has
 its own subdirectory. We will use \texttt{\perLedName} for the following
 examples.
 
-Per directory, you have a file named \texttt{brightness} which can be read and
+For each directory, you have a file named \texttt{brightness} which can be read and
 written with a decimal value between 0 and 255. The first one means LED off,
 the latter maximum brightness. Inbetween values scale the brightness if the LED
 supports that. If not, non-zero means just LED on.
-
-% not aware that brightness is dependent on support from the LED itself.  Isn't choosing
-% <brightness> just affecting the duty cycle of a PWM? Are there some special LEDs that
-% support this type of operation?
 
 \begin{ptxshell}[escapechar=|]{^}
 |\LedPath| echo 255 > brightness; # LED on
