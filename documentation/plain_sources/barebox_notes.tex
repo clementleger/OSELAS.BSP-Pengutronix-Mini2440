@@ -21,7 +21,7 @@
 % All these new commands are starting with 'ptxdist'.
 %
 
-\section{Notes About Barebox}			\label{sec:bareboxnotes}
+\section{Notes About the Bootloader Barebox}	\label{sec:bareboxnotes}
 
 Everything mentioned here (variable names and file names) in the run-time
 environment that Barebox uses, is for convenience only. The developers of Barebox
@@ -146,7 +146,7 @@ In Barebox's run-time environment it looks like:
 \end{itemize}
 
 The size and location of some of these partitions can be modified at run-time
-via the variable \texttt{nand_parts} in the \texttt{env/config} file. Here the
+via the variable \texttt{nand\_parts} in the \texttt{env/config} file. Here the
 user can increase the kernel partition, or add more partitions to the
 \textit{free part} of the list.
 
@@ -165,15 +165,15 @@ read the persistent environment, Barebox must know where the persistent environm
 is located. To do so, Barebox initially creates the \textit{barebox} and
 \textit{bareboxenv} partitions and after loading the persistent environment
 Barebox then adds the \textbf{remaining} partitions based on the
-\texttt{nand_parts} variable.
+\texttt{nand\_parts} variable.
 
 This handling implies the internally registered partitions for Barebox and the
 persistent environment must be the same in size and location as the partitions
-described in the \texttt{nand_parts} variable.
+described in the \texttt{nand\_parts} variable.
 
 This then means, if one would like to change the size of the \textit{barebox}
 or the \textit{bareboxenv} partitions, she/he must change the platform source
-code \textbf{and} the \texttt{nand_parts} variable.
+code \textbf{and} the \texttt{nand\_parts} variable.
 
 Here an example for a partition setup in the run-time environment:
 
