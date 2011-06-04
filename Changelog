@@ -7,6 +7,9 @@
 	* Kernel 2.6.38:
 		- Enable static USB mass storage and SCSI support
 		- Enable VFAT support
+	* Kernel 2.6.38: Release ptx-2011.06.0
+	* Kernel 2.6.39: Release ptx-2011.06.0
+	* Barebox 2011.05.0: Release ptx-2011.06.0
 
 2011-06-03	Juergen Beisert <jbe@pengutronix.de>
 
@@ -46,7 +49,7 @@
 
 2011-05-04	Juergen Beisert <jbe@pengutronix.de>
 
-	* Fix acces to the 7th ADC channel
+	* Fix access to the 7th ADC channel
 
 2011-05-04	Juergen Beisert <jbe@pengutronix.de>
 

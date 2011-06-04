@@ -1,6 +1,6 @@
 #
 # Automatically generated make config: don't edit
-# Linux/arm 2.6.38.8-ptx-master Kernel Configuration
+# Linux/arm 2.6.38.8-ptx-2011.06.0 Kernel Configuration
 #
 CONFIG_ARM=y
 CONFIG_HAVE_PWM=y
