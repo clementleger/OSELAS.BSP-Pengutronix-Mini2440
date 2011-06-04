@@ -1,6 +1,12 @@
 2011-06-04	Juergen Beisert <jbe@pengutronix.de>
 
 	* various MD5 sums added to be compliant with the new PTXdist
+	* Kernel 2.6.39:
+		- Enable static USB mass storage and SCSI support
+		- Enable VFAT support
+	* Kernel 2.6.38:
+		- Enable static USB mass storage and SCSI support
+		- Enable VFAT support
 
 2011-06-03	Juergen Beisert <jbe@pengutronix.de>
 
