@@ -1,1 +1,9 @@
-No known issues yet
+OSELAS.BSP-Pengutronix-Mini2440-2011.06.0
+
+ - No known issues yet
+
+OSELAS.BSP-Pengutronix-Mini2440-2011.05.0
+
+ - On 64 bit machines or/and on multicore machines building this BSP fails.
+   Refer the website for the required patch:
+   http://www.pengutronix.de/oselas/bsp/pengutronix/mini2440_bsp_en.html
