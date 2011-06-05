@@ -501,6 +501,21 @@ Testing ... (interrupt to exit)
 
 %----------------------------------------------------------------------------
 
+%----------------------------------------------------------------------------
+
+\section{Audio}						\label{sec:AUDIO}
+%--------------
+
+This kernel supports the audio capabilities of the Mini2440 via a standard
+ALSA device. So, most of the available tools to play or record sounds should
+work out of the box.
+
+To control the audio mixer run the tool \texttt{alsamixer}, to play a simple
+sound file \texttt{aplay} can be used and for MP3 files, texttt{madplay} is the
+correct tool.
+
+%----------------------------------------------------------------------------
+
 %
 % What is still missing?
 %
@@ -508,7 +523,6 @@ Testing ... (interrupt to exit)
 % - on the FriendlyARM forum someone asks how to implement a W1 controller
 % - description whats to be done in case of SDRAM errors (this bootloader
 %   sets up a faster speed than the vivi does)
-% - how to play sounds
 % - what is to be done, if one is using a different LC display than my LCDN3502
 %
 % Ideas:
