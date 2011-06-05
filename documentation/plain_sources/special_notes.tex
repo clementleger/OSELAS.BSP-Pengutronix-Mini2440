@@ -460,10 +460,50 @@ feature is disabled.
 
 %----------------------------------------------------------------------------
 
+\section{Keypad}						\label{sec:ADC}
+%----------------
+
+Using the up to 6 available key buttons on the Mini2440 in a reqular manner
+requires a working console in the kernel. Here the list of the current key codes
+they generate when pressed:
+
+\begin{itemize}
+	\item K1, code 'F1'
+	\item K2, code 'F2'
+	\item K3, code 'F3'
+	\item K4, code 'Power'
+	\item K5, code 'F5'
+	\item K6 (no code, yet)
+\end{itemize}
+
+If one wants to change the generated codes, she/he can change it in the
+platform code found in \texttt{arch/arm/mach-s3c2440/mach-mini2440.c},
+specially in the array \texttt{mini2440\_buttons}.
+
+If the key buttons are working as expected, can also be checked without a
+working console with the following command:
+
+\begin{ptxshell}[escapechar=|]{^}
+# evtest /dev/input/event0
+Input driver version is 1.0.1
+Input device ID: bus 0x19 vendor 0x1 product 0x1 version 0x100
+Input device name: "gpio-keys"
+Supported events:
+  Event type 0 (Sync)
+  Event type 1 (Key)
+    Event code 59 (F1)
+    Event code 60 (F2)
+    Event code 61 (F3)
+    Event code 63 (F5)
+    Event code 116 (Power)
+Testing ... (interrupt to exit)
+\end{ptxshell}
+
+%----------------------------------------------------------------------------
+
 %
 % What is still missing?
 %
-% - how to use the 6 keys on the Mini2440
 % - how to use the Mini2440 as a gadget (printer, serial or ...)
 % - on the FriendlyARM forum someone asks how to implement a W1 controller
 % - description whats to be done in case of SDRAM errors (this bootloader
