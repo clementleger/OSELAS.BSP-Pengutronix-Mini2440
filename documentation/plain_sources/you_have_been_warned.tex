@@ -1,0 +1,52 @@
+%
+% Charset: utf8
+% Content type: Plain LATEX
+% Content: This chapter gives the user some knowledge about using NAND memory
+%          in her/his application. There are some disadvantages everybody
+%          should know.
+%
+% Copyright Jürgen Beisert <jbe@pengutronix.de>, 2011
+%
+% This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+% To view a copy of this license, visit:
+%           http://creativecommons.org/licenses/by/3.0/
+% or send a letter to:
+% Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+%
+% Refer the file CREDITS for all people working on this document.
+% %
+% This file content will be part of the "OSELAS.BSP-Pengutronix-Mini2440-Quickstart.pdf"
+%
+
+% ----------------------------------------------------------------------------
+\chapter{You have been warned}
+% ----------------------------------------------------------------------------
+
+The Barebox bootloader and the Linux kernel contained in this board support
+package will modify your NAND memory. This is important to know if you want to
+keep a way back to the previous usage. At least the bad block marker maybe
+lost if you try to switch back to the old behaviour.
+
+If you already used another recent kernel on your Mini2440, you can ignore this
+warning.
+
+A word about using NAND memory for the bootloader and the filesystem:
+
+NAND memory can be forgetful. That is why some kind of redundancy information
+is always required. This board support package uses ECC (error-correcting code)
+checksums as redundancy information when the bootloader and the Linux kernel
+are up and running.
+
+This kind of redundancy information can repair one bit errors and detect two
+bit errors in a page of data. Its very important to use ECC at least for the
+bootloader to ensure to bring up the Mini2440 successfully. But its currently
+not done in the bootloader while bootstrapping. So, there is still a risk for
+long term use to fail booting the Mini2440 from NAND. In this case the
+bootloader must be re-written making the Mini2440 booting again from NAND.
+
+In one of the next releases, ECC check and correction will be done while
+bootstrapping as well, to make the system more reliable for long term use.
+But then one question will be still open: Does the hardware of the S3C2440 CPU
+ECC check and correction for the very first page? I guess no, because the
+hardware has no idea, where the ECC checksum is stored. So, maybe there is no
+100 \% reliable solution for long term users.
