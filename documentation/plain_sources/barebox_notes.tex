@@ -178,18 +178,12 @@ code \textbf{and} the \texttt{nand\_parts} variable.
 Here an example for a partition setup in the run-time environment:
 
 \begin{ptxshell}[escapechar=|]{^}
-              internally    internally            free in
-               fixed          fixed           size and location
-                 |              |              |           |
-                 V              V              V           V
-            |-----------| |-------------| |-----------| |-----|
 nand_parts="256k(barebox),64k(bareboxenv),2048k(kernel),-(root)"
-            |---------------------------|
-                        ^
-                        |
-              these must correspond to
-              the platform source code
 \end{ptxshell}
+
+It corresponds to the following NAND partition layout:
+
+\centerline{\includegraphics{OSELAS.BSP-Pengutronix-Mini2440/documentation/plain_sources/partitioning.png}}
 
 This setup defines
 
@@ -222,7 +216,7 @@ and looks like this:
 [...]
 \end{ptxshell}
 
-Please ensure after changing any of the above partitions in size or location
+Please ensure after changing any of the "Fixed in size and location" partitions
 that Barebox is re-compiled and re-flashed to keep the compiled-in environment
 in sync with the platform source code.
 
