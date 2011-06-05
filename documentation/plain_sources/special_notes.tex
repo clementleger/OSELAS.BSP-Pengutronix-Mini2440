@@ -443,11 +443,27 @@ given.
 
 %----------------------------------------------------------------------------
 
+\section{ADC}							\label{sec:ADC}
+%------------
+
+Getting the digital equivalent of one of the analogue input channels can be
+done by reading the corresponding entries in the sysfs.
+
+For example the analogue input channel 0 on the Mini2440 is connected to the
+potentiometer W1. By reading the entry
+\texttt{/sys/devices/platform/s3c24xx-adc/s3c-hwmon/in0\_input}
+we can watch the different digital values while turning the the potentiometer W1.
+
+Note: The analogue input channels 4 ... 7 are occupied by the touchscreen
+feature and can only be used as simple analogue inputs if the touchscreen
+feature is disabled.
+
+%----------------------------------------------------------------------------
+
 %
 % What is still missing?
 %
 % - how to use the 6 keys on the Mini2440
-% - how to work with the ADCs
 % - how to use the Mini2440 as a gadget (printer, serial or ...)
 % - on the FriendlyARM forum someone asks how to implement a W1 controller
 % - description whats to be done in case of SDRAM errors (this bootloader
