@@ -271,9 +271,127 @@ mini2440:/ update -t rootfs -d nand
 mini2440:/ update -t kernel -d nand
 \end{ptxshell}
 
-That's all. To boot with the new firmware, we must change the \textbf{S2} switch
-now back to the \texttt{NAND} position. Powercycle the Mini2440
-or press it's reset button and the new software will start.
+That's all. To boot using the new firmware, we must now change the switch
+\textbf{S2} back to the NAND position. Power cycle the Mini2440 or press its
+reset button and the new software will start.
+
+\subsection{Updating the Mini2440}	\label{sec:updating}
+
+At any time it's possible to update any of the software components
+running on the Mini2440.
+
+\begin{itemize}
+	\item the bootloader Barebox
+	\item Barebox's persistent environment
+	\item the Linux kernel
+	\item the kernel's root filesystem
+\end{itemize}
+
+\subsubsection{Updating the Bootloader}
+
+Most of the time there is no further need to re-flash the bootloader and its
+persistent environment. After it was setup once, it does its work "in the
+background". But nevertheless there could be the need to update the bootloader
+due to feature additions or bug fixes. If the current Barebox bootloader is
+still working, its replacement can be done by using the existing bootloader.
+This assumes that the network is still functioning. In this case, a simple
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| cp |\ptxdistPlatformDir |images/barebox-image /tftpboot/barebox-mini2440
+\end{ptxshell}
+
+provides the updated bootloader binary via TFTP and a
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ update -t barebox -d nand
+\end{ptxshell}
+
+will do the job at the target side. After starting this command, do not disturb!
+This is a critical update process. Because, for a short period of time the
+NAND flash is erased, with no bootloader present. But don't panic: Unless a
+power fail or a target reset happens, this command can be repeated if the
+first run failed.
+
+\subsubsection{Updating the Persistent Environment}
+
+% I'm unsure how useful it is: Assuming the current environment is broken, I
+% guess also the network setup is broken. So, loading via TFTP maybe is
+% impossible.
+% Idea:
+% Maybe we should think about disasters a user can happen, and how to bring
+% back life into her/his Mini2440 in this case
+
+Updating the persistent environment is also possible. A simple
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| cp |\ptxdistPlatformDir |images/barebox-default-environment /tftpboot/barebox-default-environment-mini2440
+\end{ptxshell}
+
+provides the updated environment via TFTP and a
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ update -t bareboxenv -d nand
+\end{ptxshell}
+
+will do the job. Note: This new persistent environment will be used at the next
+system start.
+
+If the persistent environment is broken, there is a second method to restore a
+working environment: that is, using the compiled in default environment that
+comes with Barebox.
+To force the usage of the compiled in default environment, just erase the
+current one in the NAND and reset the target (or run the \texttt{reset}
+command).
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ erase /dev/bareboxenv.bb
+mini2440:/ reset
+\end{ptxshell}
+
+Now, Barebox will stumble about the empty partition and then fall back to its
+compiled-in environment version. This can now be adpated by editing the files
+in \texttt{env/} and then saved back to the NAND with the command
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ saveenv
+\end{ptxshell}
+
+\subsubsection{Updating the Linux Kernel}
+
+Changing the Linux kernel configuration can be quite dynamic, especially while
+the developer is trying different kernel configurations. Updating this part
+happens in the same way like the other parts. Providing the Linux kernel via
+TFTP:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| cp |\ptxdistPlatformDir |images/linuximage /tftpboot/uImage-mini2440
+\end{ptxshell}
+
+and running the update script at the target's side:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ update -t kernel -d nand
+\end{ptxshell}
+
+\subsubsection{Updating the Root Filesystem}
+
+And last, but not least, updating the root filesystem. Same procedure:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| cp |\ptxdistPlatformDir |images/root.jffs2 /tftpboot/root-mini2440.jffs2
+\end{ptxshell}
+
+and running the update script at the target's side:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ update -t rootfs -d nand
+\end{ptxshell}
+
+% the following text should occur somewhere else, where it is more useful (?)
+By the way: the \texttt{update} command is not a real command built into
+Barebox. Its a simple shell script coming from the persistent environment.
+If one has different update scenarios she/he can change or adapt this script.
+Changing this behaviour can be done without touching Barebox's C code.
 
 %
 % Ideas:
