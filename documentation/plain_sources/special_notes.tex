@@ -516,6 +516,50 @@ correct tool.
 
 %----------------------------------------------------------------------------
 
+\section{USB Device}					\label{sec:USBgadget}
+%--------------------
+
+The S3C2440 processor in the Mini2440 comes with a USB device unit. This is
+the physical interface to let the Mini2440 act in some roles in the USB world.
+For example the Mini2440 can act as a printer or a simple serial adapter.
+There are also drivers to act as a mass storage device, but its setup is more
+complicated. So, this section describes the printer case.
+
+To prepare the Mini2440 to act as a printer just load the printer gadget driver.
+
+\begin{ptxshell}[escapechar=|]{^}
+# modprobe g_printer
+Printer Gadget: Printer Gadget, version: 2007 OCT 06
+Printer Gadget: using s3c2410_udc, OUT ep2-bulk IN ep1-bulk
+\end{ptxshell}
+
+Starting this driver will create a \texttt{/dev/g_printer} device node. This
+device node can be opened for reading and writing. It's the end of two
+"pipes" for data to and from a connected host.
+
+Now, the Mini2440 is ready for connection to a host via its USB B plug.
+If it works, the kernel at the host side will detect a new device:
+
+\begin{ptxshell}[escapechar=|]{^}
+usb 1-1: new full speed USB device number 2 using s3c2410-ohci
+usblp0: USB Bidirectional printer dev 7 if 0 alt 0 proto 2 vid 0x0525 pid 0xA4A8
+\end{ptxshell}
+
+Note: At the host side the \texttt{usblp} module is required to make this new
+USB hotplug device visible as a printer.
+
+At the host side now a \texttt{/dev/usblp0} device node will be created. Also
+this device node can be opened for reading and writing. And also this node is
+the end of two "pipes" for data to and from the "printer".
+
+Everything we 'echo' into \texttt{/dev/usblp0} at the host side, we can 'cat'
+from \texttt{/dev/g_printer} at the Mini2440 side. And vice versa.
+
+And a real funny game is to connect Mini2440's USB A to its own USB B. Then
+the Mini2440 can talk to itself.
+
+%----------------------------------------------------------------------------
+
 %
 % What is still missing?
 %
