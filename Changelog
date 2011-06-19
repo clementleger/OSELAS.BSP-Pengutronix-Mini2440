@@ -5,6 +5,9 @@
 		- Add support for a new W35i display
 		- Fix backlight GPIO handling to make it work as expected
 
+	* Kernel 2.6.38:
+		- Back to master
+
 2011-06-04	Juergen Beisert <jbe@pengutronix.de>
 
 	* various MD5 sums added to be compliant with the new PTXdist
