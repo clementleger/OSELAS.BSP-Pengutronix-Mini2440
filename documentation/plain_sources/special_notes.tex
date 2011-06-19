@@ -402,6 +402,29 @@ boot again.
 
 % ----------------------------------------------------------------------------
 
+\section{LCD Backlight}				\label{sec:BLIGHT}
+% -----------------------
+
+The backlight of the LCD can be controlled via the sysfs entry in:
+
+\begin{ptxshell}{|}
+/sys/class/leds/backlight/
+\end{ptxshell}
+
+To switch it \textit{off}, just write a '0' into its \textt{brightness} entry:
+
+\begin{ptxshell}{|}
+echo 0 > /sys/class/leds/backlight/brightness
+\end{ptxshell}
+
+and a '1' to switch it \textit{on} again:
+
+\begin{ptxshell}{|}
+echo 1 > /sys/class/leds/backlight/brightness
+\end{ptxshell}
+
+% ----------------------------------------------------------------------------
+
 \section{USB Host Controller Unit}			\label{sec:USBHOST}
 % -----------------------------------
 
