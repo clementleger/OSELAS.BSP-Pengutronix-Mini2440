@@ -38,6 +38,7 @@ enable_screen_without_console.diff
 
 add_hwmon.diff
 fix_ts_race.diff
+fix_backlight_GPIO_handling.diff
 
 # odor marker
 set-marker.diff
