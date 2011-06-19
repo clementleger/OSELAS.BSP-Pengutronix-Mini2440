@@ -24,7 +24,7 @@ Index: linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
  
  #include <sound/s3c24xx_uda134x.h>
  
-@@ -526,6 +527,53 @@ static struct s3c2410_ts_mach_info mini2
+@@ -539,6 +540,53 @@ static struct s3c2410_ts_mach_info mini2
  	.oversampling_shift = 0,
  };
  
@@ -78,7 +78,7 @@ Index: linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
  static struct platform_device *mini2440_devices[] __initdata = {
  	&s3c_device_ohci,
  	&s3c_device_wdt,
-@@ -542,6 +590,7 @@ static struct platform_device *mini2440_
+@@ -555,6 +603,7 @@ static struct platform_device *mini2440_
  	&mini2440_audio,
  	&samsung_asoc_dma,
  	&s3c_device_adc,
@@ -86,7 +86,7 @@ Index: linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
  };
  
  static void __init mini2440_map_io(void)
-@@ -699,6 +748,7 @@ static void __init mini2440_init(void)
+@@ -712,6 +761,7 @@ static void __init mini2440_init(void)
  	s3c_nand_set_platdata(&mini2440_nand_info);
  	s3c_i2c0_set_platdata(NULL);
  	s3c24xx_ts_set_platdata(&mini2440_ts_cfg);

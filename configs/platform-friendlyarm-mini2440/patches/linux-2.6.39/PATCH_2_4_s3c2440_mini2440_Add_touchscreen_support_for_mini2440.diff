@@ -22,7 +22,7 @@ Index: linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
  
  #include <linux/mtd/mtd.h>
  #include <linux/mtd/nand.h>
-@@ -530,6 +531,12 @@ static struct platform_device uda1340_co
+@@ -543,6 +544,12 @@ static struct platform_device uda1340_co
  		.id = -1,
  };
  
@@ -35,7 +35,7 @@ Index: linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
  static struct platform_device *mini2440_devices[] __initdata = {
  	&s3c_device_ohci,
  	&s3c_device_wdt,
-@@ -548,6 +555,7 @@ static struct platform_device *mini2440_
+@@ -561,6 +568,7 @@ static struct platform_device *mini2440_
  	&uda1340_codec,
  	&mini2440_audio,
  	&samsung_asoc_dma,
@@ -43,7 +43,7 @@ Index: linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
  };
  
  static void __init mini2440_map_io(void)
-@@ -605,12 +613,12 @@ static void mini2440_parse_features(
+@@ -618,12 +626,12 @@ static void mini2440_parse_features(
  		switch (f) {
  		case '0'...'9':	/* tft screen */
  			if (features->done & FEATURE_SCREEN) {
@@ -58,7 +58,7 @@ Index: linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
  						"'%c' out of range LCD mode\n", f);
  				else {
  					features->optional[features->count++] =
-@@ -622,7 +630,7 @@ static void mini2440_parse_features(
+@@ -635,7 +643,7 @@ static void mini2440_parse_features(
  			break;
  		case 'b':
  			if (features->done & FEATURE_BACKLIGHT)
@@ -67,7 +67,7 @@ Index: linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
  					"backlight already set\n", f);
  			else {
  				features->optional[features->count++] =
-@@ -631,12 +639,17 @@ static void mini2440_parse_features(
+@@ -644,12 +652,17 @@ static void mini2440_parse_features(
  			features->done |= FEATURE_BACKLIGHT;
  			break;
  		case 't':
@@ -88,7 +88,7 @@ Index: linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
  					"camera already registered\n", f);
  			else
  				features->optional[features->count++] =
-@@ -652,7 +665,7 @@ static void __init mini2440_init(void)
+@@ -665,7 +678,7 @@ static void __init mini2440_init(void)
  	struct mini2440_features_t features = { 0 };
  	int i;
  
@@ -97,7 +97,7 @@ Index: linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
  			mini2440_features_str);
  
  	/* Parse the feature string */
-@@ -681,17 +694,17 @@ static void __init mini2440_init(void)
+@@ -694,17 +707,17 @@ static void __init mini2440_init(void)
  		mini2440_fb_info.displays =
  			&mini2440_lcd_cfg[features.lcd_index];
  
@@ -119,7 +119,7 @@ Index: linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
  		s3c24xx_fb_set_platdata(&mini2440_fb_info);
  	}
  
-@@ -699,6 +712,7 @@ static void __init mini2440_init(void)
+@@ -712,6 +725,7 @@ static void __init mini2440_init(void)
  	s3c24xx_mci_set_platdata(&mini2440_mmc_cfg);
  	s3c_nand_set_platdata(&mini2440_nand_info);
  	s3c_i2c0_set_platdata(NULL);

@@ -3,6 +3,7 @@
 patch-2.6.39-1.bz2
 
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
+add_lcd_w35i.diff
 PATCH_2_4_s3c2440_mini2440_Add_touchscreen_support_for_mini2440.diff
 PATCH_3_4_s3c2440_mini2440_Select_touchscreen_by_default.diff
 PATCH_4_4_s3c2440_mini2440_Use_leds-gpio_driver_for_board_leds_handling.diff
@@ -33,6 +34,7 @@ enable_screen_without_console.diff
 
 add_hwmon.diff
 fix_ts_race.diff
+fix_backlight_GPIO_handling.diff
 
 # odor marker
 set-marker.diff
