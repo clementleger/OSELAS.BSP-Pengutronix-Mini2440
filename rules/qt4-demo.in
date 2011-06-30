@@ -1,0 +1,15 @@
+## SECTION=qt
+
+config QT4_DEMO
+	tristate
+	prompt "qt4-demo"
+	select QT4
+	select QWT
+	select STARTUP
+	help
+	  Enable this entry to get a simple Qt4 demo running at startup on
+	  your target. It can act as a simple example how to integrate your
+	  own Qt4 based application into this PTXdist project.
+	  Part of this entry is the installation of a start script that runs
+	  this Qt4 application when the system starts.
+
