@@ -162,11 +162,27 @@ runtime. Here is a list of currently known LCDs:
 The list above corresponds to the number (beginning with 0) given to the
 \texttt{mini2440=} kernel parameter to define the LCD in use.
 
-After these changes are made, we can continue building the board support package.
-
 When starting the kernel later on, it will output the list of supported displays
 with the currently selected one embraced.
 
 \begin{ptxshell}[escapechar=|]{^}
 MINI2440: LCD [0:240x320] 1:800x480 2:1024x768 3:240x320 4:640x480 5:240x320
 \end{ptxshell}
+
+As all of these existing LCDs differ in size and resolution, also userland may
+need more information than only their resolution. If we run Qt based applications
+the Qt library must know some additional data about the display as well. At
+least the physical size of the visible display area is an important value, as
+Qt uses this information to calculate the font's scale.
+
+The BSP comes with a pre-configuration for the portrait \textit{LCDN3502}
+240 x 320 display. Its visible display area size is: width 53 mm, height 71 mm.
+
+To forward this additional information to Qt, the file
+\texttt{configs/platform-friendlyarm-mini2440/projectroot/etc/profile.environment}
+exists in the BSP. We can edit it prior the build and change the size settings
+according to our own display if it differs from the default one. This file will
+be part of the root filesystem and used at run-time.
+
+After these changes are made, we can continue building the board support
+package.
