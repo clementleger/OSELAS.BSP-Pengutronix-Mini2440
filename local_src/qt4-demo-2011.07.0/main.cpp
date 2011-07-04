@@ -1,6 +1,7 @@
 
 #include <QtGui/QApplication>
 #include <QtGui/QWidget>
+#include <QtGui/QFont>
 #include <QtGui/QVBoxLayout>
 
 #include "plothandler.h"
@@ -13,6 +14,12 @@ int main(int argc, char **argv)
 {
 
 	QApplication app(argc, argv);
+
+	QFont f = app.font();
+	f.setPointSize(7);
+	app.setFont(f);
+	f.setPointSize(5);
+	app.setFont(f, "QwtPlot");
 
 	QMainWindow window;
 	Ui_MainWindow ui;
