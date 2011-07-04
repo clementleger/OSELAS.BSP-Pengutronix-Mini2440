@@ -20,25 +20,6 @@ PACKAGES-$(PTXCONF_HOST_LIBUSB_COMPAT) += host-libusb-compat
 HOST_LIBUSB_COMPAT_DIR	= $(HOST_BUILDDIR)/$(LIBUSB_COMPAT)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-libusb-compat.get:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-libusb-compat.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_LIBUSB_COMPAT_DIR))
-	@$(call extract, LIBUSB_COMPAT, $(HOST_BUILDDIR))
-	@$(call patchin, LIBUSB_COMPAT, $(HOST_LIBUSB_COMPAT_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -46,13 +27,5 @@ HOST_LIBUSB_COMPAT_PATH	:= PATH=$(HOST_PATH)
 HOST_LIBUSB_COMPAT_ENV 	:= $(HOST_ENV)
 HOST_LIBUSB_COMPAT_AUTOCONF := $(HOST_AUTOCONF) \
 	--disable-static
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-libusb-compat_clean:
-	rm -rf $(STATEDIR)/host-libusb-compat.*
-	rm -rf $(HOST_LIBUSB_COMPAT_DIR)
 
 # vim: syntax=make
