@@ -75,10 +75,12 @@ public:
 PlotHandler::PlotHandler(QwtPlot *plot)
 	: QObject(plot), m_plot(plot), m_pos(0)
 {
-	QwtText *xaxis = new QwtText("System Uptime [h:m:s]", QwtText::PlainText);
-	QwtText *yaxis = new QwtText("Cpu Usage [%]", QwtText::PlainText);
+	QwtText xaxis("System Uptime [h:m:s]", QwtText::PlainText);
+	QwtText yaxis("Cpu Usage [%]", QwtText::PlainText);
 
-	//xaxis->setFont(QFont(""));
+	QFont f(plot->font());
+	xaxis.setFont(f);
+	yaxis.setFont(f);
 
 	for (int i = 0; i < nValue; ++i)
 		m_data[i] = new double[SIZE];
@@ -90,9 +92,8 @@ PlotHandler::PlotHandler(QwtPlot *plot)
 	QwtLegend *legend = new QwtLegend();
 	m_plot->insertLegend(legend, QwtPlot::RightLegend);
 
-
-	m_plot->setAxisTitle(QwtPlot::xBottom, *xaxis /*"System Uptime [h:m:s]"*/);
-//	m_plot->setAxisFont(QwtPlot::xBottom, ????);
+	m_plot->setAxisTitle(QwtPlot::xBottom, xaxis);
+	m_plot->setAxisFont(QwtPlot::xBottom, f);
 	m_plot->setAxisScaleDraw(QwtPlot::xBottom, new TimeScaleDraw());
 	m_plot->setAxisScale(QwtPlot::xBottom, 0, SIZE);
 
@@ -103,8 +104,8 @@ PlotHandler::PlotHandler(QwtPlot *plot)
 	const int fmh = QFontMetrics(scaleWidget->font()).height();
 	scaleWidget->setMinBorderDist(0, fmh / 2);
 
-	m_plot->setAxisTitle(QwtPlot::yLeft, *yaxis /* "Cpu Usage [%]" */);
-	//	m_plot->setAxisFont(QwtPlot::yLeft, ????);
+	m_plot->setAxisTitle(QwtPlot::yLeft, yaxis);
+	m_plot->setAxisFont(QwtPlot::yLeft, f);
 	m_plot->setAxisScale(QwtPlot::yLeft, 0, 100);
 
 	Background *bg = new Background();
