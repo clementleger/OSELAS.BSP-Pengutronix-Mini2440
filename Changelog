@@ -1,3 +1,8 @@
+2011-07-04	Juergen Beisert <jbe@pengutronix.de>
+
+	* Platform: Add a template to describe the attached LCD for graphical
+	            use
+
 2011-06-30	Juergen Beisert <jbe@pengutronix.de>
 
 	* Platform: Keep the host libusb rule files working with next ptxdist

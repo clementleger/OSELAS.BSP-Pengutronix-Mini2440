@@ -3,6 +3,7 @@ PS1="\\u@\\h:\\w "
 PS2=" >"
 PS4="+ "
 
+# some useful short cuts
 alias vim='vi'
 alias l='ls -l'
 alias ll='ls -al'
@@ -11,9 +12,24 @@ alias ...='cd ../..'
 alias md='mkdir'
 alias rd='rmdir'
 
+# Mini2440 related settings
+MINI2440_FBDEV=/dev/fb0
+MINI2440_KEYEVENT=/dev/input/event0
+MINI2440_TOUCHEVENT=/dev/input/event1
+# this size is for the portrait 240 x 320 display of type "LCDN3502"
+# change it, if you are using another display (sizes are in [mm])
+MINI2440_LCD_WIDTH=55
+MINI2440_LCD_HEIGHT=71
+
+# touchscreen relevant settings
+export TSLIB_TSDEVICE=${MINI2440_TOUCHEVENT}
 export TSLIB_CONSOLEDEVICE=none
-export TSLIB_TSDEVICE=/dev/input/event1
-export TSLIB_FBDEVICE=/dev/fb0
+export TSLIB_FBDEVICE=${MINI2440_FBDEV}
 #export TSLIB_CALIBFILE
 #export TSLIB_CONFFILE
 #export TSLIB_PLUGINDIR
+
+# Qt relevant settings
+export QWS_MOUSE_PROTO=Tslib:${MINI2440_TOUCHEVENT}
+export QWS_DISPLAY=LinuxFb:mmWidth=${MINI2440_LCD_WIDTH}:mmHeight=${MINI2440_LCD_HEIGHT}
+export QWS_KEYBOARD=LinuxInput:${MINI2440_KEYEVENT}
