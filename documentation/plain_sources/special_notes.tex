@@ -31,7 +31,7 @@ they are also available. Here is a list of currently available Linux kernel
 releases in the \ptxdistBSPName{}:
 
 \begin{itemize}
-	\item 2.6.39, stable patch level 1 (default)
+	\item 2.6.39, stable patch level 2 (default)
 	\item 2.6.38, stable patch level 8
 \end{itemize}
 
@@ -43,6 +43,43 @@ Note: The hashes for the kernels are (used by PTXdist):
 	\item 2.6.39: \texttt{1aab7a741abe08d42e8eccf20de61e05}
 	\item 2.6.38: \texttt{7d471477bfa67546f902da62227fa976}
 \end{itemize}
+
+% ----------------------------------------------------------------------------
+
+\section{Available Userland Configuration}	\label{sec:userland}
+
+The Mini2440 BSP comes with two different predefined userland configurations:
+
+
+\begin{itemize}
+	\item \textbd{configs/ptxconfig}: it is the standard one to get a small
+	running embedded system. It can be used as a base for your own
+	development running the Mini2440 headless.
+	\item \textbd{configs/ptxconfig.qt}: this configuration is intended for
+	graphical usage of the Mini2440. It has the Qt library enabled and brings
+	in a small Qt based application. This application will be started
+	automatically at system's startup, to show how to get a graphical system
+	up and running.
+\end{itemize}
+
+It's up to you and your needs which configuration you may choose in section
+\ref{sec:selectingauserlandconfig}.
+
+\subsection{Some details about the \texttt{configs/ptxconfig.qt}}:
+
+The mentioned small Qt based application we can find in
+\texttt{local\_src/qt4-demo-2011.07.0/}. It can act as a template for our own
+Qt development.
+
+The "secrets" how to build and install this application we can find in
+\texttt{rules/qt4-demo.make} and the corresponding menu file in
+\texttt{rules/qt4-demo.in}.
+
+The "magic" behind the autostart of this small Qt based application at system
+startup can be found in \texttt{projectroot/etc/init.d/startup}.
+
+Note: The small Qt demo is prepared to run on a portrait 240 x 320 screen. If
+your screen differs from this setup, don't expect a correct image.
 
 % ----------------------------------------------------------------------------
 
@@ -411,7 +448,7 @@ The backlight of the LCD can be controlled via the sysfs entry in:
 /sys/class/leds/backlight/
 \end{ptxshell}
 
-To switch it \textit{off}, just write a '0' into its \textt{brightness} entry:
+To switch it \textit{off}, just write a '0' into its \texttt{brightness} entry:
 
 \begin{ptxshell}{|}
 echo 0 > /sys/class/leds/backlight/brightness
@@ -556,7 +593,7 @@ Printer Gadget: Printer Gadget, version: 2007 OCT 06
 Printer Gadget: using s3c2410_udc, OUT ep2-bulk IN ep1-bulk
 \end{ptxshell}
 
-Starting this driver will create a \texttt{/dev/g_printer} device node. This
+Starting this driver will create a \texttt{/dev/g\_printer} device node. This
 device node can be opened for reading and writing. It's the end of two
 "pipes" for data to and from a connected host.
 
@@ -576,7 +613,7 @@ this device node can be opened for reading and writing. And also this node is
 the end of two "pipes" for data to and from the "printer".
 
 Everything we 'echo' into \texttt{/dev/usblp0} at the host side, we can 'cat'
-from \texttt{/dev/g_printer} at the Mini2440 side. And vice versa.
+from \texttt{/dev/g\_printer} at the Mini2440 side. And vice versa.
 
 And a real funny game is to connect Mini2440's USB A to its own USB B. Then
 the Mini2440 can talk to itself.
