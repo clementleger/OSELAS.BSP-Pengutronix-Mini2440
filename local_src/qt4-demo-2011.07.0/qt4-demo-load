@@ -1,0 +1,16 @@
+#!/bin/sh
+# create some simple load
+
+run_some_load {
+	while [ 1 ]; do
+		find / > /dev/null
+	done
+}
+
+run_some_load
+sleep 2
+run_some_load
+sleep 3
+run_some_load
+
+exit 0

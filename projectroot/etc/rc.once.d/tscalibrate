@@ -1,0 +1,9 @@
+#!/bin/sh
+
+. /etc/profile.environment
+
+TS_CALIBRATE=/usr/bin/ts_calibrate
+
+echo "running touchscreen calibration..."
+
+${TS_CALIBRATE}

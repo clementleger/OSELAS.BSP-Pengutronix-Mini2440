@@ -6,6 +6,7 @@ config QT4_DEMO
 	select QT4
 	select QWT
 	select STARTUP
+	select RC_ONCE
 	help
 	  Enable this entry to get a simple Qt4 demo running at startup on
 	  your target. It can act as a simple example how to integrate your

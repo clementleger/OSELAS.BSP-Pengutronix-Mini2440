@@ -53,6 +53,13 @@ $(STATEDIR)/qt4-demo.targetinstall:
 		$(QT4_DEMO_BUILDDIR)/qt4-demo, \
 		/usr/bin/qt4-demo)
 
+	@$(call install_copy, qt4-demo, 0, 0, 0755, \
+		$(QT4_DEMO_DIR)/qt4-demo-load, \
+		/usr/bin/qt4-demo-load)
+
+	@$(call install_alternative, qt4-demo, 0, 0, 0755, \
+		/etc/rc.once.d/tscalibrate)
+
 	@$(call install_finish, qt4-demo)
 
 	@$(call touch)
