@@ -1,0 +1,40 @@
+From: Wolfram Sang <w.sang@pengutronix.de>
+Subject: arm: plat-s3c24xx: dma: drop return codes in void function
+
+Commit bb072c3c (ARM / Samsung: Use struct syscore_ops for "core" power
+management) turned s3c2410_dma_resume_chan() from int to void. So, drop
+the actual return values, too. Fixes:
+
+arch/arm/plat-s3c24xx/dma.c: In function 's3c2410_dma_resume_chan':
+arch/arm/plat-s3c24xx/dma.c:1238:3: warning: 'return' with a value, in function returning void
+arch/arm/plat-s3c24xx/dma.c:1250:2: warning: 'return' with a value, in function returning void
+
+Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
+Cc: Rafael J. Wysocki <rjw@sisk.pl>
+Cc: Kukjin Kim <kgene.kim@samsung.com>
+---
+ arch/arm/plat-s3c24xx/dma.c |    4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+Index: linux-2.6.39/arch/arm/plat-s3c24xx/dma.c
+===================================================================
+--- linux-2.6.39.orig/arch/arm/plat-s3c24xx/dma.c
++++ linux-2.6.39/arch/arm/plat-s3c24xx/dma.c
+@@ -1230,7 +1230,7 @@ static int s3c2410_dma_resume(struct sys
+ 	/* restore channel's hardware configuration */
+ 
+ 	if (!cp->in_use)
+-		return 0;
++		return;
+ 
+ 	printk(KERN_INFO "dma%d: restoring configuration\n", cp->number);
+ 
+@@ -1241,8 +1241,6 @@ static int s3c2410_dma_resume(struct sys
+ 
+ 	if (cp->map != NULL)
+ 		dma_sel.select(cp, cp->map);
+-
+-	return 0;
+ }
+ 
+ #else

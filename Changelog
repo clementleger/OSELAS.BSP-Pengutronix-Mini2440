@@ -1,3 +1,7 @@
+2011-07-08	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 2.6.39: Add some patches to remove build warnings
+
 2011-07-05	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 2.6.39: Add a patch to uncover hidden bugs

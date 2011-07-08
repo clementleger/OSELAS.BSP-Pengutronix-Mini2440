@@ -3,6 +3,11 @@
 patch-2.6.39-1.bz2
 patch-2.6.39.1-2.bz2
 
+# these changes will be part of linux-3.0 and maybe the stable series for 2.6.39
+dma_dont_use_uninitialized_variable.patch
+dma_drop_return_codes_in_void_function.patch
+mini2440_fix_section_mismatch.patch
+
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
 add_lcd_w35i.diff
 PATCH_2_4_s3c2440_mini2440_Add_touchscreen_support_for_mini2440.diff
@@ -47,3 +52,4 @@ poison_initmem_when_it_is_freed.patch
 
 # odor marker
 set-marker.diff
+
