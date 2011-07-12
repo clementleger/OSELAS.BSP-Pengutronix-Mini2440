@@ -23,11 +23,11 @@ Preparations
     [x] /dev entries
     [x] mentioned files in the manual are present on the target at runtime
 
-[x] does the manual use the same/correct file names for the archives?
+[ ] does the manual use the same/correct file names for the archives?
 [x] is the toolchain built in the way the manual mentions?
 [x] does the project build in the way the manual mentions?
-[x] does the project build on a 64 bit machine?
-[x] does the project build on a multi core machine?
+[ ] does the project build on a 64 bit machine?
+[ ] does the project build on a multi core machine?
 
 Documentation
 -------------
@@ -42,7 +42,7 @@ Base System
 -----------
 
 [x] bootloader is a release
-[x] kernel-2.6.39.1 is a release
+[x] kernel-2.6.39.3 is a release
 [x] kernel-2.6.38.8 is a release
 
 Bootloader
@@ -136,7 +136,7 @@ ADC
 NAND
 ----
 
-[x] is working as the manual mentioned it
+[ ] is working as the manual mentioned it
 
 NOR
 ---
