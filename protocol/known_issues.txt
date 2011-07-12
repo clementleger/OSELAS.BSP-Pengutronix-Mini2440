@@ -1,6 +1,12 @@
-OSELAS.BSP-Pengutronix-Mini2440-2011.06.0
+OSELAS.BSP-Pengutronix-Mini2440-2011.07.0
 
  - No known issues yet
+
+OSELAS.BSP-Pengutronix-Mini2440-2011.06.0
+
+ - Toolchain building failures.
+   Refer the website for more info:
+   http://www.pengutronix.de/oselas/bsp/pengutronix/mini2440_bsp_en.html
 
 OSELAS.BSP-Pengutronix-Mini2440-2011.05.0
 
