@@ -1,3 +1,7 @@
+2011-07.12	Juergen Beisert <jbe@pengutronix.de>
+
+	* Platform: Freeze to PTXdist-2011.07.0
+
 2011-07-09	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 2.6.39: Keep in sync with stable release 2.6.39.3
