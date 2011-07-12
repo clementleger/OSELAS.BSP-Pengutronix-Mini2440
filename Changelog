@@ -1,6 +1,9 @@
 2011-07.12	Juergen Beisert <jbe@pengutronix.de>
 
 	* Platform: Freeze to PTXdist-2011.07.0
+	* Kernel 2.6.38: Release ptx-2011.07.0
+	* Kernel 2.6.39: Release ptx-2011.07.0
+	* Barebox 2011.05.0: Release ptx-2011.07.0
 
 2011-07-09	Juergen Beisert <jbe@pengutronix.de>
 
