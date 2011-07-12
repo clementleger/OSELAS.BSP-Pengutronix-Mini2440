@@ -23,7 +23,7 @@ public:
 		Nice,
 		System,
 		Idle,
-	
+
 		nValue
 	};
 
