@@ -31,7 +31,7 @@ they are also available. Here is a list of currently available Linux kernel
 releases in the \ptxdistBSPName{}:
 
 \begin{itemize}
-	\item 2.6.39, stable patch level 2 (default)
+	\item 2.6.39, stable patch level 3 (default)
 	\item 2.6.38, stable patch level 8
 \end{itemize}
 
@@ -52,10 +52,10 @@ The Mini2440 BSP comes with two different predefined userland configurations:
 
 
 \begin{itemize}
-	\item \textbd{configs/ptxconfig}: it is the standard one to get a small
+	\item \textbf{configs/ptxconfig}: it is the standard one to get a small
 	running embedded system. It can be used as a base for your own
 	development running the Mini2440 headless.
-	\item \textbd{configs/ptxconfig.qt}: this configuration is intended for
+	\item \textbf{configs/ptxconfig.qt}: this configuration is intended for
 	graphical usage of the Mini2440. It has the Qt library enabled and brings
 	in a small Qt based application. This application will be started
 	automatically at system's startup, to show how to get a graphical system
@@ -65,7 +65,7 @@ The Mini2440 BSP comes with two different predefined userland configurations:
 It's up to you and your needs which configuration you may choose in section
 \ref{sec:selectingauserlandconfig}.
 
-\subsection{Some details about the \texttt{configs/ptxconfig.qt}}:
+\subsection{Some details about the \texttt{configs/ptxconfig.qt}}
 
 The mentioned small Qt based application we can find in
 \texttt{local\_src/qt4-demo-2011.07.0/}. It can act as a template for our own
