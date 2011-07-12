@@ -3,6 +3,21 @@ mini2440 FAQ
 
 These questions came up while development of this mini2440 boad support package.
 
+Q: I built the 64 MiB NAND configuration. Can I use it also on a Mini2440 with
+   larger NAND?
+A: No. The 64 MiB NAND is special and needs special configuration settings.
+   Same problem the other way round.
+
+Q: Do I have to download the source archives again and again?
+A: No. Store them into a global location and run "ptxdist setup"
+       Source Directories --->
+           (/my_global_src_dir/) Source Directory
+   Let the "Source Direcory" entry point to the global location. Now, each
+   source archive gets downloaded only once.
+
+Q: How to login?
+A: Just login as 'root', without a password.
+
 Q: I can't login
 A: A bad commit changed the names of the serial consoles to 's3c2410_serial*'
    instead of 'ttySAC*'. Problem is present at least in Linux-2.6.37, solved
