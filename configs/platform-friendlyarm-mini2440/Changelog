@@ -1,3 +1,23 @@
+2011-07.12	Juergen Beisert <jbe@pengutronix.de>
+
+	* Platform: Freeze to PTXdist-2011.07.0
+	* Kernel 2.6.38: Release ptx-2011.07.0
+	* Kernel 2.6.39: Release ptx-2011.07.0
+	* Barebox 2011.05.0: Release ptx-2011.07.0
+	* Platform: Release July 2011 (2011.07.0)
+
+2011-07-09	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 2.6.39: Keep in sync with stable release 2.6.39.3
+
+2011-07-08	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 2.6.39: Add some patches to remove build warnings
+
+2011-07-05	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 2.6.39: Add a patch to uncover hidden bugs
+
 2011-07-04	Juergen Beisert <jbe@pengutronix.de>
 
 	* Platform: Add a template to describe the attached LCD for graphical

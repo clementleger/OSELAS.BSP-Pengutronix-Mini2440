@@ -1,0 +1,29 @@
+From: Wolfram Sang <w.sang@pengutronix.de>
+Subject: arm: mach-s3c2440: mini2440: fix section mismatch
+
+If mini2440_init() is in __init, mini2440_parse_features() should also
+be in __init. Fixes:
+
+(.text+0x9adc): Section mismatch in reference from the function mini2440_parse_features.clone.0() to the (unknown reference) .init.data:(unknown)
+The function mini2440_parse_features.clone.0() references the (unknown reference) __initdata (unknown).
+
+Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
+Cc: Michel Pollet <buserror@gmail.com>
+Cc: Kukjin Kim <kgene.kim@samsung.com>
+---
+ arch/arm/mach-s3c2440/mach-mini2440.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
+===================================================================
+--- linux-2.6.39.orig/arch/arm/mach-s3c2440/mach-mini2440.c
++++ linux-2.6.39/arch/arm/mach-s3c2440/mach-mini2440.c
+@@ -552,7 +552,7 @@ struct mini2440_features_t {
+ 	struct platform_device *optional[8];
+ };
+ 
+-static void mini2440_parse_features(
++static void __init mini2440_parse_features(
+ 		struct mini2440_features_t * features,
+ 		const char * features_str )
+ {
