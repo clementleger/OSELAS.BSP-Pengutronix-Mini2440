@@ -81,9 +81,9 @@ with:
 Enter your selection:
 \end{ptxshell}
 
-We want to use the \textit{vivi} bootloader to load the new barebox bootloader
+We want to use the \textit{vivi} bootloader to load the new Barebox bootloader
 into the Mini2440's RAM. In order to do so, we need the size in bytes of
-barebox's binary:
+Barebox's binary:
 
 \begin{ptxshell}[escapechar=|]{^}
 |\$| ls -l |\ptxdistPlatformDir |images/barebox-image
@@ -103,7 +103,7 @@ Supervivi> load ram 0x31000000 147844 u
 \end{ptxshell}
 
 Please consider the \textit{147844} number here. This number must be the same
-as size of your barebox image.
+as size of your Barebox image.
 
 At this point of time many error messages can happen. The Mini2440
 may output \texttt{USB host is not connected yet}. In this case disconnect
@@ -159,7 +159,7 @@ go to 0x31000000
   argument 3 = 0x00000000
 \end{ptxshell}
 
-This will start the barebox bootloader on the Mini2440, which will
+This will start the Barebox bootloader on the Mini2440, which will
 greet us with:
 
 \begin{ptxshell}[escapechar=|]{^}
@@ -189,7 +189,7 @@ Hit any key to stop autoboot:  3
 \end{ptxshell}
 
 Stop the autoboot timeout by hitting any key. We are now in the shell
-environment of barebox. To update the NAND content in the next step we need
+environment of Barebox. To update the NAND content in the next step we need
 a working network first. One check is to show the current setting of the
 network interface. You should see your own settings here, done in section
 \ref{sec:networkadaptions}. Here is an example for a static network configuration:
@@ -252,7 +252,7 @@ host 192.168.1.7 is alive
 \end{ptxshell}
 
 In order to store all the relevant components into the NAND, we can now use
-some of the builtin features in barebox.
+some of the builtin features in Barebox.
 
 First we must copy, at the host side, all generated images from the board support
 package to the directory used by the TFTP server:
@@ -395,7 +395,7 @@ Changing this behaviour can be done without touching Barebox's source code.
 
 %
 % Ideas:
-% - Add info about how to test the barebox written to the NAND (if it was
+% - Add info about how to test the Barebox written to the NAND (if it was
 %   successful)
 % - Add info on how to check the downloaded file is the correct one
 % - maybe some comment about <erase /dev/nand0> and the use of <reset>
