@@ -2,6 +2,7 @@
 
 	* Documentation: Improvements all over the place
 	* PTXdist: Update to the July release
+	* Board Support Package: Using platform-FriendlyARM-Mini2440-2011.07.0
 
 2011-07-04	Juergen Beisert <jbe@pengutronix.de>
 
