@@ -103,9 +103,9 @@ To do so, we should open one of the following files with our favourite editor:
 
 These settings are relevant only for the bootloader. The file content will be
 the default settings later on, when we are using the Mini2440. Default
-settings mean they can be permanently changed at runtime later on. But, whenever
+settings mean they can be permanently changed at run-time later on. But, whenever
 the bootloader loses its environment it will fall back to the settings in this
-file. So, to avoid making more changes at runtime than required, we should do the
+file. So, to avoid making more changes at run-time than required, we should do the
 settings carefully here.
 
 We can keep the \texttt{ip=dhcp} option enabled. This requires a DHCP server in
@@ -128,7 +128,7 @@ Don't forget the setting of an unique MAC address. At least the entry
 
 \subsubsection{Linux Kernel}			\label{sec:linuxnetwork}
 
-To define network settings used at the runtime of the Linux kernel, we must
+To define network settings used at the run-time of the Linux kernel, we must
 adapt the file
 \texttt{configs/platform-friendlyarm-mini2440/projectroot/etc/network/interfaces}
 instead.
@@ -143,12 +143,12 @@ Other features of the Mini2440 are:
  \item if a camera is present
 \end{itemize}
 
-These features can be enabled/disabled or configured at runtime with the kernel
+These features can be enabled/disabled or configured at run-time with the kernel
 parameter \texttt{mini2440=}. The content of this parameter is also configured
 in the \texttt{config} files mentioned above.
 
 It is important that the LCD is configured correctly, so that it works at
-runtime. Here is a list of currently known LCDs:
+run-time. Here is a list of currently known LCDs:
 
 \begin{itemize}
  \item 3.5" TFT + touchscreen (LCDN3502/NL2432HC22-23B)
