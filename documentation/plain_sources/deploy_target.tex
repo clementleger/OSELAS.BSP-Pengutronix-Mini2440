@@ -163,7 +163,7 @@ This will start the barebox bootloader on the Mini2440, which will
 greet us with:
 
 \begin{ptxshell}[escapechar=|]{^}
-barebox 2011.05.0-mini2440-ptx-2011.06.0 (Jun  4 2011 - 17:00:41)
+barebox 2011.05.0-mini2440-ptx-2011.07.0 (July  13 2011 - 14:21:13)
 
 Board: Mini 2440
 NAND device: Manufacturer ID: 0xec, Chip ID: 0x76 (Samsung NAND 64MiB 3,3V 8-bit)
@@ -337,11 +337,11 @@ will do the job. Note: This new persistent environment will be used at the next
 system start.
 
 If the persistent environment is broken, there is a second method to restore a
-working environment: that is, using the compiled in default environment that
+working environment: that is, using the compiled in default environment which
 comes with Barebox.
 To force the usage of the compiled in default environment, just erase the
-current one in the NAND and reset the target (or run the \texttt{reset}
-command).
+current one in the NAND flash memory and reset the target (or run the
+\texttt{reset} command).
 
 \begin{ptxshell}[escapechar=|]{^}
 mini2440:/ erase /dev/bareboxenv.bb
@@ -349,8 +349,8 @@ mini2440:/ reset
 \end{ptxshell}
 
 Now, Barebox will stumble about the empty partition and then fall back to its
-compiled-in environment version. This can now be adpated by editing the files
-in \texttt{env/} and then saved back to the NAND with the command
+compiled-in environment version. This can now be changed by editing the files
+in \texttt{env/} and then saved back to the NAND flash memory with the command
 
 \begin{ptxshell}[escapechar=|]{^}
 mini2440:/ saveenv
@@ -391,7 +391,7 @@ mini2440:/ update -t rootfs -d nand
 By the way: the \texttt{update} command is not a real command built into
 Barebox. Its a simple shell script coming from the persistent environment.
 If one has different update scenarios she/he can change or adapt this script.
-Changing this behaviour can be done without touching Barebox's C code.
+Changing this behaviour can be done without touching Barebox's source code.
 
 %
 % Ideas:
