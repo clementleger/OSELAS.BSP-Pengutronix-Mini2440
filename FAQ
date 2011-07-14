@@ -1,7 +1,12 @@
 mini2440 FAQ
 ------------
 
-These questions came up while development of this mini2440 boad support package.
+These questions came up while using the Mini2440 boad support package
+
+Q: PTXdist fails to download an archive from the web. How to continie?
+A: You can download manually the archive from a different location on the web
+   (if you found one) and store it to the archive directory PTXdist is using.
+   If the archive is already present, PTXdist skips the step of downloading it.
 
 Q: I built the 64 MiB NAND configuration. Can I use it also on a Mini2440 with
    larger NAND?
@@ -17,6 +22,8 @@ A: No. Store them into a global location and run "ptxdist setup"
 
 Q: How to login?
 A: Just login as 'root', without a password.
+
+These questions came up while development of the Mini2440 boad support package.
 
 Q: I can't login
 A: A bad commit changed the names of the serial consoles to 's3c2410_serial*'
