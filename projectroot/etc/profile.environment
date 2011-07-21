@@ -16,8 +16,13 @@ alias rd='rmdir'
 MINI2440_FBDEV=/dev/fb0
 MINI2440_KEYEVENT=/dev/input/event0
 MINI2440_TOUCHEVENT=/dev/input/event1
-# this size is for the portrait 240 x 320 display of type "LCDN3502"
-# change it, if you are using another display (sizes are in [mm])
+#
+# LCD (sizes are meant in [mm]):
+# - Portrait 240 x 320 display of type "LCDN3502/NEC NL2432HC22-23B"
+#      MINI2440_LCD_WIDTH=55 and MINI2440_LCD_HEIGHT=71
+# - Landscape 800 x 480 display of type "LCD70/Innolux AT070TN83"
+#      MINI2440_LCD_WIDTH=153 and MINI2440_LCD_HEIGHT=92
+#
 MINI2440_LCD_WIDTH=55
 MINI2440_LCD_HEIGHT=71
 
