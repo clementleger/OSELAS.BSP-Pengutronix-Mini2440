@@ -36,6 +36,9 @@ make_all_const.diff
 # Clock handling in the 2.6.38 NFC driver is broken (unbalanced)
 PATCH_1_1_nand_Fix_S3C_NAND_clock_stop.diff
 
+# minor fix
+s3c2410_nand_Remove_uncessary_null_check.patch
+
 # remove unused code in the framebuffer driver
 remove_device_file.diff
 make_debug_decision_const.diff
