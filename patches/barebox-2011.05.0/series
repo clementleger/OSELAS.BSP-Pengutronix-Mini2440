@@ -7,5 +7,7 @@ distinguish_64M_and_128M_NAND.diff
 # fix some corner cases
 fix_generic_nand_issue.diff
 
+fix_dhcp_env_race.diff
+
 # odor marker
 set-marker.diff

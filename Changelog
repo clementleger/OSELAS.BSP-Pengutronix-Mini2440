@@ -2,6 +2,7 @@
 
 	* Kernel 3.0:
 		- Use most recent Linux release
+	* Barebox: Fix DHCP usage at runtime
 
 2011-07-21	Juergen Beisert <jbe@pengutronix.de>
 
