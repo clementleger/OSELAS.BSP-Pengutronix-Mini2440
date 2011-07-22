@@ -1,0 +1,59 @@
+From: MyungJoo Ham <myungjoo.ham@samsung.com>
+
+RTC-S3C used to print out debug messages incorrectly. This patch
+corrects incorrect outputs. (undecoded bcd numbers, incorrectly decoded
+register values) This patch affects the pr-debug messages only.
+
+Signed-off-by: MyungJoo Ham <myungjoo.ham@samsung.com>
+Signed-off-by: Kyungmin Park <kyungmin.park@samsung.com>
+---
+ drivers/rtc/rtc-s3c.c |   13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+Index: linux-3.0/drivers/rtc/rtc-s3c.c
+===================================================================
+--- linux-3.0.orig/drivers/rtc/rtc-s3c.c
++++ linux-3.0/drivers/rtc/rtc-s3c.c
+@@ -143,10 +143,6 @@ static int s3c_rtc_gettime(struct device
+ 		goto retry_get_time;
+ 	}
+ 
+-	pr_debug("read time %04d.%02d.%02d %02d:%02d:%02d\n",
+-		 1900 + rtc_tm->tm_year, rtc_tm->tm_mon, rtc_tm->tm_mday,
+-		 rtc_tm->tm_hour, rtc_tm->tm_min, rtc_tm->tm_sec);
+-
+ 	rtc_tm->tm_sec = bcd2bin(rtc_tm->tm_sec);
+ 	rtc_tm->tm_min = bcd2bin(rtc_tm->tm_min);
+ 	rtc_tm->tm_hour = bcd2bin(rtc_tm->tm_hour);
+@@ -155,6 +151,11 @@ static int s3c_rtc_gettime(struct device
+ 	rtc_tm->tm_year = bcd2bin(rtc_tm->tm_year);
+ 
+ 	rtc_tm->tm_year += 100;
++
++	pr_debug("read time %04d.%02d.%02d %02d:%02d:%02d\n",
++		 1900 + rtc_tm->tm_year, rtc_tm->tm_mon, rtc_tm->tm_mday,
++		 rtc_tm->tm_hour, rtc_tm->tm_min, rtc_tm->tm_sec);
++
+ 	rtc_tm->tm_mon -= 1;
+ 
+ 	return rtc_valid_tm(rtc_tm);
+@@ -254,10 +255,9 @@ static int s3c_rtc_setalarm(struct devic
+ 
+ 	pr_debug("s3c_rtc_setalarm: %d, %04d.%02d.%02d %02d:%02d:%02d\n",
+ 		 alrm->enabled,
+-		 1900 + tm->tm_year, tm->tm_mon, tm->tm_mday,
++		 1900 + tm->tm_year, tm->tm_mon + 1, tm->tm_mday,
+ 		 tm->tm_hour, tm->tm_min, tm->tm_sec);
+ 
+-
+ 	alrm_en = readb(base + S3C2410_RTCALM) & S3C2410_RTCALM_ALMEN;
+ 	writeb(0x00, base + S3C2410_RTCALM);
+ 
+@@ -341,6 +341,7 @@ static void s3c_rtc_release(struct devic
+ 	free_irq(s3c_rtc_tickno, rtc_dev);
+ }
+ 
++
+ static const struct rtc_class_ops s3c_rtcops = {
+ 	.open		= s3c_rtc_open,
+ 	.release	= s3c_rtc_release,

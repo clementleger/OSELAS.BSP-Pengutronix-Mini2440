@@ -1,0 +1,35 @@
+From: Juergen Beisert <jbe@pengutronix.de>
+Subject: Speed up detecting the NAND
+
+Remove the 'NAND_SKIP_BBTSCAN' flag to prevent the driver from reading all
+OOB data of the flash. Without this flag it only reads a few pages with the
+flash based BBT.
+
+This is valid for small and large page NANDs.
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+---
+ drivers/mtd/nand/s3c2410.c |   10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+Index: linux-3.0/drivers/mtd/nand/s3c2410.c
+===================================================================
+--- linux-3.0.orig/drivers/mtd/nand/s3c2410.c
++++ linux-3.0/drivers/mtd/nand/s3c2410.c
+@@ -878,10 +878,12 @@ static void s3c2410_nand_init_chip(struc
+ 	}
+ 
+ 	/* If you use u-boot BBT creation code, specifying this flag will
+-	 * let the kernel fish out the BBT from the NAND, and also skip the
+-	 * full NAND scan that can take 1/2s or so. Little things... */
+-	if (set->flash_bbt)
+-		chip->options |= NAND_USE_FLASH_BBT | NAND_SKIP_BBTSCAN;
++	 * let the kernel fish out the BBT from the NAND
++	 */
++	if (set->flash_bbt) {
++		dev_info(info->device, "Using flash based BBT\n");
++		chip->options |= NAND_USE_FLASH_BBT;
++	}
+ }
+ 
+ /**
