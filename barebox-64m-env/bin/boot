@@ -11,6 +11,14 @@ elif [ x$1 = xnor ]; then
 elif [ x$1 = xnet ]; then
 	rootfs_loc=net
 	kernel_loc=net
+elif [ x$1 = xmmc ]; then
+	rootfs_loc=mmc
+	kernel_loc=mmc
+fi
+
+if [ x$rootfs_loc = xmmc -o x$kernel_loc = xmmc ]; then
+	echo "probing mci for sd card now"
+	mci0.probe=1
 fi
 
 if [ x$ip = xdhcp ]; then
@@ -27,7 +35,7 @@ elif [ x$rootfs_loc = xinitrd ]; then
 else
 	if [ x$rootfs_loc = xnand ]; then
 		rootfs_mtdblock=$rootfs_mtdblock_nand
-	else
+	elif [ x$roots_loc = xnor ]; then
 		rootfs_mtdblock=$rootfs_mtdblock_nor
 	fi
 
@@ -36,6 +44,8 @@ else
 			ubiroot="root"
 		fi
 		bootargs="$bootargs root=ubi0:$ubiroot ubi.mtd=$rootfs_mtdblock"
+	elif [ x$rootfs_loc = xmmc ]; then
+		bootargs="$bootargs root=/dev/mmcblk0p$rootfs_mmc_part rootwait"
 	else
 		bootargs="$bootargs root=/dev/mtdblock$rootfs_mtdblock"
 	fi
@@ -91,8 +101,10 @@ elif [ x$kernel_loc = xnor ]; then
 	kdev="/dev/nor0.kernel"
 elif [ x$kernel_loc = xnand ]; then
 	kdev="/dev/nand0.kernel.bb"
+elif [ x$kernel_loc = xmmc ]; then
+	kdev="/dev/disk0.$kernel_mmc_part"
 else
-	echo "error: set kernel_loc to one of 'net', 'nand' or 'nor'"
+	echo "error: set kernel_loc to one of 'net', 'nand' or 'mmc'"
 	exit 1
 fi
 

@@ -14,12 +14,12 @@ ip=dhcp
 #eth0.serverip=a.b.c.d
 #eth0.ethaddr=a:b:b:d:e:f
 
-# can be either 'net', or 'nand'
+# can be either 'net', 'nand' or 'mmc'
 kernel_loc=nand
-# can be either 'net', 'nand' or 'initrd'
+# can be either 'net', 'nand', 'initrd' or 'mmc'
 rootfs_loc=nand
 
-# can be either 'jffs2' or 'ubifs'
+# can be either 'jffs2' or 'ubifs' for flash or 'ext3' for mmc
 rootfs_type=jffs2
 rootfsimage=root-${machine}.${rootfs_type}
 
@@ -63,4 +63,14 @@ bootargs="console=ttySAC0,115200 mini2440=0tbc"
 
 nand_device="nand"
 nand_parts="256k(barebox),64k(bareboxenv),2048k(kernel),-(root)"
+
+# rootfs's partition number if rootfs_loc == nand
 rootfs_mtdblock_nand=3
+
+# kernel's partition number, if kernel_loc == mmc
+# (starting with # 0)
+kernel_mmc_part=0
+
+# rootfs's partition number if rootfs_loc == mmc
+# (starting with # 1)
+rootfs_mmc_part=2
