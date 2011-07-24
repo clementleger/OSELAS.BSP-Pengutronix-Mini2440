@@ -1,3 +1,8 @@
+2011-07-24	Juergen Beisert <jbe@pengutronix.de>
+
+	* Board Support Package:
+	  - Back to platform-FriendlyARM-Mini2440 master
+
 2011-07-13	Juergen Beisert <jbe@pengutronix.de>
 
 	* Board Support Package: Release July 2011 (2011.07.0)
