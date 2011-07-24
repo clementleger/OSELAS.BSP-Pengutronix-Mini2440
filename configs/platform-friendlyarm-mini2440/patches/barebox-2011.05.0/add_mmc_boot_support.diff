@@ -1,0 +1,187 @@
+From: Laurent Verstraeten <laurentv@tritechbelgium.com>
+Subject: [barebox] patch for mmc mount rootds
+
+I wrote a quick patch for mounting rootfs from mmc (sdCard).
+I post it here in case it's helpful for someone else.
+
+Signed-off-by: Laurent Verstraeten <laurentv@tritechbelgium.com>
+
+With some modifications from:
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+
+---
+ arch/arm/boards/mini2440/env/config |   49 +++++++++++++++++++++++++-----------
+ defaultenv/bin/boot                 |   36 +++++++++++++++++---------
+ 2 files changed, 59 insertions(+), 26 deletions(-)
+
+Index: barebox-2011.05.0/defaultenv/bin/boot
+===================================================================
+--- barebox-2011.05.0.orig/defaultenv/bin/boot
++++ barebox-2011.05.0/defaultenv/bin/boot
+@@ -5,15 +5,30 @@
+ if [ x$1 = xnand ]; then
+ 	rootfs_loc=nand
+ 	kernel_loc=nand
+-elif [ x$1 = xnor ]; then
+-	rootfs_loc=nor
+-	kernel_loc=nor
++	rootfs_type=$rootfs_mtdblock_type
+ elif [ x$1 = xnfs ]; then
+ 	rootfs_loc=net
+ 	kernel_loc=nfs
++	if [ x$ip = xnone ]; then
++		ip=
++	fi
+ elif [ x$1 = xtftp ]; then
+ 	rootfs_loc=net
+ 	kernel_loc=tftp
++	if [ x$ip = xnone ]; then
++		ip=
++	fi
++elif [ x$1 = xmmc ]; then
++	rootfs_loc=mmc
++	kernel_loc=mmc
++	rootfs_type=$rootfs_mmc_type
++fi
++
++if [ x$kernel_loc = xmmc ]; then
++	if [ $mci0.probe = 0 ]; then
++		echo "probing mci for sd card now"
++		mci0.probe=1
++	fi
+ fi
+ 
+ if [ x$ip = xdhcp ]; then
+@@ -32,8 +47,6 @@ elif [ x$rootfs_loc = xinitrd ]; then
+ else
+ 	if [ x$rootfs_loc = xnand ]; then
+ 		rootfs_mtdblock=$rootfs_mtdblock_nand
+-	else
+-		rootfs_mtdblock=$rootfs_mtdblock_nor
+ 	fi
+ 
+ 	if [ x$rootfs_type = xubifs ]; then
+@@ -41,6 +54,9 @@ else
+ 			ubiroot="root"
+ 		fi
+ 		bootargs="$bootargs root=ubi0:$ubiroot ubi.mtd=$rootfs_mtdblock"
++	elif [ x$rootfs_loc = xmmc ]; then
++		bootargs="$bootargs root=/dev/mmcblk0p$rootfs_mmc_part rootwait"
++		rootfstype=
+ 	else
+ 		bootargs="$bootargs root=/dev/mtdblock$rootfs_mtdblock"
+ 	fi
+@@ -48,10 +64,6 @@ else
+ 	bootargs="$bootargs rootfstype=$rootfs_type noinitrd"
+ fi
+ 
+-if [ -n $nor_parts ]; then
+-	mtdparts="${mtdparts}physmap-flash.0:${nor_parts}"
+-fi
+-
+ if [ -n $nand_parts ]; then
+ 	if [ -n ${mtdparts} ]; then
+ 		mtdparts="${mtdparts};"
+@@ -92,12 +104,12 @@ if [ x$kernel_loc = xnfs ] || [ x$kernel
+ 	fi
+ 	$kernel_loc $kernelimage $netload || exit 1
+ 	kdev="$netload"
+-elif [ x$kernel_loc = xnor ]; then
+-	kdev="/dev/nor0.kernel"
+ elif [ x$kernel_loc = xnand ]; then
+ 	kdev="/dev/nand0.kernel.bb"
++elif [ x$kernel_loc = xmmc ]; then
++	kdev="/dev/disk0.$kernel_mmc_part"
+ else
+-	echo "error: set kernel_loc to one of 'nfs', 'tftp', 'nand' or 'nor'"
++	echo "error: set kernel_loc to one of 'net', 'nand' or 'mmc'"
+ 	exit 1
+ fi
+ 
+Index: barebox-2011.05.0/arch/arm/boards/mini2440/env/config
+===================================================================
+--- barebox-2011.05.0.orig/arch/arm/boards/mini2440/env/config
++++ barebox-2011.05.0/arch/arm/boards/mini2440/env/config
+@@ -1,7 +1,6 @@
+ #!/bin/sh
+ 
+ machine=mini2440
+-eth0.serverip=
+ user=
+ 
+ # use 'dhcp' to do dhcp in barebox and in kernel
+@@ -13,26 +12,34 @@ ip=dhcp
+ #eth0.netmask=a.b.c.d
+ #eth0.gateway=a.b.c.d
+ #eth0.serverip=a.b.c.d
++#eth0.ethaddr=a:b:b:d:e:f
+ 
+-# can be either 'nfs', 'tftp' or 'nand'
+-kernel_loc=tftp
+-# can be either 'net', 'nand' or 'initrd'
+-rootfs_loc=net
++# autoboot settings
++# can be either 'nfs', 'tftp', 'nand' or 'mmc'
++kernel_loc=nand
++# can be either 'net', 'nand', 'initrd' or 'mmc'
++rootfs_loc=nand
++# can be either 'jffs2' or 'ubifs' for flash or 'ext3' for mmc
++rootfs_type=jffs2
+ 
+-# can be either 'jffs2' or 'ubifs'
+-rootfs_type=ubifs
+ rootfsimage=root-${machine}.${rootfs_type}
+ 
+ # The image type of the kernel. Can be uimage, zimage, raw, or raw_lzo
+-kernelimage_type=zimage
+-kernelimage=zImage-${machine}
+-#kernelimage_type=uimage
+-#kernelimage=uImage-$machine
++#kernelimage_type=zimage
++#kernelimage=zImage-${machine}
++kernelimage_type=uimage
++kernelimage=uImage-$machine
+ #kernelimage_type=raw
+ #kernelimage=Image-$machine
+ #kernelimage_type=raw_lzo
+ #kernelimage=Image-$machine.lzo
+ 
++# the name of the barebox image used by the update script
++bareboximage=barebox-$machine
++
++# the name of the barebox default environment used by the update script
++bareboxenvimage=barebox-default-environment-$machine
++
+ if [ -n $user ]; then
+ 	kernelimage="${user}"-"${kernelimage}"
+ 	nfsroot="${eth0.serverip}:/home/${user}/nfsroot/${machine}"
+@@ -49,12 +56,26 @@ autoboot_timeout=3
+ # b = backlight enabled
+ # t = touch enabled
+ # c = camera enabled
+-# Note: can be "minit2440= " if nothing of these components are connected
++# Note: can be "mini2440= " if nothing of these components are connected
+ #
+ bootargs="console=ttySAC0,115200 mini2440=0tbc"
+ 
+-# TODO NOR support
+-
++# NAND boot settings
++# Device name used by the kernel
+ nand_device="nand"
++# partition definition in the NAND
+ nand_parts="256k(barebox),128k(bareboxenv),1536k(kernel),-(root)"
++# rootfs's partition number in the NAND
+ rootfs_mtdblock_nand=3
++# used when manually booting with "boot nand" command
++rootfs_mtdblock_type=jffs2
++
++# MMC/SD boot settings
++# partition number to read the kernel from
++# (starting with # 0, Barebox's counting scheme)
++kernel_mmc_part=0
++# rootfs's partition number
++# (starting with # 1, Kernel's counting scheme)
++rootfs_mmc_part=2
++# used when manually booting with "boot mmc" command
++rootfs_mmc_type=ext2

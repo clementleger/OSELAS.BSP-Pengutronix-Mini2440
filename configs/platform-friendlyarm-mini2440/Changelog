@@ -1,3 +1,23 @@
+2011-07-24	Laurent Verstraeten <laurentv@tritechbelgium.com>
+
+	* Barebox: Add support to boot from SD/MMC card
+
+2011-07-24	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 3.0:
+		- make the DM9000 driver more perfect
+
+2011-07-22	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 3.0:
+		- Use most recent Linux release
+	* Barebox: Fix DHCP usage at runtime
+
+2011-07-21	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 2.6.39:
+		- Add minor fix for the NAND driver
+
 2011-07.12	Juergen Beisert <jbe@pengutronix.de>
 
 	* Platform: Freeze to PTXdist-2011.07.0

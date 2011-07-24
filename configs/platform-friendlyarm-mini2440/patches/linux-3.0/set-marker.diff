@@ -2,16 +2,16 @@
  Makefile |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: barebox-2011.05.0/Makefile
+Index: linux-3.0/Makefile
 ===================================================================
---- barebox-2011.05.0.orig/Makefile
-+++ barebox-2011.05.0/Makefile
+--- linux-3.0.orig/Makefile
++++ linux-3.0/Makefile
 @@ -1,7 +1,7 @@
- VERSION = 2011
- PATCHLEVEL = 05
+ VERSION = 3
+ PATCHLEVEL = 0
  SUBLEVEL = 0
 -EXTRAVERSION =
-+EXTRAVERSION = -mini2440-ptx-master
- NAME = Amissive Actinocutious Kiwi
++EXTRAVERSION = -ptx-master
+ NAME = Sneaky Weasel
  
  # *DOCUMENTATION*

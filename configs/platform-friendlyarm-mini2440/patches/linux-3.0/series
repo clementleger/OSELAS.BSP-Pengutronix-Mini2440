@@ -1,13 +1,3 @@
-# keep in sync with stable releases
-
-patch-2.6.39-1.bz2
-patch-2.6.39.1-2.bz2
-patch-2.6.39.2-3.bz2
-
-# these changes will be part of linux-3.0 and maybe the stable series for 2.6.39
-dma_dont_use_uninitialized_variable.patch
-dma_drop_return_codes_in_void_function.patch
-mini2440_fix_section_mismatch.patch
 
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
 add_lcd_w35i.diff
@@ -16,12 +6,16 @@ PATCH_3_4_s3c2440_mini2440_Select_touchscreen_by_default.diff
 PATCH_4_4_s3c2440_mini2440_Use_leds-gpio_driver_for_board_leds_handling.diff
 
 # this patch was intended for YAFFS users, but also JFFS2 uses the OOB area
+# should be visible in mainline sometime
 PATCH_nand_base_Always_initialise_oob_poi_before_writing_OOB_data.diff
 
 # some fixes, occured on LKML/ALKML
 PATCH_1_3_rtc-s3c_Correct_debug_messages.diff
 PATCH_2_3_rtc-s3c_Disable_alarm_entries_that_are_not_chosen.diff
 PATCH_3_3_rtc-s3c_allow_multiple_open_allow_no-ioctl-open_ed_rtc_to_have_irq.diff
+
+# will be part of mainline some time
+dm9000_Make_the_driver_follow_the_IRQF_SHARED_contract.patch
 
 # build time fixes
 Drop_exporting_s3c24xx_ts_set_platdata.diff
@@ -32,9 +26,6 @@ speed_up_NAND_mounting.diff
 
 # just a little bit pedantic
 make_all_const.diff
-
-# Clock handling in the 2.6.38 NFC driver is broken (unbalanced)
-PATCH_1_1_nand_Fix_S3C_NAND_clock_stop.diff
 
 # minor fix
 s3c2410_nand_Remove_uncessary_null_check.patch
@@ -56,4 +47,3 @@ poison_initmem_when_it_is_freed.patch
 
 # odor marker
 set-marker.diff
-
