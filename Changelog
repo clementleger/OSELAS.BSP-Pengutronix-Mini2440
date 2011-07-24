@@ -2,6 +2,7 @@
 
 	* Board Support Package:
 	  - Back to platform-FriendlyARM-Mini2440 master
+	  - Using PTXdist-master again
 
 2011-07-13	Juergen Beisert <jbe@pengutronix.de>
 
