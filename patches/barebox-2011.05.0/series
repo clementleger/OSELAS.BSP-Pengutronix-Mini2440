@@ -9,5 +9,8 @@ fix_generic_nand_issue.diff
 
 fix_dhcp_env_race.diff
 
+# add boot support from SD/MMC card
+add_mmc_boot_support.diff
+
 # odor marker
 set-marker.diff

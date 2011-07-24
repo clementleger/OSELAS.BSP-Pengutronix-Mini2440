@@ -14,13 +14,14 @@ ip=dhcp
 #eth0.serverip=a.b.c.d
 #eth0.ethaddr=a:b:b:d:e:f
 
+# autoboot settings
 # can be either 'net', 'nand' or 'mmc'
 kernel_loc=nand
 # can be either 'net', 'nand', 'initrd' or 'mmc'
 rootfs_loc=nand
-
 # can be either 'jffs2' or 'ubifs' for flash or 'ext3' for mmc
 rootfs_type=jffs2
+
 rootfsimage=root-${machine}.${rootfs_type}
 
 # The image type of the kernel. Can be uimage, zimage, raw, or raw_lzo
@@ -44,7 +45,7 @@ if [ -n $user ]; then
 	nfsroot="${eth0.serverip}:/home/${user}/nfsroot/${machine}"
 	rootfsimage="${user}"-"${rootfsimage}"
 else
-	nfsroot="${eth0.serverip}:/path/to/nfs/root"
+	nfsroot="/path/to/nfs/root"
 fi
 
 autoboot_timeout=3
@@ -59,18 +60,22 @@ autoboot_timeout=3
 #
 bootargs="console=ttySAC0,115200 mini2440=0tbc"
 
-# TODO NOR support
-
+# NAND boot settings
+# Device name used by the kernel
 nand_device="nand"
+# partition definition in the NAND
 nand_parts="512k(barebox),384k(bareboxenv),2048k(kernel),-(root)"
-
-# rootfs's partition number if rootfs_loc == nand
+# rootfs's partition number in the NAND
 rootfs_mtdblock_nand=3
+# used when manually booting with "boot nand" command
+rootfs_mtdblock_type=jffs2
 
-# kernel's partition number, if kernel_loc == mmc
-# (starting with # 0)
+# MMC/SD boot settings
+# partition number to read the kernel from
+# (starting with # 0, Barebox's counting scheme)
 kernel_mmc_part=0
-
-# rootfs's partition number if rootfs_loc == mmc
-# (starting with # 1)
+# rootfs's partition number
+# (starting with # 1, Kernel's counting scheme)
 rootfs_mmc_part=2
+# used when manually booting with "boot mmc" command
+rootfs_mmc_type=ext2
