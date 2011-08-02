@@ -22,6 +22,7 @@
 %
 
 \newcommand{\perCpuName}{S3C2440}
+\newcommand{\curKernelRev}{3.0}
 
 \section{Available Kernel Releases}	\label{sec:kernelreleases}
 
@@ -31,7 +32,7 @@ they are also available. Here is a list of currently available Linux kernel
 releases in the \ptxdistBSPName{}:
 
 \begin{itemize}
-	\item 3.0.0 (default)
+	\item \curKernelRev .0 (default)
 	\item 2.6.39, stable patch level 3
 	\item 2.6.38, stable patch level 8
 \end{itemize}
@@ -41,7 +42,7 @@ If you want to build the BSP with an non-default kernel release, just run
 
 Note: The hashes for the kernels are (used by PTXdist):
 \begin{itemize}
-	\item 3.0.0 \texttt{398e95866794def22b12dfbc15ce89c0}
+	\item 3.0.0: \texttt{398e95866794def22b12dfbc15ce89c0}
 	\item 2.6.39: \texttt{1aab7a741abe08d42e8eccf20de61e05}
 	\item 2.6.38: \texttt{7d471477bfa67546f902da62227fa976}
 \end{itemize}
@@ -438,6 +439,79 @@ used. If the 't' is missing the touchscreen will NOT be registered.
 To add a missing 't', restart the target, stop Barebox from booting and edit
 the bootparameter in the \texttt{/env/config} file. Save the new settings and
 boot again.
+
+\subsection{If the Touchscreen does not work as expected}
+
+It's not easy to create a touchscreen driver that works with all kinds of
+touchscreens. They differ in their hardware parameters, so most of the time
+some adaptions must be done to get better results.
+
+Two locations exists where parameters can be changed:
+
+\begin{itemize}
+	\item in the kernel driver
+	\item in the \textit{tslib} (\textbf{t}ouch\textbf{s}creen \textbf{lib}rary)
+\end{itemize}
+
+The \textit{tslib} is a userland component and can be changed at any time.
+The kernel driver is a compiled in component, so the kernel must be re-built
+and re-started to make any change visible.
+
+Lets start with the kernel driver: It uses three parameters to support the
+physical behaviour of the touchscreen.
+
+\begin{itemize}
+	\item \textbf{.delay} a delay counted in clocks of 3.68 MHz between
+		the measurement of the X and Y coordinate. If the touchscreen
+		lines are filtered with a low-pass it could be useful to
+		increase this value. Max value is 0xffff.
+	\item \textbf{.presc} clock prescaler for the AD converter. The larger the
+		value is, the lower the AD converter works (FIXME: Seems not be
+		used)
+	\item \textbf{.oversampling_shift} defines the samples to be measured and
+		to be averaged before reporting a coordinate. '0' means one sample per
+		report, '1' means two samples per report, '2' means 4 samples and
+		so on.
+\end{itemize}
+
+To modify the setting, open the file
+\texttt{\ptxdistPlatformDir /build-target/linux-\curKernelRev /arch/arm/mach-s3c2440/mach-mini2440.c}
+and search for the \texttt{mini2440_ts_cfg} structure. It looks like this:
+
+\begin{ptxshell}{|}
+static struct s3c2410_ts_mach_info mini2440_ts_cfg __initdata = {
+	.delay = 10000,
+	.presc = 0xff,
+	.oversampling_shift = 0,
+};
+\end{ptxshell}
+
+After modifying the kernel must be re-built:
+
+\begin{ptxshell}{|}
+|\$| ptxdist drop kernel compile
+|\$| ptxdist go
+\end{ptxshell}
+
+These steps ensure the modified sources are re-compiled. Use this new kernel
+and do the tests with the touchscreen again.
+
+To change the userland \textit{tslib} this can be done at run-time of
+the Mini2440. Just modify the \texttt{/etc/ts.conf}.
+
+\begin{itemize}
+	\item \textbf{module_raw input} means the tslib uses the raw data from
+		the Linux's input system
+	\item \textbf{module pthres pmin=1} means the minimal pressure must be
+		'1' to count as a touchscreen event. Other values do not make
+		sense yet, as the driver does not support pressure measurement
+	\item \textbf{module variance delta=30} FIXME
+	\item \textbf{module dejitter delta=10} FIXME
+	\item \textbf{module linear} FIXME
+\end{itemize}
+
+After changing one of these entries a run of \texttt{ts_test} can show if the
+new settings are better than the previous ones.
 
 % ----------------------------------------------------------------------------
 
