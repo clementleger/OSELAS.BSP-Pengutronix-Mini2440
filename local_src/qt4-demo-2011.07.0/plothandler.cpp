@@ -115,27 +115,27 @@ PlotHandler::PlotHandler(QwtPlot *plot)
 	m_curve[0]->setColor(Qt::blue);
 	m_curve[0]->setZ(m_curve[0]->z() - 1);
 	m_curve[0]->attach(m_plot);
-	m_curve[0]->setRawData(m_timeStamp, m_data[0], SIZE);
+	m_curve[0]->setRawSamples(m_timeStamp, m_data[0], SIZE);
 	curveShow(0, true);
 
 	m_curve[1] = new PlotCurve("Nice");
 	m_curve[1]->setColor(Qt::yellow);
 	m_curve[1]->setZ(m_curve[1]->z() - 2);
 	m_curve[1]->attach(m_plot);
-	m_curve[1]->setRawData(m_timeStamp, m_data[1], SIZE);
+	m_curve[1]->setRawSamples(m_timeStamp, m_data[1], SIZE);
 	curveShow(1, false);
 
 	m_curve[2] = new PlotCurve("System");
 	m_curve[2]->setColor(Qt::red);
 	m_curve[2]->attach(m_plot);
-	m_curve[2]->setRawData(m_timeStamp, m_data[2], SIZE);
+	m_curve[2]->setRawSamples(m_timeStamp, m_data[2], SIZE);
 	curveShow(2, true);
 
 	m_curve[3] = new PlotCurve("Idle");
 	m_curve[3]->setColor(Qt::darkCyan);
 	m_curve[3]->setZ(m_curve[3]->z() - 3);
 	m_curve[3]->attach(m_plot);
-	m_curve[3]->setRawData(m_timeStamp, m_data[3], SIZE);
+	m_curve[3]->setRawSamples(m_timeStamp, m_data[3], SIZE);
 	curveShow(3, false);
 
 }
