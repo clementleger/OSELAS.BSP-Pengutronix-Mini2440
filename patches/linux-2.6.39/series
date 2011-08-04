@@ -3,6 +3,7 @@
 patch-2.6.39-1.bz2
 patch-2.6.39.1-2.bz2
 patch-2.6.39.2-3.bz2
+patch-2.6.39.3-4.bz2
 
 # these changes will be part of linux-3.0 and maybe the stable series for 2.6.39
 dma_dont_use_uninitialized_variable.patch
