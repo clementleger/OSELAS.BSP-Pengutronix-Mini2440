@@ -15,7 +15,7 @@ ip=dhcp
 #eth0.ethaddr=a:b:b:d:e:f
 
 # autoboot settings
-# can be either 'net', 'nand' or 'mmc'
+# can be either 'tftp', 'nfs', 'nand' or 'mmc'
 kernel_loc=nand
 # can be either 'net', 'nand', 'initrd' or 'mmc'
 rootfs_loc=nand
