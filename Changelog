@@ -1,3 +1,8 @@
+2011-08-06	Laurent Verstraeten <laurentv@tritechbelgium.com>
+
+	* Kernel 3.0.0:
+	       - keep in sync with stable release .1
+
 2011-07-24	Laurent Verstraeten <laurentv@tritechbelgium.com>
 
 	* Barebox: Add support to boot from SD/MMC card
