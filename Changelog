@@ -1,6 +1,7 @@
 2011-08.06	Juergen Beisert <jbe@pengutronix.de>
 
 	* Platform: Merge Mini2440 changes
+	* Qt4-demo: Build the demo out-of-tree
 
 2011-07-24	Juergen Beisert <jbe@pengutronix.de>
 

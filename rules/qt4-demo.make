@@ -21,6 +21,7 @@ QT4_DEMO_VERSION	:= 2011.07.0
 QT4_DEMO		:= qt4-demo-$(QT4_DEMO_VERSION)
 QT4_DEMO_URL		:= file://$(PTXDIST_WORKSPACE)/local_src/$(QT4_DEMO)
 QT4_DEMO_DIR		:= $(BUILDDIR)/$(QT4_DEMO)
+QT4_DEMO_BUILD_OOT	:= YES
 QT4_DEMO_BUILDDIR	:= $(BUILDDIR)/$(QT4_DEMO)-build
 
 # ----------------------------------------------------------------------------
