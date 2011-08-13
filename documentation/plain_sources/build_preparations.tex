@@ -151,12 +151,13 @@ It is important that the LCD is configured correctly, so that it works at
 run-time. Here is a list of currently known LCDs:
 
 \begin{itemize}
- \item 3.5" TFT + touchscreen (LCDN3502/NL2432HC22-23B)
- \item 7" TFT + touchscreen
- \item VGA shield
- \item 3.5" TFT + touchscreen (T35)
- \item 5.6" TFT + touchscreen (AT056TN52)
- \item 3.5" TFT + touchscreen (X35)
+ \item \textbf{0 N35}: 3.5" TFT + touchscreen (NEC NL2432HC22-23B/LCDN3502-23B)
+ \item \textbf{1}: 7" TFT + touchscreen
+ \item \textbf{2}: VGA shield
+ \item \textbf{3 t35}: 3.5" TFT + touchscreen (TD035STED4)
+ \item \textbf{4}: 5.6" TFT + touchscreen (AT056TN52)
+ \item \textbf{5 x35}: 3.5" TFT + touchscreen (Sony ACX502BMU-7)
+ \item \textbf{6 w35i}: 3.5" TFT + touchscreen (Sharp LQ035Q1DG06)
 \end{itemize}
 
 The list above corresponds to the number (beginning with 0) given to the
@@ -166,7 +167,7 @@ When starting the kernel later on, it will output the list of supported displays
 with the currently selected one embraced.
 
 \begin{ptxshell}[escapechar=|]{^}
-MINI2440: LCD [0:240x320] 1:800x480 2:1024x768 3:240x320 4:640x480 5:240x320
+MINI2440: LCD [0:240x320] 1:800x480 2:1024x768 3:240x320 4:640x480 5:240x320 6:320x240
 \end{ptxshell}
 
 As all of these existing LCDs differ in size and resolution, also userland may
@@ -175,7 +176,7 @@ the Qt library must know some additional data about the display as well. At
 least the physical size of the visible display area is an important value, as
 Qt uses this information to calculate the font's scale.
 
-The BSP comes with a pre-configuration for the portrait \textit{LCDN3502}
+The BSP comes with a pre-configuration for the portrait \textit{N35}
 240 x 320 display. Its visible display area size is: width 53 mm, height 71 mm.
 
 To forward this additional information to Qt, the file

@@ -32,17 +32,19 @@ they are also available. Here is a list of currently available Linux kernel
 releases in the \ptxdistBSPName{}:
 
 \begin{itemize}
-	\item \curKernelRev .0 (default)
+	\item \curKernelRev .1 (default)
 	\item 2.6.39, stable patch level 3
 	\item 2.6.38, stable patch level 8
 \end{itemize}
 
-If you want to build the BSP with an non-default kernel release, just run
+If you want to build the BSP with a non-default kernel release, just run
 \texttt{ptxdist platformconfig} and change the kernel setting prior to building.
+As \ptxdist{} checks the MD5 sums of the archives, we also have to change the
+MD5 sum of the corresponding kernel archive.
 
-Note: The hashes for the kernels are (used by PTXdist):
+Note: The MD5 sums for the kernels are (used by \ptxdist{}):
 \begin{itemize}
-	\item 3.0.0: \texttt{398e95866794def22b12dfbc15ce89c0}
+	\item 3.0: \texttt{398e95866794def22b12dfbc15ce89c0}
 	\item 2.6.39: \texttt{1aab7a741abe08d42e8eccf20de61e05}
 	\item 2.6.38: \texttt{7d471477bfa67546f902da62227fa976}
 \end{itemize}
@@ -52,7 +54,6 @@ Note: The hashes for the kernels are (used by PTXdist):
 \section{Available Userland Configuration}	\label{sec:userland}
 
 The Mini2440 BSP comes with two different predefined userland configurations:
-
 
 \begin{itemize}
 	\item \textbf{configs/ptxconfig}: it is the standard one to get a small
@@ -86,7 +87,7 @@ your screen differs from this setup, don't expect a correct image.
 
 % ----------------------------------------------------------------------------
 
-\newcommand{\perDisplayName}{LCDN3502-23B}
+\newcommand{\perDisplayName}{LCDN3502-23B (N35)}
 \newcommand{\perDisplayRes}{240x320}
 
 \section{Framebuffer}					\label{sec:fb}
@@ -98,15 +99,15 @@ For this BSP the \perDisplayName{} display with a resolution of
 
 A simple test of this feature can be run with:
 
-\begin{ptxshell}{|}
-# |fbtest|
+\begin{ptxshell}[escapechar=|]{^}
+# fbtest
 \end{ptxshell}
 
 This will show various pictures on the display.
 
 You can check your framebuffer resolution with the command
-\begin{ptxshell}{|}
-# |fbset|
+\begin{ptxshell}[escapechar=|]{^}
+# fbset
 \end{ptxshell}
 
 NOTE: \texttt{fbset} cannot be used to change display resolution or colour depth.
@@ -144,8 +145,8 @@ number. Each of these folders provide information about a single GPIO
 controller registered on the Mini2440 board, for example with
 \texttt{gpiochip\perGpioChip}:
 
-\begin{ptxshell}[escapechar=^]{|}
-# |ls /sys/class/gpio/gpiochip^\perGpioChip^|
+\begin{ptxshell}[escapechar=|]{^}
+# ls /sys/class/gpio/gpiochip|\perGpioChip |
 base       label      ngpio      subsystem  uevent
 \end{ptxshell}
 
@@ -154,8 +155,8 @@ The entry \texttt{base} contains information about the base GPIO number and
 We use \texttt{GPIO\perGpioNumber{}} as an example to show the usage of a
 single GPIO pin.
 
-\begin{ptxshell}[escapechar=^]{|}
-# |echo ^\ptxshellcmd\perGpioNumber^ > /sys/class/gpio/export|
+\begin{ptxshell}[escapechar=|]{^}
+# echo |\ptxshellcmd\perGpioNumber | > /sys/class/gpio/export|
 \end{ptxshell}
 
 This way we export \texttt{gpio\perGpioNumber{}} for userspace usage. If the
@@ -165,8 +166,8 @@ we will be able to find the entries to access the functions of this GPIO.
 If we wish to set the direction and initial level of the GPIO, we can use the
 command:
 
-\begin{ptxshell}[escapechar=^]{|}
-# |echo high > /sys/class/gpio^\perGpioNumber^/direction|
+\begin{ptxshell}[escapechar=|]{^}
+# echo high > /sys/class/gpio|\perGpioNumber |/direction|
 \end{ptxshell}
 
 This way we export \texttt{GPIO\perGpioNumber{}} for userspace usage and define
@@ -181,8 +182,8 @@ influence an LED directly from userspace.
 To unexport an already exported GPIO, write the corresponding gpio-number into
 \texttt{/sys/class/gpio/export}.
 
-\begin{ptxshell}[escapechar=^]{|}
-# |echo ^\perGpioNumber^ > /sys/class/gpio/unexport|
+\begin{ptxshell}[escapechar=|]{^}
+# echo |\perGpioNumber | > /sys/class/gpio/unexport
 \end{ptxshell}
 
 Now the directory \texttt{/sys/class/gpio/gpio\perGpioNumber} will disappear.
@@ -303,8 +304,8 @@ After inserting an MMC/SD card, the kernel will generate new device nodes in
 \texttt{dev/}. The full device can be reached via its \texttt{/dev/mmcblk0}
 device node, MMC/SD card partitions will occur in the following way:
 
-\begin{ptxshell}{|}
-/dev/mmcblk0p|Y|
+\begin{ptxshell}[escapechar=|]{^}
+/dev/mmcblk0p|\textbf{Y}|
 \end{ptxshell}
 \texttt{\textbf{Y}} counts as the partition number starting from 1 to the max
 count of partitions on this device.
@@ -362,13 +363,13 @@ Currently no SPI slave devices are registered, so the
 
 A simple test of this feature can be run with:
 
-\begin{ptxshell}{|}
+\begin{ptxshell}[escapechar=|]{^}
 # ts_calibrate
 \end{ptxshell}
 
 to calibrate the touch and with:
 
-\begin{ptxshell}{|}
+\begin{ptxshell}[escapechar=|]{^}
 # ts_test
 \end{ptxshell}
 
@@ -407,7 +408,7 @@ Firstly, the touchscreen driver for the S3C2440 CPU must be enabled in the
 kernel. If it is supported, it can be checked at run-time with the following
 command:
 
-\begin{ptxshell}{|}
+\begin{ptxshell}[escapechar=|]{^}
 # ls /sys/bus/platform/drivers
 \end{ptxshell}
 
@@ -417,7 +418,7 @@ must be re-configured to support this device.
 Secondly, a functional touchscreen depends on is the registered touchscreen
 device. If it is registered, this can be checked at run-time with this command:
 
-\begin{ptxshell}{|}
+\begin{ptxshell}[escapechar=|]{^}
 # ls /sys/bus/platform/devices
 \end{ptxshell}
 
@@ -427,7 +428,7 @@ platform is an optional part, so it must be enabled on demand to make it work.
 The touchscreen is enabled by the \texttt{mini2440=} kernel parameter. If the
 running kernel receives the correct parameter this setting can be checked with:
 
-\begin{ptxshell}{|}
+\begin{ptxshell}[escapechar=|]{^}
 # cat /proc/cmdline
 console=ttySAC0,115200 mini2440=0tb mtdparts=nand:256k(barebox),64k(bareboxenv),2048k(kernel),-(root)
 \end{ptxshell}
@@ -468,7 +469,7 @@ physical behaviour of the touchscreen.
 	\item \textbf{.presc} clock prescaler for the AD converter. The larger the
 		value is, the lower the AD converter works (FIXME: Seems not be
 		used)
-	\item \textbf{.oversampling_shift} defines the samples to be measured and
+	\item \textbf{.oversampling\_shift} defines the samples to be measured and
 		to be averaged before reporting a coordinate. '0' means one sample per
 		report, '1' means two samples per report, '2' means 4 samples and
 		so on.
@@ -476,9 +477,9 @@ physical behaviour of the touchscreen.
 
 To modify the setting, open the file
 \texttt{\ptxdistPlatformDir /build-target/linux-\curKernelRev /arch/arm/mach-s3c2440/mach-mini2440.c}
-and search for the \texttt{mini2440_ts_cfg} structure. It looks like this:
+and search for the \texttt{mini2440\_ts\_cfg} structure. It looks like this:
 
-\begin{ptxshell}{|}
+\begin{ptxshell}[escapechar=|]{^}
 static struct s3c2410_ts_mach_info mini2440_ts_cfg __initdata = {
 	.delay = 10000,
 	.presc = 0xff,
@@ -486,9 +487,9 @@ static struct s3c2410_ts_mach_info mini2440_ts_cfg __initdata = {
 };
 \end{ptxshell}
 
-After modifying the kernel must be re-built:
+After modifying, the kernel must be re-built:
 
-\begin{ptxshell}{|}
+\begin{ptxshell}[escapechar=|]{^}
 |\$| ptxdist drop kernel compile
 |\$| ptxdist go
 \end{ptxshell}
@@ -500,7 +501,7 @@ To change the userland \textit{tslib} this can be done at run-time of
 the Mini2440. Just modify the \texttt{/etc/ts.conf}.
 
 \begin{itemize}
-	\item \textbf{module_raw input} means the tslib uses the raw data from
+	\item \textbf{module\_raw input} means the tslib uses the raw data from
 		the Linux's input system
 	\item \textbf{module pthres pmin=1} means the minimal pressure must be
 		'1' to count as a touchscreen event. Other values do not make
@@ -510,7 +511,7 @@ the Mini2440. Just modify the \texttt{/etc/ts.conf}.
 	\item \textbf{module linear} FIXME
 \end{itemize}
 
-After changing one of these entries a run of \texttt{ts_test} can show if the
+After changing one of these entries a run of \texttt{ts\_test} can show if the
 new settings are better than the previous ones.
 
 % ----------------------------------------------------------------------------
@@ -527,13 +528,13 @@ The backlight of the LCD can be controlled via the sysfs entry in:
 To switch it \textit{off}, just write a '0' into its \texttt{brightness} entry:
 
 \begin{ptxshell}{|}
-echo 0 > /sys/class/leds/backlight/brightness
+# echo 0 > /sys/class/leds/backlight/brightness
 \end{ptxshell}
 
 and a '1' to switch it \textit{on} again:
 
 \begin{ptxshell}{|}
-echo 1 > /sys/class/leds/backlight/brightness
+# echo 1 > /sys/class/leds/backlight/brightness
 \end{ptxshell}
 
 % ----------------------------------------------------------------------------
@@ -588,7 +589,7 @@ done by reading the corresponding entries in the sysfs.
 For example the analogue input channel 0 on the Mini2440 is connected to the
 potentiometer W1. By reading the entry
 \texttt{/sys/devices/platform/s3c24xx-adc/s3c-hwmon/in0\_input}
-we can watch the different digital values while turning the the potentiometer W1.
+we can watch the different digital values while turning the potentiometer W1.
 
 Note: The analogue input channels 4 ... 7 are occupied by the touchscreen
 feature and can only be used as simple analogue inputs if the touchscreen

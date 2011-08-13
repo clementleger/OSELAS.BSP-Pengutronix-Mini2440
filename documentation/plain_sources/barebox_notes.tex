@@ -44,29 +44,112 @@ needs. How Barebox enters it's shell is compiled-in. Changing the
 The Barebox binary handles only target initialization and provides device
 drivers and various commands to do things after the initialization. It is up to
 the user to use these features to make her/his target work. This works on a
-shell code base. For example Barebox, tries to run the \texttt{/env/bin/init}
+shell code base. For example, Barebox tries to run the \texttt{/env/bin/init}
 script right after the initialization is finished. This file is expected
 as a part of the environment.
 
 From the technical point of view, the Barebox environment is a simple
 archive which contains files and directories. At startup, this archive will
-be extracted to the \texttt{env/} directory and can be used afterwards on a
-regular file base. Note: the \texttt{/} directory in Barebox is a RAM
+be extracted to the \texttt{env/} directory and can be used afterwards
+on a regular file base. Note: the \texttt{/} directory in Barebox is a RAM
 filesystem.
 
-As Barebox tries to run the \texttt{/env/bin/init} script after the
-initialization, an environment is always required. The archive that each
-environment is based on, can be a compiled-in component or can be loaded at
-run-time from a persistent media.
+Barebox always tries to load the user environment archive from the registered
+persistent media first (aka "user env"). If this fails, Barebox defaults to the
+default compiled-in environment archive.
 
-The compiled-in environment archive is a read only archive defined at
-compile-time of Barebox. The environment archive from the persistent
-media is (most of the time) a read/write archive. It can be changed at any
-time and saved back to make the change persistent.
+The compiled-in default environment archive is a read only archive defined at
+compile-time of Barebox.
 
-Barebox always tries to load the environment archive from the registered
-persistent media first. If this fails, Barebox defaults to the compiled-in
-environment archive.
+The \texttt{user env} can be changed at any point of time.
+
+\subsubsection{Run-Time Environment ()\texttt{env}) and how it is controlled by Barebox}
+
+When starting from a totally clean system (e.g. NAND flash is empty) and if
+you do an \texttt{update -t barebox -d nand} to bring in the Barebox bootloader
+into the NAND flash and then reset the mini2440, Barebox will use its default
+compiled-in environment due to the \texttt{user env} is still empty. To change
+the run-time Barebox environment, on the target, one can do \texttt{edit /env/config}
+(to make the changes), \textit{CTRL D} (to store the changes to the RAM disk and
+leave the editor) and a \texttt{saveenv} (to save the changes to the
+\texttt{user env}). The next time we boot the mini2440, the \texttt{user env}
+takes priority. Note: the default Barebox environment has not been changed.
+
+Here a graphic to show the process:
+
+\centerline{\includegraphics{OSELAS.BSP-Pengutronix-Mini2440/documentation/plain_sources/default_versus_user_env.png}}
+
+\begin{itemize}
+	\item state 1: the 1st boot. Barebox runs in RAM and loads the
+	      \texttt{env} from the default compiled-in environment due to the
+	      \texttt{user env} is still empty
+	\item state 2: the user changes the \texttt{env} and saves it. Now, the
+	      \texttt{user env} is no longer empty
+	\item state 3: At the next system start Barebox now ignores the default
+	      compiled-in environment and loads its \texttt{env} from the
+	      \texttt{user env}
+\end{itemize}
+
+The above method is appropriate for minor changes in the Barebox environment. For
+major env changes it is suggested that we modify the environments files in the board
+support package instead at the target. On our host it's easier to change these files
+(for example with our favourite editor instead of the simple editor embedded in
+Barebox) and these changes are also present in the future if we want to re-build
+everything again.
+
+The environment is a collection of files from different locations in the board
+support package. One location is the \texttt{configs/\ptxdistPlatformName /barebox-64m-env/}.
+Another location is \texttt{\ptxdistPlatformDir /build-target/barebox-\ptxBareboxRev /defaultenv/}.
+The second location contains the more generic shell scripts, while the first
+location contains user specific settings. If we intend to also change the generic shell
+scripts, its easier to copy them also to the \texttt{configs/\ptxdistPlatformName /barebox-64m-env/}
+location instead to modify them at their original path (this modification would
+be lost, if we run \texttt{ptxdist clean}). The files at
+\texttt{configs/\ptxdistPlatformName /barebox-64m-env/} takes priority over the
+one from the \texttt{\ptxdistPlatformDir /build-target/barebox-\ptxBareboxRev /defaultenv/}
+if files with the same name exits.
+
+After such a change we should run:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| ptxdist clean barebox
+|\$| ptxdist go
+|\$| ptxdist images
+\end{ptxshell}
+
+This rebuilds Barebox and includes the changed default compiled-in environment.
+
+Next, make these files available for download via network/TFTP:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| cp |\ptxdistPlatformDir |images/barebox-image /tftpboot/barebox-mini2440
+\end{ptxshell}
+
+Now,
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ update -t barebox -d nand
+\end{ptxshell}
+
+together with its new compiled-in default environment. But at the next system
+start also this new Barebox would use the \texttt{user env} if it is still present.
+To make it use the new compiled-in default environment we must either invalidate
+the \texttt{user env} with:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ erase /dev/nand0.bareboxenv.bb
+\end{ptxshell}
+
+or update the \texttt{user env} with the prepared archive from the last build:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| cp |\ptxdistPlatformDir |images/barebox-default-environment /tftpboot/barebox-default-environment-mini2440
+\end{ptxshell}
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ update -t bareboxenv -d nand
+\end{ptxshell}
+
 
 % Idea: Describe the components of the default environment provided by the
 % Barebox source tree. What variables/scripts are used and their meaning
@@ -135,14 +218,14 @@ In Barebox's run-time environment it looks like:
 \texttt{256k(barebox),64k(bareboxenv),2048k(kernel),-(root)}
 
 \begin{itemize}
- \item bootloader itself (\textit{barebox}): this binary brings up the target
-  after power on or reset
- \item persistent environment (\textit{bareboxenv}): used by Barebox to bring up
-  the whole system in the way that the user has configured it
- \item operating system (\textit{kernel}): the kernel image, Barebox will load
-  and run it
- \item root filesystem (\textit{root}): used by the kernel as the root
-  filesystem
+	\item bootloader itself (\textit{barebox}): this binary brings up the target
+	      after power on or reset
+	\item persistent environment (\textit{bareboxenv}): used by Barebox to bring up
+	      the whole system in the way that the user has configured it
+	\item operating system (\textit{kernel}): the kernel image, Barebox will load
+	      and run it
+	\item root filesystem (\textit{root}): used by the kernel as the root
+	      filesystem
 \end{itemize}
 
 The size and location of some of these partitions can be modified at run-time
@@ -183,7 +266,7 @@ nand_parts="256k(barebox),64k(bareboxenv),2048k(kernel),-(root)"
 
 It corresponds to the following NAND partition layout:
 
-\centerline{\includegraphics{OSELAS.BSP-Pengutronix-Mini2440/documentation/plain_sources/partitioning.png}}
+\centerline{\includegraphics[width=16cm]{OSELAS.BSP-Pengutronix-Mini2440/documentation/plain_sources/partitioning.png}}
 
 This setup defines
 
@@ -230,3 +313,195 @@ reading from partitions with wrong settings in size and location will fail.
 So, the best procedure is to change the compiled-in environment to ensure the
 partition layout is always consistent, even if the modified persistent
 environment gets lost.
+
+\section{NFS with PTXdist and Barebox}
+
+NFS stands for \textit{\textbf{N}etwork \textbf{F}ile\textbf{S}ystem}. It is one
+way to export a local filesystem content via network to another host. In our case
+we can use it to simulate a root filesystem for our target. This easifys all kind
+of development for the Mini2440. We do not have to change anything locally on the
+Mini2440. As our target is using our local host's filesystem, we can also change
+everything locally and it will be visible at target's side instantly.
+
+What we need at our host's side:
+
+\begin{itemize}
+	\item NFS server support in our Linux kernel
+	\item NFS utils
+	\item the \texttt{portmap} tool
+\end{itemize}
+
+It depends on the distribution we are using, how to get and enable this feature on
+our host.
+
+To get these components on a Ubuntu based system we just have to enter:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| sudo apt-get install nfs-kernel-server nfs-common portmap
+\end{ptxshell}
+
+The last two may not be required for a NFS server, but if you decide to install a
+NFS client on the Ubuntu box or need to do any troubleshooting later, you will
+need them.
+% FIXME: AFAIK 'portmap' is always required as it manages the network ports to be used
+
+First thing is to enable the export of specific parts of the host's local filesystem.
+This should be done \textbf{very} carefully, because:
+
+\begin{itemize}
+	\item we must export the required filesystem parts in a very unsafe manner
+	\item typos in the export's controling file may results into very funny and
+		confusing error messages
+\end{itemize}
+
+The "unsafe manner" means, we allow any \textit{root} user on the remote system
+using our local filesystem also to be the root user on our host! This is a huge
+security hole, if more parts of the local filesystem gets exported than intended.
+
+\ptxdist{} creates one directory intended for NFS root filesystem export when building
+the board support package:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$|  ls |\ptxdistPlatformDir |root
+bin  dev  etc  home  lib  mnt  proc  root  run  sbin  sys  tmp  usr  var
+\end{ptxshell}
+
+If we are a little bit paranoid we should only export exactly this one directory. The
+best way to know what directory path has to be used to export exactly this directory
+we can follow these steps:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| cd |\ptxdistPlatformDir |root
+|\ptxdistPlatformDir |root|\$| pwd -P
+/home/me/|\ptxdistBSPName |/|\ptxdistPlatformDir |root
+\end{ptxshell}
+
+The path, the \texttt{pwd} command outputs is the one we should export at our local
+host and our Mini2440 must mount at runtime to get access to this directory.
+
+\begin{important}
+Exporting this specific directory presumes the directory must already exist when the export
+is enabled. Exporting first and then building the board support package (which creates the
+directory at this point of time) does not work as expected. Every \texttt{ptxdist clean; ptxdist go}
+requires to re-export this directory.\\
+To be less dependend on the build state of the board support package, the BSP's directory
+could be exported instead: \texttt{/home/me/\ptxdistBSPName }
+\end{important}
+
+But step by step. \textit{Export} first:
+
+The file to be modified is the \texttt{/etc/exports}. This file is used by the NFS related
+tools to know what parts of the filesystem should be exported and how it should be exported.
+
+In our case we add the following line to this file:
+
+\begin{ptxshell}[escapechar=|]{^}
+/home/me/|\ptxdistBSPName |/|\ptxdistPlatformDir |root *(rw,no_root_squash,sync,no_subtree_check)
+\end{ptxshell}
+
+What does it mean: First part of the line is the to be exported directory. Second part is,
+who is allowed to use this directory. In the line mentioned above the asterisk ('\texttt{*}')
+means \textit{everybody}. Here we can use an IP range instead of an asterisk to make the
+security hole a little bit smaller. The third part are the permissions the remote host has
+on our localy exported path. \texttt{rw} means read write permission. The opposite is
+\texttt{ro} which means read only. But in our case we need the \texttt{rw} in order to use
+the exported directory for our root filesystem requirements.
+
+Note: Do not add any white space between the asterisk/IP range and the left parenthesis
+starting the permission: you will gather confusing error messages.
+
+Most of the time there is no user management at our targets. Or to be more precise: most of
+the time only one user is required to make the target work as expected. This is always the
+user \textit{root}. To allow this root user at the target side to touch all files in our exported
+directory the parameter \texttt{no\_root\_squash} must be given. But be aware: In this
+case the remote root user is also the root user on our host! Do you feel the risk? That's why
+only to export the required directory and nothing more.
+
+If the NFS service is not running on our host yet, it's now time to run it:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| sudo /etc/init.d/nfs-kernel-server start
+\end{ptxshell}
+
+Note: This step can differ on other distributions.
+
+If the NFS service is already running, we can force to export all directories listed in
+\texttt{/dev/exports} by running:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| sudo exportfs -rv
+\end{ptxshell}
+
+To check the current export state we can simply run a:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| sudo exportfs -v
+/home/me/|\ptxdistBSPName |/|\ptxdistPlatformDir |root
+	<world>(rw,wdelay,no_root_squash,no_subtree_check)
+\end{ptxshell}
+
+\texttt{<world>} means here the asterisk ('\texttt{*}').
+
+Now is everything prepared at the host's side. Next step is to instruct our
+Mini2440 to use the new host's feature. Refer section \ref{sec:networkmem} how
+to do so. The variable \texttt{nfsroot} must be setup in accordance to the
+exported filesystem on our host.
+
+Even if we export
+
+\begin{ptxshell}[escapechar=|]{^}
+/home/me/|\ptxdistBSPName |
+\end{ptxshell}
+
+on our host (to avoid the \texttt{ptxdist clean; ptxdist go} issue mentioned above),
+our Mini2440 must always use the full path:
+
+\begin{ptxshell}[escapechar=|]{^}
+nfsroot=/home/me/|\ptxdistBSPName |/|\ptxdistPlatformDir |root
+\end{ptxshell}
+
+After we have a working NFS system all that is required is a power-up on the
+Mini2440, connected to our host, to enable sharing of the root file system.
+
+After login to our target we can now look at any of the files in
+\texttt{\ptxdistPlatformDir root}, for example:
+
+On the server (host):
+
+\begin{ptxshell}[escapechar=|]{^}
+/home/me/|\ptxdistBSPName |/|\ptxdistPlatformDir |root/etc/fstab
+\end{ptxshell}
+
+and on the target (Mini2440)
+
+\begin{ptxshell}[escapechar=|]{^}
+/etc/fstab
+\end{ptxshell}
+
+We should see that the contents of these files are the same. Also, we can
+change this file’s contents from our target or from our host AND see the
+changes appear on the other device.
+
+\subsection{Troubleshooting}
+
+If towards the end of the kernel boot process you get this message:
+
+\begin{ptxshell}[escapechar=|]{^}
+VFS:  Unable to mount root via NFS, trying floppy
+VFS:  Cannot open root device “nfs” or unknown-block(2,0)
+\end{ptxshell}
+
+Don’t panic!
+
+Have a look in \texttt{/var/log/syslog} on the server and if you see a
+message like this:
+
+\begin{ptxshell}[escapechar=|]{^}
+Jun 15 21:30:09 my-desktop mountd[1716]: refused mount request from 192.168.1.230 for
+/home/me/|\ptxdistBSPName |/|\ptxdistPlatformDir |root (/): not exported
+\end{ptxshell}
+
+Have a \textbf{real close} look and see that you haven’t made a mistake. Check
+again the directory the server exports and also check the content of the \texttt{nfsroot}
+variable. The start of the path must match exactly. Any typo will result into this
+kind of failure.

@@ -20,9 +20,19 @@
 % All these commands are starting with 'ptxdist'.
 %
 
-\section{Deploying the Mini2440}	\label{sec:deploying}
+\section{Bring in the Bootloader Barebox}	\label{sec:deploying}
 
-After building all the relevant images we can now load them on to the target.
+In oder to make use of all possible boot sources the bootloader Barebox must
+be installed into the Mini2440. This booloader enables the following boot
+sources:
+
+\begin{itemize}
+	\item NAND flash memory: This enables the Mini2440 to boot standalone
+	and very fast
+	\item SD/MMC card: This enables the user to change all relevant
+	software parts very easy by changing the SD/MMC card
+	\item Network: This is intended for easy development
+\end{itemize}
 
 What we need for this step:
 
@@ -163,7 +173,7 @@ This will start the Barebox bootloader on the Mini2440, which will
 greet us with:
 
 \begin{ptxshell}[escapechar=|]{^}
-barebox 2011.05.0-mini2440-ptx-2011.07.0 (July  13 2011 - 14:21:13)
+barebox |\ptxBareboxRev |-mini2440-ptx-|\releasenumber| (July  13 2011 - 14:21:13)
 
 Board: Mini 2440
 NAND device: Manufacturer ID: 0xec, Chip ID: 0x76 (Samsung NAND 64MiB 3,3V 8-bit)
@@ -217,7 +227,7 @@ DHCP client bound to address 192.168.1.27
 \end{ptxshell}
 
 If you do not use DHCP for network configuration, you must edit the file
-\texttt{/env/config} first.
+\texttt{/env/config} in the Barebox environment.
 
 \begin{ptxshell}[escapechar=|]{^}
 mini2440:/ edit /env/config
@@ -235,6 +245,9 @@ them now to NAND:
 mini2440:/ saveenv
 \end{ptxshell}
 
+For further explanation about the default (compiled-in) Barebox environment
+and the “user defined” Barebox environment in NAND, see section \ref{sec:bbenv}.
+
 To make the new static network configuration work, we must execute the
 \texttt{config} file again:
 
@@ -251,31 +264,322 @@ mini2440:/ ping 192.168.1.7
 host 192.168.1.7 is alive
 \end{ptxshell}
 
-In order to store all the relevant components into the NAND, we can now use
+In order to store the bootloader Barebox into the NAND, we can now use
 some of the builtin features in Barebox.
 
-First we must copy, at the host side, all generated images from the board support
+First we must copy - at the host side - the Barebox image from the board support
 package to the directory used by the TFTP server:
 
 \begin{ptxshell}[escapechar=|]{^}
 |\$| cp |\ptxdistPlatformDir |images/barebox-image /tftpboot/barebox-mini2440
+\end{ptxshell}
+
+Due to some scripts from the compiled-in environment and already setting up the
+network, storing Barebox into the NAND is now very easy:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ update -t barebox -d nand
+\end{ptxshell}
+
+That's all. To boot using the new bootloader, we must now change the switch
+\textbf{S2} back to the NAND position. Power cycle the Mini2440 or press its
+reset button and the new bootloader will start.
+
+After installing Barebox on the Mini2440 the hardest part is done. Now it's
+time to decide about how to boot the Mini2440.
+
+\section{How to Boot the Mini2440}	\label{sec:bootingmini2440}
+
+Various methods are exist to bring up the Mini2440. The main difference is if
+the Mini2440 can boot in a standalone manner or if it depends on some services
+from another host via network.
+
+To start the Mini2440 in a standalone manner it provides some local memory types
+to store the relevant software parts.
+
+\begin{itemize}
+\item \texttt{NOR type flash memory} Can be used to bring up the Mini2440. But
+	mostly used for the rescue bootloader. This board support package does
+	not touch the NOR memory, to keep the fall back to restore a bricked
+	Mini2440.
+\item \texttt{NAND type flash memory} Provides enough memory space to hold all
+	run-time relevant software parts. This board support package supports
+	this memory type as one way to start the Mini2440 standalone.
+\item \texttt{SD/MMC card memory} Nice and easy way to deploy the run-time
+	relevant software parts at the development host and simply booting
+	the Mini2440 with it.
+\end{itemize}
+
+Note: All the mentioned boot methods below require Barebox as their bootloader.
+The easiest way to get Barebox into the Mini2440 is via its internal NAND. So,
+at least Barebox and its persistent environment has to be stored into the NAND
+flash memory. The other parts (kernel and root filesystem) can be loaded from
+all other supported media.
+
+\subsection{NOR Type Flash Memory}
+
+As the NOR type flash memory is not supported in this board support package,
+we skip its explanation here.
+
+\subsection{NAND Type Flash Memory}				\label{sec:nandflashmem}
+
+This is the most common method to boot the Mini2440. It does not depend on
+any external media or network connection. And it is also a fast method to
+boot it.
+
+To use the NAND flash as the boot media, this board support package creates
+two files when running the last \texttt{ptxdist images} step:
+
+\begin{itemize}
+\item \texttt{\ptxdistPlatformDir images/linuximage} is the Linux kernel
+	and must be stored in the corresponding NAND partition
+\item \texttt{\ptxdistPlatformDir images/root.jffs2} contains the root filesystem
+	and must be stored 'as is' in the corresponding NAND partition
+\end{itemize}
+
+\centerline{\includegraphics{OSELAS.BSP-Pengutronix-Mini2440/documentation/plain_sources/nand_partition.png}}
+
+At our host's side:
+
+\begin{ptxshell}[escapechar=|]{^}
 |\$| cp |\ptxdistPlatformDir |images/root.jffs2 /tftpboot/root-mini2440.jffs2
 |\$| cp |\ptxdistPlatformDir |images/linuximage /tftpboot/uImage-mini2440
 \end{ptxshell}
 
-Then we can run a script at the Mini2440's side:
+Then we can run a script at the Mini2440's side to bring in the files into the
+NAND memory:
 
 \begin{ptxshell}[escapechar=|]{^}
-mini2440:/ update -t barebox -d nand
 mini2440:/ update -t rootfs -d nand
 mini2440:/ update -t kernel -d nand
 \end{ptxshell}
 
-That's all. To boot using the new firmware, we must now change the switch
-\textbf{S2} back to the NAND position. Power cycle the Mini2440 or press its
-reset button and the new software will start.
+Corresponding setup in the Barebox's \texttt{/env/config}:
+
+\begin{ptxshell}[escapechar=|]{^}
+kernel_loc=nand
+rootfs_loc=nand
+\end{ptxshell}
+
+Specific settings in \texttt{/env/config} for the NAND case:
+
+\begin{ptxshell}[escapechar=|]{^}
+rootfs_type=jffs2
+rootfs_mtdblock_nand=3
+kernelimage_type=uimage
+\end{ptxshell}
+
+With these settings Barebox will automatically load the kernel from the NAND
+memory and instruct the kernel to also use the NAND memory for its root
+filesystem. \texttt{rootfs\_mtdblock\_nand} defines the partition number in the
+NAND memory the kernel should mount as its root filesystem. \texttt{rootfs\_type}
+defines the used filesystem. \texttt{kernelimage\_type} defines the type of the
+kernel image, to make Barebox aware how to extract it.
+
+Start manually:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ boot nand
+\end{ptxshell}
+
+The manual start from the NAND memory requires the following specific settings
+in the \texttt{/env/config}:
+
+\begin{ptxshell}[escapechar=|]{^}
+rootfs_mtdblock_type=jffs2
+rootfs_mtdblock_nand=3
+kernelimage_type=uimage
+\end{ptxshell}
+
+\subsection{SD/MMC Card Memory}
+
+To have all run-time relevant parts on an SD/MMC card, some help from the
+NAND type flash memory is required: the Barebox bootloader must be present
+to be able to load the Linux kernel from the SD/MMC media.
+
+At least two partitions on the SD/MMC card are required: One for the binary
+kernel and a second one for the root filesystem.
+
+To deploy the card we just partitionate it and create a filesystem on the second
+partition. As this kind of media behaves like a regular hard disk, we can use
+any filesystem we like. But there is still a risk: this kind of media uses flash
+memory internally. And writing it often will destroy it over the time. That's why
+at least a journaling filesystem might not be a good idea, as they tend to write
+more data and more often as non journaling filesystems.
+
+The generic Barebox's environment is prepared for the kernel in the first partition,
+the root filesystem in the second partition and \textit{ext2} as the selected
+filesystem. There is no policy to use it in this way, but any variation would
+require some changes in the Barebox's default environment.
+
+To use an SD/MMC card as the boot media, this board support package comes with
+two files after the last \texttt{ptxdist images} step:
+
+\begin{itemize}
+\item \texttt{\ptxdistPlatformDir images/linuximage} is the Linux kernel
+	and must be copied plainly into the first partition of the SD/MMC card
+\item \texttt{\ptxdistPlatformDir images/root.tgz} contains the root filesystem
+	and must be untared to the formatted second partition of the SD/MMC card
+\end{itemize}
+
+\centerline{\includegraphics{OSELAS.BSP-Pengutronix-Mini2440/documentation/plain_sources/sd_card_partition.png}}
+
+Note: The partition which contains the kernel image does not use any kind of
+filesystem. So, the kernel's image is copied to the \textit{device}, not to
+its \textit{filesystem}.
+
+Persistent setup in the Barebox's \texttt{/env/config}.
+
+\begin{ptxshell}[escapechar=|]{^}
+kernel_loc=mmc
+rootfs_loc=mmc
+\end{ptxshell}
+
+Specific settings in \texttt{/env/config} for the SD/MMC case:
+
+\begin{ptxshell}[escapechar=|]{^}
+rootfs_type=ext2
+rootfs_mmc_part=2
+kernel_mmc_part=0
+kernelimage_type=uimage
+\end{ptxshell}
+
+With these settings Barebox will automatically load the kernel from the SD card
+and instruct the kernel to also use the SD card as its root filesystem.
+\texttt{kernel\_mmc\_part} defines the SD/MMC card's partition number to load the
+kernel from. \texttt{rootfs\_mmc\_part} defines the partition on the SD/MMC card
+the kernel should use as its root filesystem and \texttt{rootfs\_type}
+defines the used filesystem. \texttt{kernelimage\_type} defines the type of the
+kernel image, to make Barebox aware how to extract it.
+
+Start manually:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ boot mmc
+\end{ptxshell}
+
+The manual start from the SD/MMC card requires the following specific settings
+in the \texttt{/env/config}:
+
+\begin{ptxshell}[escapechar=|]{^}
+rootfs_type=ext2
+rootfs_mmc_part=2
+kernel_mmc_part=0
+kernelimage_type=uimage
+\end{ptxshell}
+
+\subsection{Network Memory}				\label{sec:networkmem}
+
+Using the network based method to boot the Mini2440 is more dedicated for
+development. It simplify replacing software parts and decreases the amount
+of time to test an application, changing the source code, and re-testing it
+again at the target's side. All run-time relevant software parts are still
+part of the development host in this case and can be easily changed on the
+host and are instantly visible at the target's side.
+
+To use the network based method this board support package creates the
+following parts:
+
+\begin{itemize}
+\item \texttt{\ptxdistPlatformDir images/linuximage} is the Linux kernel
+	and must be copied to the NFS or TFTP exported directory with a
+	name the target expect it (in our case here for example
+	\texttt{uImage-mini2440})
+\item \texttt{\ptxdistPlatformDir root/} contains the root filesystem
+	to be exported via NFS
+\end{itemize}
+
+\centerline{\includegraphics{OSELAS.BSP-Pengutronix-Mini2440/documentation/plain_sources/nfs_root.png}}
+
+Persistent setup in the Barebox's \texttt{/env/config}.
+
+Using the TFTP protocol for downloading the kernel:
+
+\begin{ptxshell}[escapechar=|]{^}
+kernel_loc=tftp
+rootfs_loc=net
+\end{ptxshell}
+
+Specific settings in \texttt{/env/config} for the TFTP case:
+
+\begin{ptxshell}[escapechar=|]{^}
+kernelimage=uImage-mini2440
+kernelimage_type=uimage
+nfsroot="/path/to/nfs/root"
+\end{ptxshell}
+
+With these settings Barebox will automatically load the kernel with the name
+\texttt{kernelimage} via network from a TFTP server and instruct it to use
+the path given in \texttt{nfsroot} as its root filesystem.
+\texttt{kernelimage\_type} defines the type of the kernel image, to make
+Barebox aware how to extract it.
+
+Using the NFS protocol for downloading the kernel:
+
+\begin{ptxshell}[escapechar=|]{^}
+kernel_loc=nfs
+rootfs_loc=net
+\end{ptxshell}
+
+Specific settings in \texttt{/env/config} for the NFS case:
+
+\begin{ptxshell}[escapechar=|]{^}
+kernelimage=uImage-mini2440
+kernelimage_type=uimage
+nfsroot="/path/to/nfs/root"
+\end{ptxshell}
+
+With these settings Barebox will automatically load the kernel with the name
+\texttt{kernelimage} via network from a NFS server and instruct it to use
+the path given in \texttt{nfsroot} as its root filesystem.
+\texttt{kernelimage\_type} defines the type of the kernel image, to make
+Barebox aware how to extract it.
+
+Start manually and download the kernel via TFTP:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ boot tftp
+\end{ptxshell}
+
+The manual start from a TFTP server requires the following specific settings
+in the \texttt{/env/config}:
+
+\begin{ptxshell}[escapechar=|]{^}
+kernelimage=uImage-mini2440
+kernelimage_type=uimage
+nfsroot="/path/to/nfs/root"
+\end{ptxshell}
+
+Start manually and download the kernel via NFS:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ boot nfs
+\end{ptxshell}
+
+The manual start from an NFS server requires the following specific settings
+in the \texttt{/env/config}:
+
+\begin{ptxshell}[escapechar=|]{^}
+kernelimage=uImage-mini2440
+kernelimage_type=uimage
+nfsroot="/path/to/nfs/root"
+\end{ptxshell}
+
+\subsection{Adaptions}
+
+As mentioned above all settings are based on changes in a simple text file.
+Whenever we run the 'boot' command, the script in \texttt{/env/bin/boot} is
+called. So, adaptions can be made in \texttt{/env/config} to use one of the
+supported boot methods in \texttt{/env/bin/boot}. For more complicated
+scenarious also the \texttt{/env/bin/boot} can be changed. As it's a simple
+shell script, it's very easy to adapt it to different requirements.
+
+% --------------------------
 
 \section{Updating the Mini2440}	\label{sec:updating}
+
+Note: This section is for the boot method \textit{NAND Type Flash Memory}
+(refer section \ref{sec:nandflashmem}).
 
 At any time it's possible to update any of the software components
 running on the Mini2440.
