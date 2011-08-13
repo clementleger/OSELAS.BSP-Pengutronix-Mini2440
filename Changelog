@@ -7,6 +7,12 @@
 	* Kernel 3.0.0:
 	       - keep in sync with stable release .1
 
+2011-08-04	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 2.6.39:
+		- Keep in sync with stable release 2.6.39.4
+		- Release ptx-2011.08.0
+
 2011-07-24	Laurent Verstraeten <laurentv@tritechbelgium.com>
 
 	* Barebox: Add support to boot from SD/MMC card
