@@ -1,4 +1,8 @@
-2011-08.06	Juergen Beisert <jbe@pengutronix.de>
+2011-08-13	Juergen Beisert <jbe@pengutronix.de>
+
+	* Qt4-demo: New 2011.08.0 release
+
+2011-08-06	Juergen Beisert <jbe@pengutronix.de>
 
 	* Platform: Merge Mini2440 changes
 	* Qt4-demo: Build the demo out-of-tree
