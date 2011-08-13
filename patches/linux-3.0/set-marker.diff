@@ -11,7 +11,7 @@ Index: linux-3.0/Makefile
  PATCHLEVEL = 0
  SUBLEVEL = 1
 -EXTRAVERSION =
-+EXTRAVERSION = -ptx-master
++EXTRAVERSION = -ptx-2011.08.0
  NAME = Sneaky Weasel
  
  # *DOCUMENTATION*

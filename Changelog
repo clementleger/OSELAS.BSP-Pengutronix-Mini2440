@@ -1,6 +1,8 @@
 2011-08-13	Juergen Beisert <jbe@pengutronix.de>
 
 	* Qt setup: Add more display info for various displays
+	* Kernel 3.0.1: Release ptx-2011.08.0
+	* Barebox 2011.05.0: Release ptx-2011.08.0
 
 2011-08-06	Juergen Beisert <jbe@pengutronix.de>
 
