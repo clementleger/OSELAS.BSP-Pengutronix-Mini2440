@@ -298,14 +298,14 @@ To start the Mini2440 in a standalone manner it provides some local memory types
 to store the relevant software parts.
 
 \begin{itemize}
-\item \texttt{NOR type flash memory} Can be used to bring up the Mini2440. But
-	mostly used for the rescue bootloader. This board support package does
-	not touch the NOR memory, to keep the fall back to restore a bricked
-	Mini2440.
-\item \texttt{NAND type flash memory} Provides enough memory space to hold all
+\item \texttt{NOR type flash memory} can be used to bring up the Mini2440. In
+	this BSP NOR is used for the initial bootload of Barebox and as a
+	fall-back or rescue bootloader. This allows the user to easily restore
+	a "bricked" Mini2440.
+\item \texttt{NAND type flash memory} provides enough memory space to hold all
 	run-time relevant software parts. This board support package supports
 	this memory type as one way to start the Mini2440 standalone.
-\item \texttt{SD/MMC card memory} Nice and easy way to deploy the run-time
+\item \texttt{SD/MMC card memory} is a nice and easy way to deploy the run-time
 	relevant software parts at the development host and simply booting
 	the Mini2440 with it.
 \end{itemize}
@@ -397,8 +397,8 @@ To have all run-time relevant parts on an SD/MMC card, some help from the
 NAND type flash memory is required: the Barebox bootloader must be present
 to be able to load the Linux kernel from the SD/MMC media.
 
-At least two partitions on the SD/MMC card are required: One for the binary
-kernel and a second one for the root filesystem.
+To deploy the card we just partition it and create a filesystem on the second
+partition.
 
 To deploy the card we just partitionate it and create a filesystem on the second
 partition. As this kind of media behaves like a regular hard disk, we can use
