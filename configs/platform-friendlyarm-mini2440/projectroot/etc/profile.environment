@@ -18,9 +18,10 @@ MINI2440_KEYEVENT=/dev/input/event0
 MINI2440_TOUCHEVENT=/dev/input/event1
 #
 # LCD (sizes are meant in [mm]):
-# - Portrait 240 x 320 display of type "LCDN3502/NEC NL2432HC22-23B"
+# - Portrait 240 x 320 display of type "NEC NL2432HC22-23B" (N35)
+# - Portrait 240 x 320 display of type "Sony ACX502BMU" (X35)
 #      MINI2440_LCD_WIDTH=55 and MINI2440_LCD_HEIGHT=71
-# - Landscape 800 x 480 display of type "LCD70/Innolux AT070TN83"
+# - Landscape 800 x 480 display of type "Innolux AT070TN83" (N43/LCD70)
 #      MINI2440_LCD_WIDTH=153 and MINI2440_LCD_HEIGHT=92
 #
 MINI2440_LCD_WIDTH=55
