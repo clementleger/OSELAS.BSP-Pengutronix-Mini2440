@@ -16,27 +16,27 @@ Legend
 Preparations
 ------------
 
-[ ] make sure the following things are consistent between BSP and manual:
+[x] make sure the following things are consistent between BSP and manual:
 
-    [ ] modules to be loaded
-    [ ] binaries (programs, commands)
-    [ ] /dev entries
-    [ ] mentioned files in the manual are present on the target at runtime
+    [-] modules to be loaded
+    [x] binaries (programs, commands)
+    [x] /dev entries
+    [x] mentioned files in the manual are present on the target at runtime
 
-[ ] does the manual use the same/correct file names for the archives?
-[ ] is the toolchain built in the way the manual mentions?
-[ ] does the project build in the way the manual mentions?
-[ ] does the project build on a 64 bit machine?
-[ ] does the project build on a multi core machine?
+[x] does the manual use the same/correct file names for the archives?
+[x] is the toolchain built in the way the manual mentions?
+[x] does the project build in the way the manual mentions?
+[x] does the project build on a 64 bit machine?
+[x] does the project build on a multi core machine?
 
 Documentation
 -------------
 
-[ ] File 'documentation/plain_sources/CREDITS' honors all people working on
+[x] File 'documentation/plain_sources/CREDITS' honors all people working on
     this documentation
-[ ] The Quickstart manual lists all people working on this documentation
+[x] The Quickstart manual lists all people working on this documentation
     according to the 'Creative Commons Attribution 3.0 Unported License'
-[ ] Quickstart Manual describes first steps how to setup the BSP/board
+[x] Quickstart Manual describes first steps how to setup the BSP/board
 
 Base System
 -----------
@@ -106,6 +106,13 @@ USB Host
     [-] check if /dev/input* appears
     [-] check with hexdump if mouse generates events
 
+USB Device
+----------
+
+[-] acting as a serial USB device
+
+[-] acting as a printer USB device
+
 I2C
 ---
 
@@ -169,7 +176,7 @@ Keypad
 ------
 
 [x] pressing K1, K2, K3, K4, K5 and K6 create input events
-	20110713 jbe: K6 still does not work
+	20110815 jbe: K6 still does not work
 
 RTC
 ---
