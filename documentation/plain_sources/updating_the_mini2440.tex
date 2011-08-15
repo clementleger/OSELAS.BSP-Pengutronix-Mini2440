@@ -42,7 +42,7 @@ Not yet supported.
 If the Mini2440 uses the NAND flash memory to boot standalone, we can update
 its components in the following way:
 
-\subsubsection{Updating the Bootloader}
+\subsection{Updating the Bootloader}
 
 Most of the time there is no further need to re-flash the bootloader and its
 persistent environment. After it was setup once, it does its work "in the
@@ -67,7 +67,7 @@ NAND flash is erased, with no bootloader present. But don't panic: Unless a
 power fail or a target reset happens, this command can be repeated if the
 first run failed.
 
-\subsubsection{Updating the Persistent Environment}
+\subsection{Updating the Persistent Environment}
 
 % I'm unsure how useful it is: Assuming the current environment is broken, I
 % guess also the network setup is broken. So, loading via TFTP maybe is
@@ -111,7 +111,7 @@ in \texttt{env/} and then saved back to the NAND flash memory with the command
 mini2440:/ saveenv
 \end{ptxshell}
 
-\subsubsection{Updating the Linux Kernel}
+\subsection{Updating the Linux Kernel}
 
 Changing the Linux kernel configuration can be quite dynamic, especially while
 the developer is trying different kernel configurations. Updating this part
@@ -128,7 +128,7 @@ and running the update script at the target's side:
 mini2440:/ update -t kernel -d nand
 \end{ptxshell}
 
-\subsubsection{Updating the Root Filesystem}
+\subsection{Updating the Root Filesystem}
 
 And last, but not least, updating the root filesystem. Same procedure:
 
