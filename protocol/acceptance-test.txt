@@ -16,32 +16,33 @@ Legend
 Preparations
 ------------
 
-[x] make sure the following things are consistent between BSP and manual:
+[ ] make sure the following things are consistent between BSP and manual:
 
-    [x] modules to be loaded
-    [x] binaries (programs, commands)
-    [x] /dev entries
-    [x] mentioned files in the manual are present on the target at runtime
+    [ ] modules to be loaded
+    [ ] binaries (programs, commands)
+    [ ] /dev entries
+    [ ] mentioned files in the manual are present on the target at runtime
 
 [ ] does the manual use the same/correct file names for the archives?
-[x] is the toolchain built in the way the manual mentions?
-[x] does the project build in the way the manual mentions?
-[x] does the project build on a 64 bit machine?
-[x] does the project build on a multi core machine?
+[ ] is the toolchain built in the way the manual mentions?
+[ ] does the project build in the way the manual mentions?
+[ ] does the project build on a 64 bit machine?
+[ ] does the project build on a multi core machine?
 
 Documentation
 -------------
 
-[x] File 'documentation/plain_sources/CREDITS' honors all people working on
+[ ] File 'documentation/plain_sources/CREDITS' honors all people working on
     this documentation
-[x] The Quickstart manual lists all people working on this documentation
+[ ] The Quickstart manual lists all people working on this documentation
     according to the 'Creative Commons Attribution 3.0 Unported License'
-[x] Quickstart Manual describes first steps how to setup the BSP/board
+[ ] Quickstart Manual describes first steps how to setup the BSP/board
 
 Base System
 -----------
 
 [x] bootloader is a release
+[x] kernel-3.0.1 is a release
 [x] kernel-2.6.39.3 is a release
 [x] kernel-2.6.38.8 is a release
 
@@ -51,6 +52,7 @@ Bootloader
 [x] bootloader comes up on UART0
 [x] booting from NAND flash support
 [x] booting from NET via TFTP support
+[x] booting from MMC/SD card
 [x] default environment comes with reasonable settings
 
 OSELAS BSP
