@@ -20,7 +20,7 @@
 % All these commands are starting with 'ptxdist'.
 %
 
-\section{Bring in the Bootloader Barebox}	\label{sec:deploying}
+\chapter{Bring in the Bootloader Barebox}	\label{sec:deploying}
 
 In order to make use of all possible boot sources the bootloader Barebox must
 be installed into the Mini2440. This bootloader enables the following boot
@@ -173,7 +173,7 @@ This will start the Barebox bootloader on the Mini2440, which will
 greet us with:
 
 \begin{ptxshell}[escapechar=|]{^}
-barebox |\ptxBareboxRev |-mini2440-ptx-|\releasenumber| (July  13 2011 - 14:21:13)
+barebox |\ptxBareboxRev |-mini2440-ptx-|\releasenumber| (Aug 13 2011 - 16:54:39)
 
 Board: Mini 2440
 NAND device: Manufacturer ID: 0xec, Chip ID: 0x76 (Samsung NAND 64MiB 3,3V 8-bit)
@@ -288,7 +288,7 @@ reset button and the new bootloader will start.
 After installing Barebox on the Mini2440 the hardest part is done. Now it's
 time to decide about how to boot the Mini2440.
 
-\section{How to Boot the Mini2440}	\label{sec:bootingmini2440}
+\chapter{How to Boot the Mini2440}	\label{sec:bootingmini2440}
 
 Various methods are exist to bring up the Mini2440. The main difference is if
 the Mini2440 can boot in a standalone manner or if it depends on some services
@@ -316,12 +316,12 @@ at least Barebox and its persistent environment has to be stored into the NAND
 flash memory. The other parts (kernel and root filesystem) can be loaded from
 all other supported media.
 
-\subsection{NOR Type Flash Memory}
+\section{NOR Type Flash Memory}
 
 As the NOR type flash memory is not supported in this board support package,
 we skip its explanation here.
 
-\subsection{NAND Type Flash Memory}				\label{sec:nandflashmem}
+\section{NAND Type Flash Memory}				\label{sec:nandflashmem}
 
 This is the most common method to boot the Mini2440. It does not depend on
 any external media or network connection. And it is also a fast method to
@@ -391,7 +391,7 @@ rootfs_mtdblock_nand=3
 kernelimage_type=uimage
 \end{ptxshell}
 
-\subsection{SD/MMC Card Memory}
+\section{SD/MMC Card Memory}
 
 To have all run-time relevant parts on an SD/MMC card, some help from the
 NAND type flash memory is required: the Barebox bootloader must be present
@@ -468,7 +468,7 @@ kernel_mmc_part=0
 kernelimage_type=uimage
 \end{ptxshell}
 
-\subsection{Network Memory}				\label{sec:networkmem}
+\section{Network Memory}				\label{sec:networkmem}
 
 Using the network based method to boot the Mini2440 is more dedicated for
 development. It simplifies replacing software in the kernel and root filesystem.
@@ -565,7 +565,7 @@ kernelimage_type=uimage
 nfsroot="/path/to/nfs/root"
 \end{ptxshell}
 
-\subsection{Adaptions}
+\section{Adaptions}
 
 As mentioned above all settings are based on changes in a simple text file.
 Whenever we run the 'boot' command, the script in \texttt{/env/bin/boot} is
@@ -576,10 +576,7 @@ shell script, it's very easy to adapt it to different requirements.
 
 % --------------------------
 
-\section{Updating the Mini2440}	\label{sec:updating}
-
-Note: This section is for the boot method \textit{NAND Type Flash Memory}
-(refer section \ref{sec:nandflashmem}).
+\chapter{Updating the Mini2440}	\label{sec:updating}
 
 At any time it's possible to update any of the software components
 running on the Mini2440.
@@ -590,6 +587,18 @@ running on the Mini2440.
 	\item the Linux kernel
 	\item the kernel's root filesystem
 \end{itemize}
+
+This chapter explains how to update these parts for the various boot scenarious.
+Note: This chapter is not finished yet.
+
+\section{NOR flash memory case}
+
+Not yet supported.
+
+\section{NAND flash memory case}
+
+If the Mini2440 uses the NAND flash memory to boot standalone, we can update
+its components in the following way:
 
 \subsubsection{Updating the Bootloader}
 
@@ -690,6 +699,16 @@ and running the update script at the target's side:
 \begin{ptxshell}[escapechar=|]{^}
 mini2440:/ update -t rootfs -d nand
 \end{ptxshell}
+
+\section{SD/MMC card memory case}
+
+TBD.
+
+\section{Network memory case}
+
+As this kind of memory is on our host, everything we change will be also
+changed instantly at the Mini2440's side (as long we are talking about the
+kernel and the root filesystem).
 
 % the following text should occur somewhere else, where it is more useful (?)
 By the way: the \texttt{update} command is not a real command built into
