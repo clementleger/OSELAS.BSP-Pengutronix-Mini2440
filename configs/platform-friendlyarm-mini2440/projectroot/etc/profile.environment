@@ -17,15 +17,24 @@ MINI2440_FBDEV=/dev/fb0
 MINI2440_KEYEVENT=/dev/input/event0
 MINI2440_TOUCHEVENT=/dev/input/event1
 #
+# These LCDs are known. Use the size values only, if the kernel does
+# not provide the size information.
+#
 # LCD (sizes are meant in [mm]):
 # - Portrait 240 x 320 display of type "NEC NL2432HC22-23B" (N35)
 # - Portrait 240 x 320 display of type "Sony ACX502BMU" (X35)
 #      MINI2440_LCD_WIDTH=55 and MINI2440_LCD_HEIGHT=71
+# - Portrait 240 x 320 display of type "STD035STED4" (T35)
+#      MINI2440_LCD_WIDTH=53 and MINI2440_LCD_HEIGHT=71
+# - Landscape 320 x 240 display of type "Sharp LQ035Q1DG06" (W35i)
+#      MINI2440_LCD_WIDTH=72 and MINI2440_LCD_HEIGHT=54
+# - Landscape 640 x 480 display of type "Innolux AT056TN523" (unknown)
+#      MINI2440_LCD_WIDTH=113 and MINI2440_LCD_HEIGHT=85
 # - Landscape 800 x 480 display of type "Innolux AT070TN83" (N43/LCD70)
 #      MINI2440_LCD_WIDTH=153 and MINI2440_LCD_HEIGHT=92
 #
-MINI2440_LCD_WIDTH=55
-MINI2440_LCD_HEIGHT=71
+# MINI2440_LCD_WIDTH=55
+# MINI2440_LCD_HEIGHT=71
 
 # touchscreen relevant settings
 export TSLIB_TSDEVICE=${MINI2440_TOUCHEVENT}
@@ -37,5 +46,13 @@ export TSLIB_FBDEVICE=${MINI2440_FBDEV}
 
 # Qt relevant settings
 export QWS_MOUSE_PROTO=Tslib:${MINI2440_TOUCHEVENT}
-export QWS_DISPLAY=LinuxFb:mmWidth=${MINI2440_LCD_WIDTH}:mmHeight=${MINI2440_LCD_HEIGHT}
+
+QWS_DISPLAY=LinuxFb
+if [ -n "${MINI2440_LCD_WIDTH}" ]; then
+	QWS_DISPLAY=${QWS_DISPLAY}:mmWidth=${MINI2440_LCD_WIDTH}
+fi
+if [ -n "${MINI2440_LCD_HEIGHT}" ]; then
+	QWS_DISPLAY=${QWS_DISPLAY}:mmHeight=${MINI2440_LCD_HEIGHT}
+fi
+export QWS_DISPLAY
 export QWS_KEYBOARD=LinuxInput:${MINI2440_KEYEVENT}
