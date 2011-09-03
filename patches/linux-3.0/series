@@ -50,5 +50,9 @@ fix_backlight_GPIO_handling.diff
 # help to find hidden bugs in the kernel
 poison_initmem_when_it_is_freed.patch
 
+# display size handling can be done perfectly in kernel
+add_display_size_in_kernel.diff
+add_display_sizes_to_mini2440.diff
+
 # odor marker
 set-marker.diff

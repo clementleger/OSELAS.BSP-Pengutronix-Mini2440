@@ -1,0 +1,39 @@
+Author: Juergen Beisert <jbe@pengutronix.de>
+Subject: Handle the visible size of a display in the kernel
+
+Instead of guessing the visible size of the graphic area at
+run-time, set it up in the kernel with the data from its datasheet
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+
+---
+ arch/arm/mach-s3c2410/include/mach/fb.h |    2 ++
+ drivers/video/s3c2410fb.c               |    2 ++
+ 2 files changed, 4 insertions(+)
+
+Index: linux-3.0/arch/arm/mach-s3c2410/include/mach/fb.h
+===================================================================
+--- linux-3.0.orig/arch/arm/mach-s3c2410/include/mach/fb.h
++++ linux-3.0/arch/arm/mach-s3c2410/include/mach/fb.h
+@@ -35,6 +35,8 @@ struct s3c2410fb_display {
+ 	unsigned short xres;
+ 	unsigned short yres;
+ 	unsigned short bpp;
++	unsigned int phys_width; /* visible width in [mm] */
++	unsigned int phys_height; /* visible height in [mm] */
+ 
+ 	unsigned pixclock;		/* pixclock in picoseconds */
+ 	unsigned short left_margin;  /* value in pixels (TFT) or HCLKs (STN) */
+Index: linux-3.0/drivers/video/s3c2410fb.c
+===================================================================
+--- linux-3.0.orig/drivers/video/s3c2410fb.c
++++ linux-3.0/drivers/video/s3c2410fb.c
+@@ -904,6 +904,8 @@ static int __devinit s3c24xxfb_probe(str
+ 	fbinfo->var.activate	    = FB_ACTIVATE_NOW;
+ 	fbinfo->var.accel_flags     = 0;
+ 	fbinfo->var.vmode	    = FB_VMODE_NONINTERLACED;
++	fbinfo->var.width	    = display->phys_width;
++	fbinfo->var.height	    = display->phys_height;
+ 
+ 	fbinfo->fbops		    = &s3c2410fb_ops;
+ 	fbinfo->flags		    = FBINFO_FLAG_DEFAULT;
