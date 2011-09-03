@@ -1,3 +1,7 @@
+2011-09-03	Juergen Beisert <jbe@pengutronix.de>
+
+	* Documentation: Adapt to current kernel features
+
 2011-08-15	Juergen Beisert <jbe@pengutronix.de>
 
 	* Board Support Package: Using platform-FriendlyARM-Mini2440-2011.08.0
