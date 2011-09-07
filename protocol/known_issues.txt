@@ -1,3 +1,7 @@
+OSELAS.BSP-Pengutronix-Mini2440-2011.09.0
+
+ - No known issues yet
+
 OSELAS.BSP-Pengutronix-Mini2440-2011.08.0
 
  - No known issues yet
