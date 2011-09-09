@@ -16,7 +16,7 @@ Legend
 Preparations
 ------------
 
-[ ] make sure the following things are consistent between BSP and manual:
+[x] make sure the following things are consistent between BSP and manual:
 
     [-] modules to be loaded
     [x] binaries (programs, commands)
@@ -24,10 +24,10 @@ Preparations
     [x] mentioned files in the manual are present on the target at runtime
 
 [x] does the manual use the same/correct file names for the archives?
-[ ] is the toolchain built in the way the manual mentions?
-[ ] does the project build in the way the manual mentions?
-[ ] does the project build on a 64 bit machine?
-[ ] does the project build on a multi core machine?
+[-] is the toolchain built in the way the manual mentions?
+[x] does the project build in the way the manual mentions?
+[x] does the project build on a 64 bit machine?
+[x] does the project build on a multi core machine?
 
 Documentation
 -------------
