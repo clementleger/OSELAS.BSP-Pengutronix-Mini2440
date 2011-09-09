@@ -8,18 +8,19 @@ Signed-off-by: amit shah <techlist.amit@gmail.com>
 Acked-by: Juergen Beisert <jbe@pengutronix.de>
 
 ---
- arch/arm/mach-s3c2440/mach-mini2440.c |   13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ arch/arm/mach-s3c2440/mach-mini2440.c |   14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
 Index: linux-3.0/arch/arm/mach-s3c2440/mach-mini2440.c
 ===================================================================
 --- linux-3.0.orig/arch/arm/mach-s3c2440/mach-mini2440.c
 +++ linux-3.0/arch/arm/mach-s3c2440/mach-mini2440.c
-@@ -227,6 +227,19 @@ static struct s3c2410fb_display mini2440
+@@ -227,6 +227,20 @@ static struct s3c2410fb_display mini2440
  					S3C2410_LCDCON5_INVVCLK |
  					S3C2410_LCDCON5_HWSWP),
  	},
-+	[7] = { /* mini2440 + 4.3" TFT + touchscreen (NEC NL4827HC19-01B: N43i) */
++	[7] = { /* mini2440 + 4.3" TFT + touchscreen (NEC NL4827HC19-01B: N43)
++		   mini2440 + 4.3" TFT + touchscreen (SHARP LQ043T3DX02: N43i) */
 +		_LCD_DECLARE(
 +			9,		/* clock rate */
 +			480, 19, 38, 6,	/* xres, margin_right, margin_left, hsync */
