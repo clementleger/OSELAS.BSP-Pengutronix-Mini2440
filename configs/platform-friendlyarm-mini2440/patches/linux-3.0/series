@@ -54,5 +54,8 @@ poison_initmem_when_it_is_freed.patch
 add_display_size_in_kernel.diff
 add_display_sizes_to_mini2440.diff
 
+# the N43i display unit is a known device
+n43i_display_unit.diff
+
 # odor marker
 set-marker.diff
