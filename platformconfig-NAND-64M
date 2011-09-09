@@ -1,8 +1,8 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist 2011.08.0-00005-gf8a06ac-dirty
+# PTXdist 2011.09.0
 #
-PTXCONF_PLATFORMCONFIG_VERSION="2011.08.0-00005-gf8a06ac-dirty"
+PTXCONF_PLATFORMCONFIG_VERSION="2011.09.0"
 PTXCONF__platformconfig_MAGIC__=y
 
 #
@@ -23,6 +23,7 @@ PTXCONF_PLATFORM_VERSION="-master"
 # architecture                  
 #
 # PTXCONF_ARCH_ALPHA is not set
+# PTXCONF_ARCH_AVR32 is not set
 # PTXCONF_ARCH_AVR is not set
 PTXCONF_ARCH_ARM=y
 # PTXCONF_ARCH_BLACKFIN is not set
