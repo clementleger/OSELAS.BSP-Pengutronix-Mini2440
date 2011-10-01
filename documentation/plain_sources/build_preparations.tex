@@ -111,7 +111,7 @@ settings carefully here.
 We can keep the \texttt{ip=dhcp} option enabled. This requires a DHCP server in
 the network to be able to update the NAND memory content or to use NFS root
 filesystem while developing our application. In this case at least the
-\texttt{eth0.ethaddr} must be set, to give our network device an unique MAC
+\texttt{eth0.ethaddr} must be set, to give our network device a unique MAC
 address.
 
 If no DHCP server is available, a static network setting can be used instead.
@@ -122,7 +122,7 @@ If we want to use an NFS based root filesystem, we also should adapt the
 \texttt{nfsroot} setting.
 
 \begin{important}
-Don't forget the setting of an unique MAC address. At least the entry
+Don't forget the setting of a unique MAC address. At least the entry
 \texttt{eth0.ethaddr} must be set.
 \end{important}
 
