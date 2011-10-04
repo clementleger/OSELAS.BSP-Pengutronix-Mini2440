@@ -1,3 +1,9 @@
+2011-10-04	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 3.0:
+	        - back to development
+	        - keep in sync with stable release .6
+
 2011-09-10	Juergen Beisert <jbe@pengutronix.de>
 
 	* Platform:
