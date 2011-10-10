@@ -1,3 +1,7 @@
+OSELAS.BSP-Pengutronix-Mini2440-2011.10.0
+
+ - do not use PTXdist-2011.10.0 when you intend to use Qt. Use the fixed PTXdist-2011.10.1 instead
+
 OSELAS.BSP-Pengutronix-Mini2440-2011.09.0
 
  - if you run QT programs with internet connection:

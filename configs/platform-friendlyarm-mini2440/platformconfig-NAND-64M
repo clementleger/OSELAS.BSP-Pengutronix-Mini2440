@@ -1,8 +1,8 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist 2011.09.0-00026-g9133bbb-dirty
+# PTXdist 2011.10.1
 #
-PTXCONF_PLATFORMCONFIG_VERSION="2011.09.0-00026-g9133bbb-dirty"
+PTXCONF_PLATFORMCONFIG_VERSION="2011.10.1"
 PTXCONF__platformconfig_MAGIC__=y
 
 #
@@ -118,6 +118,7 @@ PTXCONF_CONSOLE_SPEED="115200"
 # bootloaders                   
 #
 # PTXCONF_AT91BOOTSTRAP is not set
+# PTXCONF_AT91BOOTSTRAP2 is not set
 PTXCONF_BAREBOX=y
 PTXCONF_BAREBOX_VERSION="2011.05.0"
 PTXCONF_BAREBOX_MD5="d66774abcf9fa6c9530e13543cc707bc"
