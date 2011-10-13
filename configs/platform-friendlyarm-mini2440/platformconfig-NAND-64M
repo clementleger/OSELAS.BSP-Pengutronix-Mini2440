@@ -17,7 +17,7 @@ PTXCONF__platformconfig_MAGIC__=y
 # ------------------------------------
 #
 PTXCONF_PLATFORM="mini2440"
-PTXCONF_PLATFORM_VERSION="-master"
+PTXCONF_PLATFORM_VERSION="-2011.10.0"
 
 #
 # architecture                  
