@@ -1,6 +1,7 @@
 2011-10-14	Juergen Beisert <jbe@pengutronix.de>
 
 	* Board Support Package: Back to development
+	* Board Support Package: Output a useful message at startup
 
 2011-10-13	Juergen Beisert <jbe@pengutronix.de>
 
