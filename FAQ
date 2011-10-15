@@ -5,7 +5,7 @@ These questions came up while using the Mini2440 boad support package
 
 Q: I want to enable the "framebuffer console" support in Linux, but there is no
    menu entry to do so!
-A: Enable the "virtual console" support first. Then the "framebuffer console"
+A: Enable the "virtual terminal" support first. Then the "framebuffer console"
    menu entry will occur in the menu.
 
 Q: PTXdist fails to download an archive from the web. How to continie?
