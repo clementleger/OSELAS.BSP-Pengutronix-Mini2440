@@ -94,7 +94,7 @@ Index: barebox-2011.05.0/defaultenv/bin/boot
 +	kdev="/dev/disk0.$kernel_mmc_part"
  else
 -	echo "error: set kernel_loc to one of 'nfs', 'tftp', 'nand' or 'nor'"
-+	echo "error: set kernel_loc to one of 'net', 'nand' or 'mmc'"
++	echo "error: set kernel_loc to one of 'nfs', 'tftp', 'nand' or 'mmc'"
  	exit 1
  fi
  
