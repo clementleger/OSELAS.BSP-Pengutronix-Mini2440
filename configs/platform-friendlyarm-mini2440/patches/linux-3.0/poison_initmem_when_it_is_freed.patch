@@ -62,7 +62,7 @@ Index: linux-3.0/arch/arm/mm/init.c
  static inline void
  free_memmap(unsigned long start_pfn, unsigned long end_pfn)
  {
-@@ -704,11 +715,13 @@ void free_initmem(void)
+@@ -711,11 +722,13 @@ void free_initmem(void)
  #ifdef CONFIG_HAVE_TCM
  	extern char __tcm_start, __tcm_end;
  
@@ -76,7 +76,7 @@ Index: linux-3.0/arch/arm/mm/init.c
  	if (!machine_is_integrator() && !machine_is_cintegrator())
  		totalram_pages += free_area(__phys_to_pfn(__pa(__init_begin)),
  					    __phys_to_pfn(__pa(__init_end)),
-@@ -721,10 +734,12 @@ static int keep_initrd;
+@@ -728,10 +741,12 @@ static int keep_initrd;
  
  void free_initrd_mem(unsigned long start, unsigned long end)
  {

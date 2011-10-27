@@ -1,3 +1,8 @@
+2011-10-27	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 3.0:
+		- keep in sync with stable release .8
+
 2011-10-21	Juergen Beisert <jbe@pengutronix.de>
 
 	* Barebox 2011.05.0: Back to development
