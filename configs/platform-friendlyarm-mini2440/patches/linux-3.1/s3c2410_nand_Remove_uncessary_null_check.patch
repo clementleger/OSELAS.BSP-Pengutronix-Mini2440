@@ -1,0 +1,25 @@
+From: jhbird.choi@samsung.com
+Subject: [PATCH] mtd: s3c2410 nand: Remove uncessary null check
+
+From: Jonghwan Choi <jhbird.choi@samsung.com>
+
+clk_get() return a pointer to the struct clk or an ERR_PTR().
+
+Signed-off-by: Jonghwan Choi <jhbird.choi@samsung.com>
+---
+ drivers/mtd/nand/s3c2410.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: linux-3.1/drivers/mtd/nand/s3c2410.c
+===================================================================
+--- linux-3.1.orig/drivers/mtd/nand/s3c2410.c
++++ linux-3.1/drivers/mtd/nand/s3c2410.c
+@@ -723,7 +723,7 @@ static int s3c24xx_nand_remove(struct pl
+ 
+ 	/* free the common resources */
+ 
+-	if (info->clk != NULL && !IS_ERR(info->clk)) {
++	if (!IS_ERR(info->clk)) {
+ 		s3c2410_nand_clk_set_state(info, CLOCK_DISABLE);
+ 		clk_put(info->clk);
+ 	}

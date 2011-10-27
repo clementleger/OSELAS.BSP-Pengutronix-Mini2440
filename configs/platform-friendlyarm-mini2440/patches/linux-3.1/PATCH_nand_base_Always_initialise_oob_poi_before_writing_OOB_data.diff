@@ -1,0 +1,48 @@
+From: "THOMSON, Adam (Adam)" <adam.thomson@alcatel-lucent.com>
+Subject: [PATCH] nand: nand_base: Always initialise oob_poi before writing OOB data
+
+In nand_do_write_ops() code it is possible for a caller to provide
+ops.oobbuf populated and ops.mode == MTD_OOB_AUTO, which currently
+means that the chip->oob_poi buffer isn't initialised to all 0xFF.
+The nand_fill_oob() method then carries out the task of copying
+the provided OOB data to oob_poi, but with MTD_OOB_AUTO it skips
+areas marked as unavailable by the layout struct, including the
+bad block marker bytes.
+
+An example of this causing issues is when the last OOB data read
+was from the start of a bad block where the markers are not 0xFF,
+and the caller wishes to write new OOB data at the beginning of
+another block. In this scenario the caller would provide OOB data,
+but nand_fill_oob() would skip the bad block marker bytes in
+oob_poi before copying the OOB data provided by the caller.
+This means that when the OOB data is written back to NAND,
+the block is inadvertently marked as bad without the caller knowing.
+This has been witnessed when using YAFFS2 where tags are stored
+in the OOB.
+
+This patch changes the code so that oob_poi is always initialised
+to 0xFF to make sure no left over data is inadvertently written
+back to OOB data.
+
+Signed-off-by: Adam Thomson <adam.thomson@alcatel-lucent.com>
+---
+ drivers/mtd/nand/nand_base.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+Index: linux-3.1/drivers/mtd/nand/nand_base.c
+===================================================================
+--- linux-3.1.orig/drivers/mtd/nand/nand_base.c
++++ linux-3.1/drivers/mtd/nand/nand_base.c
+@@ -2201,9 +2201,9 @@ static int nand_do_write_ops(struct mtd_
+ 	    (chip->pagebuf << chip->page_shift) < (to + ops->len))
+ 		chip->pagebuf = -1;
+ 
+-	/* If we're not given explicit OOB data, let it be 0xFF */
+-	if (likely(!oob))
+-		memset(chip->oob_poi, 0xff, mtd->oobsize);
++	/* Initialise to all 0xFF, to avoid the possibility of
++	   left over OOB data from a previous OOB read. */
++	memset(chip->oob_poi, 0xff, mtd->oobsize);
+ 
+ 	/* Don't allow multipage oob writes with offset */
+ 	if (oob && ops->ooboffs && (ops->ooboffs + ops->ooblen > oobmaxlen))
