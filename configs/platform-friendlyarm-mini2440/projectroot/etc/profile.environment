@@ -30,8 +30,10 @@ MINI2440_TOUCHEVENT=/dev/input/event1
 #      MINI2440_LCD_WIDTH=72 and MINI2440_LCD_HEIGHT=54
 # - Landscape 640 x 480 display of type "Innolux AT056TN523" (unknown)
 #      MINI2440_LCD_WIDTH=113 and MINI2440_LCD_HEIGHT=85
-# - Landscape 800 x 480 display of type "Innolux AT070TN83" (N43/LCD70)
+# - Landscape 800 x 480 display of type "Innolux AT070TN83" (LCD70)
 #      MINI2440_LCD_WIDTH=153 and MINI2440_LCD_HEIGHT=92
+# - Landscape 480 x 272 display of type "NEC NL4827HC19-01B" (N43)
+#      MINI6410_LCD_WIDTH=95 and MINI6410_LCD_HEIGHT=54
 #
 # MINI2440_LCD_WIDTH=55
 # MINI2440_LCD_HEIGHT=71
