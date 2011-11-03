@@ -1,6 +1,8 @@
 2011-11-03	Juergen Beisert <jbe@pengutronix.de>
 
-	* Qt4-demo: Fix a leaking host
+	* Qt4-demo:
+		- Fix a leaking host
+		- avoid an invisible cursor, when the demo starts
 
 2011-11-02	Juergen Beisert <jbe@pengutronix.de>
 

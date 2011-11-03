@@ -49,7 +49,7 @@ export TSLIB_FBDEVICE=${MINI2440_FBDEV}
 # Qt relevant settings
 export QWS_MOUSE_PROTO=Tslib:${MINI2440_TOUCHEVENT}
 
-QWS_DISPLAY=LinuxFb
+QWS_DISPLAY=LinuxFb:nographicsmodeswitch:tty=none
 if [ -n "${MINI2440_LCD_WIDTH}" ]; then
 	QWS_DISPLAY=${QWS_DISPLAY}:mmWidth=${MINI2440_LCD_WIDTH}
 fi
