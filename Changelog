@@ -1,3 +1,7 @@
+2011-11-03	Juergen Beisert <jbe@pengutronix.de>
+
+	* Qt4-demo: Fix a leaking host
+
 2011-11-02	Juergen Beisert <jbe@pengutronix.de>
 
 	* Board Support Package: Use ptxdist-2011.11.0
