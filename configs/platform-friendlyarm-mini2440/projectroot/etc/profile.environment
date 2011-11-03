@@ -14,8 +14,8 @@ alias rd='rmdir'
 
 # Mini2440 related settings
 MINI2440_FBDEV=/dev/fb0
-MINI2440_KEYEVENT=/dev/input/event0
-MINI2440_TOUCHEVENT=/dev/input/event1
+MINI2440_KEYEVENT=/dev/input/buttons
+MINI2440_TOUCHEVENT=/dev/input/touchscreen
 #
 # These LCDs are known. Use the size values only, if the kernel does
 # not provide the size information.

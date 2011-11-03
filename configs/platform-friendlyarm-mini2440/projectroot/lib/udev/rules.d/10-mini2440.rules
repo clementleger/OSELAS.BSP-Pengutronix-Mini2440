@@ -1,0 +1,5 @@
+#
+# some Mini2440 related settings, due to the kernel enumerates them differently from time to time
+#
+SUBSYSTEMS=="input", KERNELS=="input[0-9]*", ATTRS{name}=="gpio-keys", SYMLINK+="input/buttons"
+SUBSYSTEMS=="input", KERNELS=="input[0-9]*", ATTRS{name}=="S3C24XX TouchScreen", SYMLINK+="input/touchscreen"

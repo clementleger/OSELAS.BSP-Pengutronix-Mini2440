@@ -1,5 +1,7 @@
 2011-11-03	Juergen Beisert <jbe@pengutronix.de>
 
+	* Board Support Package: add udev rule to give the touchscreen and the
+				 buttons event devices explicit names
 	* Qt4-demo:
 		- Fix a leaking host
 		- avoid an invisible cursor, when the demo starts
