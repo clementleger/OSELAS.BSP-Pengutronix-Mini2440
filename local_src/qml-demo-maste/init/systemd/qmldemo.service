@@ -1,0 +1,10 @@
+[Unit]
+Description=QML Demo Application
+After=dev-input-event1.device
+
+[Service]
+Environment=QWS_MOUSE_PROTO=Tslib:/dev/input/touchscreen
+ExecStart=/usr/bin/qml-demo -qws
+
+[Install]
+WantedBy=multi-user.target

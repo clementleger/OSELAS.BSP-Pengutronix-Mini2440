@@ -1,0 +1,29 @@
+## SECTION=qt
+
+menuconfig QML_DEMO
+	tristate
+	prompt "qml-demo                      "
+	select QT4
+	select QT4_MOUSE_TSLIB
+	select QT4_BUILD_DECLARATIVE
+	select RC_ONCE
+	help
+	  Enable this entry to get a simple QML demo running on
+	  your target. It can act as a simple example how to integrate
+	  your own QML based application into this PTXdist project.
+
+if QML_DEMO
+
+config QML_DEMO_STARTUP_SCRIPT
+	bool
+	default y
+	depends on INITMETHOD_BBINIT
+	prompt "install a startup script for the demo"
+
+config QML_DEMO_SYSTEMD_UNIT
+	bool
+	default y
+	depends on INITMETHOD_SYSTEMD
+	prompt "install systemd unit files for the demo"
+
+endif
