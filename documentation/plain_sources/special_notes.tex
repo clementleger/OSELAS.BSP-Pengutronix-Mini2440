@@ -381,7 +381,7 @@ To see the exact events the touch generates, we can also use the
 \texttt{evtest} tool.
 
 \begin{ptxshell}[escapechar=|]{^}
-# evtest /dev/input/event1
+# evtest /dev/input/touchscreen
 Input driver version is 1.0.1
 Input device ID: bus 0x19 vendor 0xdead product 0xbeef version 0x102
 Input device name: "S3C24XX TouchScreen"
@@ -402,6 +402,14 @@ Testing ... (interrupt to exit)
 \end{ptxshell}
 
 Whenever we touch the screen this tool lists the values the driver reports.
+
+\begin{important}
+Don't rely on the event node the kernel creates in the \texttt{/dev/input/}
+direcory. Over the time the index can change. This board support package comes
+with a special \textit{udev} rule, which creates a link called \texttt{touchscreen}
+always pointing to the correct event node. Use the \texttt{touchscreen} in your
+setup instead of the plain event node.
+\end{important}
 
 \subsection{If the Touchscreen does not work}
 
@@ -623,7 +631,7 @@ If the key buttons are working as expected, can also be checked without a
 working console with the following command:
 
 \begin{ptxshell}[escapechar=|]{^}
-# evtest /dev/input/event0
+# evtest /dev/input/buttons
 Input driver version is 1.0.1
 Input device ID: bus 0x19 vendor 0x1 product 0x1 version 0x100
 Input device name: "gpio-keys"
@@ -637,6 +645,14 @@ Supported events:
     Event code 116 (Power)
 Testing ... (interrupt to exit)
 \end{ptxshell}
+
+\begin{important}
+Don't rely on the event node the kernel creates in the \texttt{/dev/input/}
+direcory. Over the time the index can change. This board support package comes
+with a special \textit{udev} rule, which creates a link called \texttt{buttons}
+always pointing to the correct event node. Use the \texttt{buttons} in your
+setup instead of the plain event node.
+\end{important}
 
 %----------------------------------------------------------------------------
 
