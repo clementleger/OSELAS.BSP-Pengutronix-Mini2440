@@ -1,11 +1,11 @@
 ## SECTION=qt
 
-config QT4_DEMO
+menuconfig QT4_DEMO
 	tristate
-	prompt "qt4-demo"
+	prompt "qt4-demo                      "
 	select QT4
 	select QWT
-	select STARTUP
+	select STARTUP if QT4_DEMO_STARTUP_SCRIPT
 	select RC_ONCE
 	help
 	  Enable this entry to get a simple Qt4 demo running at startup on
@@ -13,4 +13,20 @@ config QT4_DEMO
 	  own Qt4 based application into this PTXdist project.
 	  Part of this entry is the installation of a start script that runs
 	  this Qt4 application when the system starts.
+
+if QT4_DEMO
+
+config QT4_DEMO_STARTUP_SCRIPT
+	bool
+	default y
+	depends on INITMETHOD_BBINIT
+	prompt "install a startup script for the demo"
+
+config QT4_DEMO_SYSTEMD_UNIT
+	bool
+	default y
+	depends on INITMETHOD_SYSTEMD
+	prompt "install systemd unit files for the demo"
+
+endif
 

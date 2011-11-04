@@ -61,6 +61,20 @@ $(STATEDIR)/qt4-demo.targetinstall:
 	@$(call install_alternative, qt4-demo, 0, 0, 0755, \
 		/etc/rc.once.d/tscalibrate)
 
+ifdef PTXCONF_QT4_DEMO_SYSTEMD_UNIT
+	@$(call install_copy, qt4-demo, 0, 0, 0644, \
+		$(QT4_DEMO_DIR)/init/systemd/qt4demo.service, \
+		/lib/systemd/system/qt4demo.service)
+	@$(call install_link, qt4-demo, ../qt4demo.service, \
+		/lib/systemd/system/multi-user.target.wants/qt4demo.service)
+endif
+ifdef PTXCONF_QT4_DEMO_STARTUP_SCRIPT
+	@$(call install_copy, qt4-demo, 0, 0, 0755, \
+		$(QT4_DEMO_DIR)/init/sysv/startup, \
+		/etc/init.d/startup, n)
+	@$(call install_link, qt4-demo, ../init.d/startup, /etc/rc.d/S99startup)
+endif
+
 	@$(call install_finish, qt4-demo)
 
 	@$(call touch)

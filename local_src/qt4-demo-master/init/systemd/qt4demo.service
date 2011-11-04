@@ -1,0 +1,10 @@
+[Unit]
+Description=Qt4 Demo Application
+After=dev-input-event1.device
+
+[Service]
+Environment=QWS_MOUSE_PROTO=Tslib:/dev/input/touchscreen
+ExecStart=/usr/bin/qt4-demo -qws
+
+[Install]
+WantedBy=multi-user.target
