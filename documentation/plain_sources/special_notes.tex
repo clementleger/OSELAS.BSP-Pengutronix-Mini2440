@@ -714,6 +714,18 @@ the Mini2440 can talk to itself.
 
 %----------------------------------------------------------------------------
 
+\section{Buzzer}					\label{sec:Buzzer}
+%---------------
+
+The buzzer on the Mini2440 will be triggered by a regular alert in a console.
+So, a simple
+
+\begin{ptxshell}[escapechar=|]{^}
+# echo -e "\a"
+\end{ptxshell}
+
+can make a noise. But this only works if local console support is enabled.
+
 %
 % What is still missing?
 %

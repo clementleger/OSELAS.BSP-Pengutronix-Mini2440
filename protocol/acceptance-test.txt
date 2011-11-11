@@ -183,3 +183,8 @@ RTC
 
 [x] is used by the kernel at boot
 [x] can be read/set with the hwclock command
+
+Buzzer
+------
+
+[ ] makes noise as expected

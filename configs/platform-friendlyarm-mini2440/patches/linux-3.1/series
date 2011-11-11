@@ -51,5 +51,11 @@ n43i_display_unit.diff
 # the 6th button works now
 enable_button_6.diff
 
+# fix generic PWM code
+fix_pwm.diff
+
+# add buzzer as a simple 'input' device
+add_buzzer.diff
+
 # odor marker
 set-marker.diff

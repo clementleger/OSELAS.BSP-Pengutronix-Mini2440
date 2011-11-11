@@ -2,6 +2,7 @@
 
 	* Kernel 3.1:
 		- add button 6 as a working GPIO key
+		- add buzzer support
 
 2011-11-02	Juergen Beisert <jbe@pengutronix.de>
 
