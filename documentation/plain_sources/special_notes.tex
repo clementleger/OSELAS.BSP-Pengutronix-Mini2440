@@ -726,6 +726,14 @@ So, a simple
 
 can make a noise. But this only works if local console support is enabled.
 
+If no local console is available the small \texttt{ring-bell} tool will help.
+
+\begin{ptxshell}[escapechar=|]{^}
+# ring-bell /dev/input/beeper
+\end{ptxshell}
+
+will make some noise for you.
+
 %
 % What is still missing?
 %

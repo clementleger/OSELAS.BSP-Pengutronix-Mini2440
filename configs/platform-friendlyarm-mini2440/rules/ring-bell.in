@@ -1,0 +1,12 @@
+## SECTION=test_suites
+
+config RING_BELL
+	tristate
+	prompt "ring-bell"
+	help
+	  A small demo how to ring the bell from userland if no TTY is
+	  available. On the HMI10 platform this tool must be used in accordance
+	  with the pwm-beeper event device.
+	  If a regular TTY is available also an "echo -e "\a" > /dev/tty0"
+	  rings the bell.
+

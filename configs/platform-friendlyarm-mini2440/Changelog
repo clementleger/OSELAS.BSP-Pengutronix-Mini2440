@@ -4,6 +4,8 @@
 		- add button 6 as a working GPIO key
 		- add buzzer support
 
+	* Platform: add a simple buzzer demo
+
 2011-11-02	Juergen Beisert <jbe@pengutronix.de>
 
 	* Platform: Freeze to PTXdist-2011.11.0
