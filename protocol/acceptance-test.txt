@@ -16,84 +16,84 @@ Legend
 Preparations
 ------------
 
-[ ] make sure the following things are consistent between BSP and manual:
+[x] make sure the following things are consistent between BSP and manual:
 
-    [ ] binaries (programs, commands)
-    [ ] /dev entries
-    [ ] mentioned files in the manual are present on the target at runtime
+    [x] binaries (programs, commands)
+    [x] /dev entries
+    [x] mentioned files in the manual are present on the target at runtime
 
-[ ] does the manual use the same/correct file names for the archives?
+[x] does the manual use the same/correct file names for the archives?
 [-] is the toolchain built in the way the manual mentions?
     20111112 jbe: not tested this time
-[ ] does the project build in the way the manual mentions?
-[ ] does the project build on a 64 bit machine?
-[ ] does the project build on a multi core machine?
+[x] does the project build in the way the manual mentions?
+[x] does the project build on a 64 bit machine?
+[x] does the project build on a multi core machine?
 
 Documentation
 -------------
 
-[ ] File 'documentation/plain_sources/CREDITS' honors all people working on
+[x] File 'documentation/plain_sources/CREDITS' honors all people working on
     this documentation
-[ ] The Quickstart manual lists all people working on this documentation
+[x] The Quickstart manual lists all people working on this documentation
     according to the 'Creative Commons Attribution 3.0 Unported License'
-[ ] Quickstart Manual describes first steps how to setup the BSP/board
+[x] Quickstart Manual describes first steps how to setup the BSP/board
 
 Base System
 -----------
 
-[ ] bootloader is a release
-[ ] kernel-3.1.1 is a release
-[ ] kernel-3.0.9 is a release
-[ ] kernel-2.6.39.4 is a release
-[ ] kernel-2.6.38.8 is a release
+[x] bootloader is a release
+[x] kernel-3.1.1 is a release
+[x] kernel-3.0.9 is a release
+[x] kernel-2.6.39.4 is a release
+[x] kernel-2.6.38.8 is a release
 
 Bootloader
 ----------
 
-[ ] bootloader comes up on UART0
-[ ] booting from NAND flash support
-[ ] booting from NET via TFTP support
-[ ] booting from MMC/SD card
-[ ] default environment comes with reasonable settings
+[x] bootloader comes up on UART0
+[x] booting from NAND flash support
+[x] booting from NET via TFTP support
+[x] booting from MMC/SD card
+[x] default environment comes with reasonable settings
 
 OSELAS BSP
 ----------
 
-[ ] User is able to login
-[ ] The command "reboot" works as intended, without curious messages
-[ ] NAND root partition can be mounted manually when started via NFS
-[ ] SD card partition can be mounted manually when started via NFS
-[ ] reboot and start from flash
+[x] User is able to login
+[x] The command "reboot" works as intended, without curious messages
+[x] NAND root partition can be mounted manually when started via NFS
+[x] SD card partition can be mounted manually when started via NFS
+[x] reboot and start from flash
 
 Touch
 -----
 
-[ ] 'ts_calibrate' is able to calibrate the touchscreen for usage
-[ ] after calibration 'ts_test' must work and does "The Right Things (TM)"
+[x] 'ts_calibrate' is able to calibrate the touchscreen for usage
+[x] after calibration 'ts_test' must work and does "The Right Things (TM)"
 
 Framebuffer
 -----------
 
-[ ] "fbtest" runs without an error
+[x] "fbtest" runs without an error
 
 Audio Support
 -------------
 
-[ ] the platform installs a reasonable default mixer setting
-[ ] 'alsamixer' can control the audio mixer
-[ ] 'aplay' can playback various sound files at different speeds
+[x] the platform installs a reasonable default mixer setting
+[x] 'alsamixer' can control the audio mixer
+[x] 'aplay' can playback various sound files at different speeds
     and mono and stereo
-[ ] 'madplay' plays an MP3
+[x] 'madplay' plays an MP3
 
 USB Host
 --------
 
-[ ] Memory Stick:
+[x] Memory Stick:
 
-    [ ] connect usb memory stick
-    [ ] check if sda appears in '/proc/partitions'
-    [ ] check if vfat32 support is available in the kernel
-    [ ] mount a vfat32 from the memory stick
+    [x] connect usb memory stick
+    [x] check if sda appears in '/proc/partitions'
+    [x] check if vfat32 support is available in the kernel
+    [x] mount a vfat32 from the memory stick
 
 [-] Keyboard:
 
@@ -117,9 +117,9 @@ USB Device
 I2C
 ---
 
-[ ] I2C bus 0 is available
+[x] I2C bus 0 is available
 
-    [ ] EEPROM is present and can be read as the manual mentioned it
+    [x] EEPROM is present and can be read as the manual mentioned it
 
 SPI
 ---
@@ -131,22 +131,22 @@ SPI
 UART
 ----
 
-[ ] three UARTs are available
+[x] three UARTs are available
 
-    [ ] "ttySAC0" as serial console
-    [ ] "ttySAC1" spare
-    [ ] "ttySAC2" spare
+    [x] "ttySAC0" as serial console
+    [x] "ttySAC1" spare
+    [x] "ttySAC2" spare
 
 ADC
 ---
 
-[ ] can be read via the sysfs
-[ ] turning W1 change value on channel 1
+[x] can be read via the sysfs
+[x] turning W1 change value on channel 1
 
 NAND
 ----
 
-[ ] is working as the manual mentioned it
+[x] is working as the manual mentioned it
 
 NOR
 ---
@@ -156,35 +156,35 @@ NOR
 SD
 --
 
-[ ] can be used to mount filesystems on it (ext2/vfat)
+[x] can be used to mount filesystems on it (ext2/vfat)
 
 LED
 ---
 
-[ ] are working as the manual mentioned it
+[x] are working as the manual mentioned it
 
 GPIO
 ----
 
-[ ] are working as the manual mentioned it
+[x] are working as the manual mentioned it
 
 Network
 -------
 
-[ ] works as the manual mentioned it
+[x] works as the manual mentioned it
 
 Keypad
 ------
 
-[ ] pressing K1, K2, K3, K4, K5 and K6 create input events
+[x] pressing K1, K2, K3, K4, K5 and K6 create input events
 
 RTC
 ---
 
-[ ] is used by the kernel at boot
-[ ] can be read/set with the hwclock command
+[x] is used by the kernel at boot
+[x] can be read/set with the hwclock command
 
 Buzzer
 ------
 
-[ ] makes noise as expected
+[x] makes noise as expected
