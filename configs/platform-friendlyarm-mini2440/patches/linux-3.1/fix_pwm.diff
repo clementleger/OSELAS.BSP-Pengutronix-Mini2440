@@ -14,7 +14,7 @@ Index: linux-3.1/arch/arm/plat-samsung/pwm.c
 ===================================================================
 --- linux-3.1.orig/arch/arm/plat-samsung/pwm.c
 +++ linux-3.1/arch/arm/plat-samsung/pwm.c
-@@ -189,7 +189,10 @@ int pwm_config(struct pwm_device *pwm, i
+@@ -188,7 +188,10 @@ int pwm_config(struct pwm_device *pwm, i
  	tcmp = __raw_readl(S3C2410_TCMPB(pwm->pwm_id));
  	tcnt = __raw_readl(S3C2410_TCNTB(pwm->pwm_id));
  

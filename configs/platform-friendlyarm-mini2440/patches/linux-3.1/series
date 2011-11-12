@@ -1,14 +1,11 @@
 # keep in sync with stable
+patch-3.1.1.bz2
 
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
 add_lcd_w35i.diff
 PATCH_2_4_s3c2440_mini2440_Add_touchscreen_support_for_mini2440.diff
 PATCH_3_4_s3c2440_mini2440_Select_touchscreen_by_default.diff
 PATCH_4_4_s3c2440_mini2440_Use_leds-gpio_driver_for_board_leds_handling.diff
-
-# this patch was intended for YAFFS users, but also JFFS2 uses the OOB area
-# should be visible in mainline sometime
-PATCH_nand_base_Always_initialise_oob_poi_before_writing_OOB_data.diff
 
 # some fixes, occured on LKML/ALKML
 PATCH_2_3_rtc-s3c_Disable_alarm_entries_that_are_not_chosen.diff

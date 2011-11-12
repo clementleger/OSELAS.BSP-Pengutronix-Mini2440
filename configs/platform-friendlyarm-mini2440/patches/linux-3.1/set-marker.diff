@@ -9,7 +9,7 @@ Index: linux-3.1/Makefile
 @@ -1,7 +1,7 @@
  VERSION = 3
  PATCHLEVEL = 1
- SUBLEVEL = 0
+ SUBLEVEL = 1
 -EXTRAVERSION =
 +EXTRAVERSION = -ptx-master
  NAME = "Divemaster Edition"
