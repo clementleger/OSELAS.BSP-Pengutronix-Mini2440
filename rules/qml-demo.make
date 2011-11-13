@@ -72,7 +72,7 @@ ifdef PTXCONF_QML_DEMO_STARTUP_SCRIPT
 	@$(call install_copy, qml-demo, 0, 0, 0755, \
 		$(QML_DEMO_DIR)/init/sysv/startup, \
 		/etc/init.d/startup, n)
-	@$(call install_link, startup, ../init.d/startup, /etc/rc.d/S99startup)
+	@$(call install_link, qml-demo, ../init.d/startup, /etc/rc.d/S99startup)
 endif
 
 	@$(call install_finish, qml-demo)
