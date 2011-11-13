@@ -144,7 +144,36 @@ mini2440:/ update -t rootfs -d nand
 
 \section{SD/MMC card memory case}
 
-TBD.
+We assume here the partitioning is done as mentioned in section
+\ref{sec:boot_sdcard}: two partitions on the SD/MMC card, first contains the
+kernel image and no filesystem, second contains the root filesystem content
+with a filesystem we like. We also assume here, updating the card content is
+not done at the target's side, it is still done at our host. This means, we are
+using some kind of USB based card reader and these kind of devices show us the
+attached cards as SCSI devices.
+
+\subsection{Updating the Linux Kernel}
+
+Changing the kernel is rather simple:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| sudo cp |\ptxdistPlatformDir |images/linuximage /dev/sdd1
+\end{ptxshell}
+
+Note: Replace the \texttt{/dev/sdd1} here with the device node name the card
+reader is visible in your system.
+
+\subsection{Updating the Root Filesystem}
+
+Changing the root filesystem content mostly means we must remove its old content.
+This can be done quickly by re-formatting it.
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| sudo mkfs.ext2 /dev/sdd2
+|\$| sudo mount /dev/sdd2 /mnt
+|\$| sudo tar -xvzf |\ptxdistPlatformDir |images/root.tgz -C /mnt
+|\$| sudo umount /mnt
+\end{ptxshell}
 
 \section{Network memory case}
 
