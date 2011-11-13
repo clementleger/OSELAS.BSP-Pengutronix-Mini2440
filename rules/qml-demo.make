@@ -63,14 +63,14 @@ $(STATEDIR)/qml-demo.targetinstall:
 	@$(call install_alternative, qml-demo, 0, 0, 0755, \
 		/etc/rc.once.d/tscalibrate)
 
-ifdef PTXCONF_QML_DEMO_SYSTEMD_UNIT
+ifdef PTXCONF_MINI2440_DEMO_SYSTEMD_UNIT
 	@$(call install_copy, qml-demo, 0, 0, 0644, \
 		$(QML_DEMO_DIR)/init/systemd/qmldemo.service, \
 		/lib/systemd/system/qmldemo.service)
 	@$(call install_link, qml-demo, ../qmldemo.service, \
 		/lib/systemd/system/multi-user.target.wants/qmldemo.service)
 endif
-ifdef PTXCONF_QML_DEMO_STARTUP_SCRIPT
+ifdef PTXCONF_MINI2440_DEMO_STARTUP_SCRIPT
 	@$(call install_copy, qml-demo, 0, 0, 0755, \
 		$(QML_DEMO_DIR)/init/sysv/startup, \
 		/etc/init.d/startup, n)
