@@ -41,6 +41,28 @@ choice
 
 endchoice
 
+if QML_DEMO
+
+choice
+	prompt "Demo mode"
+	default QML_DEMO_PORTRAIT
+
+config QML_DEMO_PORTRAIT
+	bool
+	prompt "Portrait mode"
+	help
+	  Display the demo in portrait mode e.g. 240 x 320.
+
+config QML_DEMO_LANDSCAPE
+	bool
+	prompt "Landscape mode"
+	help
+	  Display the demo in landscape mode e.g. 320 x 240.
+
+endchoice
+
+endif
+
 config MINI2440_DEMO_STARTUP_SCRIPT
 	bool
 	default y

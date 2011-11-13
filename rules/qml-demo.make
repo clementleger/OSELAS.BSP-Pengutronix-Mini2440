@@ -57,9 +57,14 @@ $(STATEDIR)/qml-demo.targetinstall:
 	@$(call install_copy, qml-demo, 0, 0, 0755, /usr/lib/qml-demo)
 
 # copy the QML tree to the target as-is.
-	@$(call install_tree, qml-demo, 0, 0, $(QML_DEMO_DIR)/qml, \
+ifdef PTXCONF_QML_DEMO_PORTRAIT
+	@$(call install_tree, qml-demo, 0, 0, $(QML_DEMO_DIR)/qml-portrait, \
 		/usr/lib/qml-demo)
-
+endif
+ifdef PTXCONF_QML_DEMO_LANDSCAPE
+	@$(call install_tree, qml-demo, 0, 0, $(QML_DEMO_DIR)/qml-landscape, \
+		/usr/lib/qml-demo)
+endif
 	@$(call install_alternative, qml-demo, 0, 0, 0755, \
 		/etc/rc.once.d/tscalibrate)
 
