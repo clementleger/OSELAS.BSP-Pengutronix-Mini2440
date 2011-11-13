@@ -3,6 +3,10 @@
 	* Board Support Package: back to development
 	* Qt4 demo: back to development
 
+2011-11-13	Josef Holzmayr <holzmayr@rsi-elektrotechnik.de>
+
+	* QML demo: add a new nice Qt/QML demo
+
 2011-11-12	Juergen Beisert <jbe@pengutronix.de>
 
 	* Board Support Package: Using platform-FriendlyARM-Mini2440-2011.11.0
