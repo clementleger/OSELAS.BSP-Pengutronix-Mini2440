@@ -54,6 +54,8 @@ $(STATEDIR)/qml-demo.targetinstall:
 		$(QML_DEMO_BUILDDIR)/qml-demo, \
 		/usr/bin/qml-demo)
 
+	@$(call install_copy, qml-demo, 0, 0, 0755, /usr/lib/qml-demo)
+
 # copy the QML tree to the target as-is.
 	@$(call install_tree, qml-demo, 0, 0, $(QML_DEMO_DIR)/qml, \
 		/usr/lib/qml-demo)
