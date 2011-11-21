@@ -3,12 +3,6 @@
 menuconfig MINI2440_DEMO
 	tristate
 	prompt "Mini2440 related Qt demos     "
-	select QT4
-	select RC_ONCE
-	select QT4_MOUSE_TSLIB
-	select QWT if QT4_DEMO
-	select QT4_BUILD_DECLARATIVE if QML_DEMO
-	select STARTUP if QT4_DEMO_STARTUP_SCRIPT
 	help
 	  Enable this entry to get simple Mini2440 related Qt4 demos running at
 	  startup on your target.
@@ -20,6 +14,10 @@ choice
 	default QT4_DEMO
 
 	config QT4_DEMO
+	select QT4
+	select RC_ONCE
+	select QT4_MOUSE_TSLIB
+	select QWT
 	bool
 	prompt "Qt4/QWT demo"
 	help
@@ -30,6 +28,10 @@ choice
 	  this Qt4 application when the system starts.
 
 	config QML_DEMO
+	select QT4
+	select RC_ONCE
+	select QT4_MOUSE_TSLIB
+	select QT4_BUILD_DECLARATIVE
 	bool
 	prompt "Qt4/QML demo"
 	help
