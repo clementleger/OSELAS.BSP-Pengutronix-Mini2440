@@ -1,6 +1,8 @@
 2011-11-21	Juergen Beisert <jbe@pengutronix.de>
 
 	* Qt4 demo: fix a dependency error in its menu
+	* BSP: remove generic startup script for the Qt4 demos. It done now in
+	       the Qt4 rule files instead
 
 2011-11-13	Juergen Beisert <jbe@pengutronix.de>
 

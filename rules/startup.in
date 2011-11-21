@@ -1,8 +1,0 @@
-## SECTION=initmethod
-config STARTUP
-	tristate
-	prompt "startup script"
-	help
-	  Install a customized init based startup script. It is expected in
-	  your project's "projectroot/etc/init.d/startup".
-
