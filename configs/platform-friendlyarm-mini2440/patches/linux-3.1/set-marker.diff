@@ -11,7 +11,7 @@ Index: linux-3.1/Makefile
  PATCHLEVEL = 1
  SUBLEVEL = 1
 -EXTRAVERSION =
-+EXTRAVERSION = -ptx-2011.11.0
++EXTRAVERSION = -ptx-master
  NAME = "Divemaster Edition"
  
  # *DOCUMENTATION*
