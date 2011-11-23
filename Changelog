@@ -1,3 +1,7 @@
+2011-11-23	Josef Holzmayr <holzmayr@rsi-elektrotechnik.de>
+
+	* QML demo: Consolidate portrait/landscape mode in qml-demo
+
 2011-11-21	Juergen Beisert <jbe@pengutronix.de>
 
 	* Qt4 demo: fix a dependency error in its menu

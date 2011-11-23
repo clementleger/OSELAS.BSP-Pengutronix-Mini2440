@@ -14,6 +14,7 @@ int main(int argc, char **argv)
 
 	QDeclarativeView *qdv = new QDeclarativeView;
 	qdv->setSource(QUrl::fromLocalFile("/usr/lib/qml-demo/main.qml"));
+	qdv->setResizeMode(QDeclarativeView::SizeRootObjectToView);
 	qdv->showFullScreen();
 
 	return app.exec();;
