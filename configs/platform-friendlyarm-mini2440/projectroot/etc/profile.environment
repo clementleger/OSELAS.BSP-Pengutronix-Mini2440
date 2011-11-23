@@ -12,6 +12,9 @@ alias ...='cd ../..'
 alias md='mkdir'
 alias rd='rmdir'
 
+# for automatic screen sizing on serial consoles
+eval `resize`
+
 # Mini2440 related settings
 MINI2440_FBDEV=/dev/fb0
 MINI2440_KEYEVENT=/dev/input/buttons

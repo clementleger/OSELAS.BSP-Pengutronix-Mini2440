@@ -1,3 +1,7 @@
+2011-11-23	Juergen Beisert <jbe@pengutronix.de>
+
+	* BSP: automagically set screen size at login on a serial console
+
 2011-11-23	Josef Holzmayr <holzmayr@rsi-elektrotechnik.de>
 
 	* QML demo: Consolidate portrait/landscape mode in qml-demo
