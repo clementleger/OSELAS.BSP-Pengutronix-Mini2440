@@ -1,3 +1,7 @@
+2011-11-24	Juergen Beisert <jbe@pengutronix.de>
+
+	* BSP: add the long outstanding licence
+
 2011-11-23	Juergen Beisert <jbe@pengutronix.de>
 
 	* BSP: automagically set screen size at login on a serial console
