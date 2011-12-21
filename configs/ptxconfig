@@ -1169,7 +1169,7 @@ PTXCONF_UDEV=y
 #
 # build options                 
 #
-# PTXCONF_UDEV_EXPERIMENTAL is not set
+PTXCONF_UDEV_EXPERIMENTAL=y
 # PTXCONF_UDEV_DEBUG is not set
 # PTXCONF_UDEV_SYSLOG is not set
 

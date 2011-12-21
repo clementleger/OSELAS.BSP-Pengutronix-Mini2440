@@ -1,6 +1,8 @@
 2011-12-21	Juergen Beisert <jbe@pengutronix.de>
 
-	* Board Support Package: Use ptxdist-2011.12.0
+	* Board Support Package:
+		- use ptxdist-2011.12.0
+		- udev must be a more recent one, to support newer kernels
 
 2011-11-24	Juergen Beisert <jbe@pengutronix.de>
 
