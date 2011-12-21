@@ -13,7 +13,10 @@
 
 #include <QtGui/QApplication>
 #include <QDeclarativeView>
+#include <QDeclarativeComponent>
 #include <QWSServer>
+
+#include "buzzer.h"
 
 int main(int argc, char **argv)
 {
@@ -25,6 +28,7 @@ int main(int argc, char **argv)
 	QWSServer::setCursorVisible( false );
 #endif
 
+        qmlRegisterType<Buzzer>("Mini2440", 1, 0, "Buzzer");
 	QDeclarativeView *qdv = new QDeclarativeView;
 	qdv->setSource(QUrl::fromLocalFile("/usr/lib/qml-demo/main.qml"));
 	qdv->setResizeMode(QDeclarativeView::SizeRootObjectToView);

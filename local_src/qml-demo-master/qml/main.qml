@@ -12,6 +12,7 @@
  */
 
 import QtQuick 1.0
+import Mini2440 1.0
 
 Rectangle {
 	id: page
@@ -23,6 +24,20 @@ Rectangle {
 	property int markersize: 30
 	property int borderoffset: 10
 	property int boxoffset: (boxsize - markersize) / 2
+
+	Buzzer {
+		id: buzzer
+	}
+
+	Button {
+		id: buzzerButton
+		text: qsTr("Beep!")
+		x: (page.width / 2) - (buzzerButton.width / 2)
+		y: page.height  - (buzzerButton.height + borderoffset)
+		height: 50
+		width: 50
+		onClicked: buzzer.beep()
+	}
 
 	Rectangle {
 		id: rectTL
@@ -99,7 +114,7 @@ Rectangle {
 	}
 
 	Text {
-		id: text1
+		id: textTouchMarker
 		text: qsTr("Touch the black squares to move the red marker.")
 		anchors.right: parent.right
 		anchors.rightMargin: borderoffset
@@ -115,6 +130,7 @@ Rectangle {
 		font.underline: true
 		font.pixelSize: 12
 	}
+
 	states: [
 		State {
 			name: "TL"
