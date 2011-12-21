@@ -1,6 +1,6 @@
 #
 # some Mini2440 related settings, due to the kernel enumerates them differently from time to time
 #
-SUBSYSTEMS=="input", KERNELS=="input[0-9]*", ATTRS{name}=="gpio-keys", SYMLINK+="input/buttons"
-SUBSYSTEMS=="input", KERNELS=="input[0-9]*", ATTRS{name}=="S3C24XX TouchScreen", SYMLINK+="input/touchscreen"
-SUBSYSTEMS=="input", KERNELS=="input[0-9]*", ATTRS{name}=="pwm-beeper", SYMLINK+="input/beeper"
+SUBSYSTEMS=="input", KERNEL=="event[0-9]*", KERNELS=="input[0-9]*", ATTRS{name}=="gpio-keys", SYMLINK+="input/buttons"
+SUBSYSTEMS=="input", KERNEL=="event[0-9]*", KERNELS=="input[0-9]*", ATTRS{name}=="S3C24XX TouchScreen", SYMLINK+="input/touchscreen"
+SUBSYSTEMS=="input", KERNEL=="event[0-9]*", KERNELS=="input[0-9]*", ATTRS{name}=="pwm-beeper", SYMLINK+="input/beeper"
