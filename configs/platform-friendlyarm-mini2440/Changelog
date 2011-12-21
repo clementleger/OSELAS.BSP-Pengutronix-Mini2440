@@ -2,6 +2,7 @@
 
 	* Kernel 2.6.39:
 		- back to development
+		- fix Kernel-DOS error in arp mechanism
 
 2011-12-10	Juergen Beisert <jbe@pengutronix.de>
 

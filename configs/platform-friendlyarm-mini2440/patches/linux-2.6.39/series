@@ -55,6 +55,9 @@ fix_backlight_GPIO_handling.diff
 # help to find hidden bugs in the kernel
 poison_initmem_when_it_is_freed.patch
 
+# avoid a possible DOS attack
+avoid_Kernel_DOS_error_in_arp_mechanism.patch
+
 # odor marker
 set-marker.diff
 
