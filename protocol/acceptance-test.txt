@@ -43,7 +43,7 @@ Base System
 [ ] qml demo is a release
 [ ] bootloader is a release
 [ ] kernel-3.1.5 is a release
-[ ] kernel-3.0.13 is a release
+[ ] kernel-3.0.14 is a release
 [ ] kernel-2.6.39.4 is a release
 [ ] kernel-2.6.38.8 is a release
 
