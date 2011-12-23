@@ -39,7 +39,7 @@ Documentation
 Base System
 -----------
 
-[ ] qt4 demo is a release
+[x] qt4 demo is a release
 [ ] qml demo is a release
 [x] bootloader is a release
 [x] kernel-3.1.6 is a release
