@@ -1,6 +1,8 @@
 2011-12-26	Juergen Beisert <jbe@pengutronix.de>
 
 	* Board Support Package: Back to development
+	* Qt4 demo: use the release 2011.12.0 when built
+	* QML demo: use the release 2011.12.0 when built
 
 2011-12-23	Juergen Beisert <jbe@pengutronix.de>
 

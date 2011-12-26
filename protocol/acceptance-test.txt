@@ -40,7 +40,9 @@ Base System
 -----------
 
 [x] qt4 demo is a release
+    [ ] rule file uses the release
 [x] qml demo is a release
+    [ ] rule file uses the release
 [x] bootloader is a release
 [x] kernel-3.1.6 is a release
 [x] kernel-3.0.14 is a release

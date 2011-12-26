@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_QML_DEMO) += qml-demo
 #
 # Paths and names
 #
-QML_DEMO_VERSION	:= master
+QML_DEMO_VERSION	:= 2011.12.0
 QML_DEMO		:= qml-demo-$(QML_DEMO_VERSION)
 QML_DEMO_URL		:= file://$(PTXDIST_WORKSPACE)/local_src/$(QML_DEMO)
 QML_DEMO_DIR		:= $(BUILDDIR)/$(QML_DEMO)
