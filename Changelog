@@ -1,3 +1,7 @@
+2012-02-03	Juergen Beisert <jbe@pengutronix.de>
+
+	* Documentation: Add info about usage of foreign toolchains
+
 2012-01-24	Juergen Beisert <jbe@pengutronix.de>
 
 	* Board Support Package: back to development

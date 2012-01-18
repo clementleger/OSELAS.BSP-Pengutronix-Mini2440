@@ -1,0 +1,215 @@
+%
+% Charset: utf8
+% Content type: Plain LATEX
+% Content: This chapter give some hints about using a foreign toolchain to
+%          build the "OSELAS.BSP-Pengutronix-Mini2440" board support package
+%
+% Copyright Jürgen Beisert <jbe@pengutronix.de>, 2012
+%
+% This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+% To view a copy of this license, visit:
+%           http://creativecommons.org/licenses/by/3.0/
+% or send a letter to:
+% Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+%
+% Refer the file CREDITS for all people working on this document.
+% %
+% This file content will be part of the "OSELAS.BSP-Pengutronix-Mini2440-Quickstart.pdf"
+%
+% Note: This document uses some externaly defined LATEX commands. If you try to
+% run LATEX only on this file it will fail due to the absense of these commands.
+% All these commands are starting with 'ptxdist'.
+%
+
+\section{Using a Foreign Toolchain}		\label{sec:foreigntoolchain}
+
+It is possible to use a different toolchain than the recommended OSELAS.Toolchain.
+But to make sure the result will work on the Mini2440, some preconditions must
+be met.
+
+The Mini2440 uses a Samsung S3C2440 processor. This processor comes with a so
+called \textit{ARMv4 core} (also called \textit{the architecture}). This means
+some internal features this processor supports and - much more important - the
+command set it understands.
+
+So, an important precondition to use a foreign toolchain is, it must generate
+code only for this \textit{ARMv4 core}. There are always two ways to ensure the
+compiler generates code that matches the \textit{architecture}:
+
+\begin{itemize}
+	\item the default settings are matching the \textit{ARMv4 core architecure}
+	\item a compile parameter temporarely switches to this \textit{ARMv4 core architecure}
+\end{itemize}
+
+The first way was set, when the toolchain was built. In the case of our
+OSELAS.Toolchain we configure the compiler with:
+
+\texttt{--with-arch=armv4t}
+
+which results into the default compiler option for code generation if not
+otherwise specified later on.
+
+The second way can be archived by using the compiler parameter
+\texttt{-march=armv4t}. This will switch the code generation to the
+\textit{ARMv4 core architecure} for the run of the compiler.
+
+\subsection{Discovering Toolchain's Compiler Defaults}
+
+Two ways do exist to get the default settings out of the toolchain's compiler.
+
+\subsubsection{By Preprocessor Macros}
+
+Run the following command and examine the result:
+
+\begin{ptxshell}[escapechar=~]{^}
+~\$~ echo "" | arm-linux-gcc -E -dM - | grep __ARM_ARCH_
+#define __ARM_ARCH_4T__ 1
+\end{ptxshell}
+
+If the listed \textbf{__ARM_ARCH_} macro contains higher architecture numbers
+than the shown \textbf{4} this toolchain cannot be used for the Mini2440.
+
+Currently known not working architectures are:
+
+\begin{itemize}
+	\item __ARM_ARCH_5__
+	\item __ARM_ARCH_5E__
+	\item __ARM_ARCH_5T__
+	\item __ARM_ARCH_5TE__
+	\item __ARM_ARCH_5TEJ__
+	\item __ARM_ARCH_6__
+	\item __ARM_ARCH_6J__
+	\item __ARM_ARCH_6K__
+	\item __ARM_ARCH_6Z__
+	\item __ARM_ARCH_6ZK__
+	\item __ARM_ARCH_6T2__
+	\item __ARM_ARCH_7M__
+	\item __ARM_ARCH_7A__
+\end{itemize}
+
+\subsubsection{By Parameter Listing}
+
+More default options can be read back from the toolchain's compiler in this way:
+
+\begin{ptxshell}[escapechar=~]{^}
+~\$~ touch test.c
+~\$~ arm-linux-gcc -S --verbose-asm
+\end{ptxshell}
+
+The result in \texttt{test.s} will look like this:
+
+\begin{ptxshell}[escapechar=~]{^}
+   .arch armv4t
+   .fpu softvfp
+   .eabi_attribute 20, 1
+   .eabi_attribute 21, 1
+   .eabi_attribute 23, 3
+   .eabi_attribute 24, 1
+   .eabi_attribute 25, 1
+   .eabi_attribute 26, 2
+   .eabi_attribute 30, 6
+   .eabi_attribute 18, 4
+   .file "test.c"
+@ GNU C (ctng-1.6.1) version 4.4.3 (arm-none-linux-gnueabi)
+@  compiled by GNU C version 4.3.0 20080428 (Red Hat 4.3.0-8), GMP version 4.3.1, MPFR version 2.4.2-p2.
+@ GGC heuristics: --param ggc-min-expand=98 --param ggc-min-heapsize=128213
+@ options passed:  test.c -march=armv4t -mtune=arm920t -mfloat-abi=soft
+@ -fverbose-asm
+@ options enabled:  -falign-loops -fargument-alias -fauto-inc-dec
+@ -fbranch-count-reg -fcommon -fearly-inlining
+@ -feliminate-unused-debug-types -ffunction-cse -fgcse-lm -fident
+@ -finline-functions-called-once -fira-share-save-slots
+@ -fira-share-spill-slots -fivopts -fkeep-static-consts
+@ -fleading-underscore -fmath-errno -fmerge-debug-strings
+@ -fmove-loop-invariants -fpeephole -freg-struct-return -fsched-interblock
+@ -fsched-spec -fsched-stalled-insns-dep -fsigned-zeros
+@ -fsplit-ivs-in-unroller -ftrapping-math -ftree-cselim -ftree-loop-im
+@ -ftree-loop-ivcanon -ftree-loop-optimize -ftree-parallelize-loops=
+@ -ftree-reassoc -ftree-scev-cprop -ftree-switch-conversion
+@ -ftree-vect-loop-version -funit-at-a-time -fverbose-asm
+@ -fzero-initialized-in-bss -mglibc -mlittle-endian -msched-prolog
+@ -mthumb-interwork
+
+@ Compiler executable checksum: cd60c209f399d02b2e94fe81b4cfa8ba
+
+   .ident   "GCC: (ctng-1.6.1) 4.4.3"
+   .section .note.GNU-stack,"",%progbits
+\end{ptxshell}
+
+The important line here is the one with the \texttt{-march=armv4t}. It shows
+the default setting for code generation.
+
+\subsection{Discovering Toolchain's Library Optimization}
+
+Beside the compiler defaults, also the basic C library coming with the toolchain
+is an important part. As it comes with the toolchain in a binary data format,
+the way it was compiled must also match our architecture.
+
+\begin{ptxshell}[escapechar=~]{^}
+~\$~ readelf -A <toolchain-install-directory>/arm-none-linux-gnueabi/lib/libc-2.9.so
+Attribute Section: aeabi
+File Attributes
+  Tag_CPU_name: "4T"
+  Tag_CPU_arch: v4T
+  Tag_ARM_ISA_use: Yes
+  Tag_THUMB_ISA_use: Thumb-1
+  Tag_ABI_PCS_wchar_t: 4
+  Tag_ABI_FP_denormal: Needed
+  Tag_ABI_FP_exceptions: Needed
+  Tag_ABI_FP_number_model: IEEE 754
+  Tag_ABI_align8_needed: Yes
+  Tag_ABI_enum_size: int
+\end{ptxshell}
+
+The important information is the \texttt{Tag_CPU_arch: v4T} line wich matches
+our architecture.
+
+Note: running the command on the \texttt{libc-2.0.so} library is an example
+only. You can run it on any target library you find in your toolchain.
+
+\begin{important}
+It is always possible to overwrite the architecture the compiler creates code
+for by command line parameters. But it only works for newly compiled code. It
+does not help for the basic C library when this component was compiled for a
+different architecture. In this case there is no way to use this toolchain.
+\end{important}
+
+\subsection{BSP changes to use a foreign Toolchain}
+
+Each \ptxdist{} based board support package is configured for a specific
+toolchain vendor, a specific compiler version, toolchain name and basic C
+library version. This is to ensure a user uses the same environment the release
+tests where made of and to get a reliable build.
+
+Using another toolchain than the already defined one means, all these
+specified values must be changed. To do so, we run:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| ptxdist platformconfig
+ architecture --->
+   toolchain  --->
+      ()  check for specific toolchain vendor
+      (4.4.3) check for specific gcc version
+      (2.9) check for specific glibc version
+      (arm-linux) gnu target
+\end{ptxshell}
+
+The settings above will switch off the vendor check and configures the board
+support package for a \texttt{gcc-4.4.3} with a \texttt{glibc-2.9} and a
+toolchain/compiler name of \texttt{arm-linux}.
+
+After this change \ptxdist{} is unable to find the toolchain by its own. In
+this case an additional step is required to prepare the board support package
+for the build:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| ptxdist toolchain <toolchain-install-directory>/bin
+\end{ptxshell}
+
+After that, a regular build can happen.
+
+\begin{important}
+Don't expect a successfull build after changing to a foreign toolchain. It is
+impossible to provide code that builds on any compiler and compiler releases and
+any C library in the wild.
+\end{important}
