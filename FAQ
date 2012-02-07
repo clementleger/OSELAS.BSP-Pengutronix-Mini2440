@@ -35,6 +35,15 @@ A: A bad commit changed the names of the serial consoles to 's3c2410_serial*'
    instead of 'ttySAC*'. Problem is present at least in Linux-2.6.37, solved
    in Linux-2.6.38.
 
+Q: I still can't login. It asks for a password, even there is no for user root
+A: If you run your Mini2440 via 'NFS root filesystem' the Mini2440's user root
+   needs also root permissions on the used 'NFS root filesystem'. But without
+   a special parameter the NFS server daemon does not grant root permissions to
+   external hosts. Use the 'no_root_squash' parameter to the exported filesystem
+   in '/etc/exports'. But keep in mind, this will open a huge security hole into
+   your machine. So, never export your whole filesystem in this way, only the
+   required paths to make your targets work.
+
 Q: The NAND flash driver shows flash's content only once. After that, it reports
    zeroes only.
 A: Don't use the 'Samsung S3C NAND IDLE clock stop' feature. It seems broken
