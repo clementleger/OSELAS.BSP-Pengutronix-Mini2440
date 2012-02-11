@@ -57,5 +57,7 @@ fix_pwm.diff
 # add buzzer as a simple 'input' device
 add_buzzer.diff
 
+SAMSUNG_Add_over_sampling_preventing_code.diff
+
 # odor marker
 set-marker.diff
