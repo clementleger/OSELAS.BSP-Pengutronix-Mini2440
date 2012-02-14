@@ -6,6 +6,8 @@
 	* Kernel 3.2:
 		- keep in sync with stable release .6
 
+	* Platform: Freeze to PTXdist-2012.02.0
+
 2012-02-06	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 3.0:
