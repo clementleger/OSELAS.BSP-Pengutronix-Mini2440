@@ -16,87 +16,87 @@ Legend
 Preparations
 ------------
 
-[x] make sure the following things are consistent between BSP and manual:
+[ ] make sure the following things are consistent between BSP and manual:
 
-    [x] binaries (programs, commands)
-    [x] mentioned files in the manual are present on the target at runtime
+    [ ] binaries (programs, commands)
+    [ ] mentioned files in the manual are present on the target at runtime
 
-[x] does the manual use the same/correct file names for the archives?
-[x] is the toolchain built in the way the manual mentions?
-[x] does the project build in the way the manual mentions?
-[x] does the project build on a 64 bit machine?
-[x] does the project build on a multi core machine?
+[ ] does the manual use the same/correct file names for the archives?
+[ ] is the toolchain built in the way the manual mentions?
+[ ] does the project build in the way the manual mentions?
+[ ] does the project build on a 64 bit machine?
+[ ] does the project build on a multi core machine?
 
 Documentation
 -------------
 
-[x] File 'documentation/plain_sources/CREDITS' honors all people working on
+[ ] File 'documentation/plain_sources/CREDITS' honors all people working on
     this documentation
-[x] The Quickstart manual lists all people working on this documentation
+[ ] The Quickstart manual lists all people working on this documentation
     according to the 'Creative Commons Attribution 3.0 Unported License'
-[x] Quickstart Manual describes first steps how to setup the BSP/board
+[ ] Quickstart Manual describes first steps how to setup the BSP/board
 
 Base System
 -----------
 
-[x] qt4 demo is a release
+[ ] qt4 demo is a release
     [ ] rule file uses the release
-[x] qml demo is a release
+[ ] qml demo is a release
     [ ] rule file uses the release
-[x] bootloader is a release
+[ ] bootloader is a release
 [ ] kernel-3.2.6 is a release
 [ ] kernel-3.1.10 is a release
 [ ] kernel-3.0.21 is a release
-[x] kernel-2.6.39.4 is a release
-[x] kernel-2.6.38.8 is a release
+[ ] kernel-2.6.39.4 is a release
+[ ] kernel-2.6.38.8 is a release
 
 Bootloader
 ----------
 
-[x] bootloader comes up on UART0
-[x] booting from NAND flash support
-[x] booting from NET via TFTP support
-[x] booting from MMC/SD card
-[x] default environment comes with reasonable settings
+[ ] bootloader comes up on UART0
+[ ] booting from NAND flash support
+[ ] booting from NET via TFTP support
+[ ] booting from MMC/SD card
+[ ] default environment comes with reasonable settings
 
 OSELAS BSP
 ----------
 
-[x] User is able to login
-[x] The command "reboot" works as intended, without curious messages
-[x] NAND root partition can be mounted manually when started via NFS
-[x] SD card partition can be mounted manually when started via NFS
-[x] reboot and start from flash
+[ ] User is able to login
+[ ] The command "reboot" works as intended, without curious messages
+[ ] NAND root partition can be mounted manually when started via NFS
+[ ] SD card partition can be mounted manually when started via NFS
+[ ] reboot and start from flash
 
 Touch
 -----
 
-[x] 'ts_calibrate' is able to calibrate the touchscreen for usage
-[x] after calibration 'ts_test' must work and does "The Right Things (TM)"
+[ ] 'ts_calibrate' is able to calibrate the touchscreen for usage
+[ ] after calibration 'ts_test' must work and does "The Right Things (TM)"
 
 Framebuffer
 -----------
 
-[x] "fbtest" runs without an error
+[ ] "fbtest" runs without an error
 
 Audio Support
 -------------
 
-[x] the platform installs a reasonable default mixer setting
-[x] 'alsamixer' can control the audio mixer
-[x] 'aplay' can playback various sound files at different speeds
+[ ] the platform installs a reasonable default mixer setting
+[ ] 'alsamixer' can control the audio mixer
+[ ] 'aplay' can playback various sound files at different speeds
     and mono and stereo
-[x] 'madplay' plays an MP3
+[ ] 'madplay' plays an MP3
 
 USB Host
 --------
 
-[x] Memory Stick:
+[ ] Memory Stick:
 
-    [X] connect usb memory stick
-    [x] check if sda appears in '/proc/partitions'
-    [x] check if vfat32 support is available in the kernel
-    [x] mount a vfat32 from the memory stick
+    [ ] connect usb memory stick
+    [ ] check if sda appears in '/proc/partitions'
+    [ ] check if vfat32 support is available in the kernel
+    [ ] mount a vfat32 from the memory stick
 
 [-] Keyboard:
 
@@ -104,12 +104,12 @@ USB Host
     [-] check if /dev/input* appears
     [-] check with hexdump if keyboard generates keys
 
-[x] Mouse:
+[ ] Mouse:
 
-    [x] connect mouse
-    [x] check if /dev/input* appears
-    [x] check with evtest if device generates events
-    [x] this device should not confuse udev (links to the touchscreen driver)
+    [ ] connect mouse
+    [ ] check if /dev/input* appears
+    [ ] check with evtest if device generates events
+    [ ] this device should not confuse udev (links to the touchscreen driver)
 
 USB Device
 ----------
@@ -121,9 +121,9 @@ USB Device
 I2C
 ---
 
-[x] I2C bus 0 is available
+[ ] I2C bus 0 is available
 
-    [x] EEPROM is present and can be read as the manual mentioned it
+    [ ] EEPROM is present and can be read as the manual mentioned it
 
 SPI
 ---
@@ -135,22 +135,22 @@ SPI
 UART
 ----
 
-[x] three UARTs are available
+[ ] three UARTs are available
 
-    [x] "ttySAC0" as serial console
-    [x] "ttySAC1" spare
-    [x] "ttySAC2" spare
+    [ ] "ttySAC0" as serial console
+    [ ] "ttySAC1" spare
+    [ ] "ttySAC2" spare
 
 ADC
 ---
 
-[x] can be read via the sysfs
-[x] turning W1 change value on channel 1
+[ ] can be read via the sysfs
+[ ] turning W1 change value on channel 1
 
 NAND
 ----
 
-[x] is working as the manual mentioned it
+[ ] is working as the manual mentioned it
 
 NOR
 ---
@@ -160,35 +160,35 @@ NOR
 SD
 --
 
-[x] can be used to mount filesystems on it (ext2/vfat)
+[ ] can be used to mount filesystems on it (ext2/vfat)
 
 LED
 ---
 
-[x] are working as the manual mentioned it
+[ ] are working as the manual mentioned it
 
 GPIO
 ----
 
-[x] are working as the manual mentioned it
+[ ] are working as the manual mentioned it
 
 Network
 -------
 
-[x] works as the manual mentioned it
+[ ] works as the manual mentioned it
 
 Keypad
 ------
 
-[x] pressing K1, K2, K3, K4, K5 and K6 create input events
+[ ] pressing K1, K2, K3, K4, K5 and K6 create input events
 
 RTC
 ---
 
-[x] is used by the kernel at boot
-[x] can be read/set with the hwclock command
+[ ] is used by the kernel at boot
+[ ] can be read/set with the hwclock command
 
 Buzzer
 ------
 
-[x] makes noise as expected
+[ ] makes noise as expected
