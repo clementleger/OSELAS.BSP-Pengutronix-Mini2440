@@ -6,6 +6,8 @@
 	* Kernel 3.2:
 		- keep in sync with stable release .7
 
+	* Barebox 2011.05.0: Release ptx-2011.12.0
+
 2012-02-14	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 3.0:
