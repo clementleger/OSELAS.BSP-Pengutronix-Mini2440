@@ -44,7 +44,7 @@ compiler generates code that matches the \textit{architecture}:
 The first way was set, when the toolchain was built. In the case of our
 OSELAS.Toolchain we configure the compiler with:
 
-\texttt{--with-arch=armv4t}
+\texttt{-{}-with-arch=armv4t}
 
 which results into the default compiler option for code generation if not
 otherwise specified later on.
@@ -66,25 +66,25 @@ Run the following command and examine the result:
 #define __ARM_ARCH_4T__ 1
 \end{ptxshell}
 
-If the listed \textbf{__ARM_ARCH_} macro contains higher architecture numbers
+If the listed \textbf{\_\_ARM\_ARCH\_} macro contains higher architecture numbers
 than the shown \textbf{4} this toolchain cannot be used for the Mini2440.
 
-Currently known not working architectures are:
+Currently known \textbf{not} working architectures are:
 
 \begin{itemize}
-	\item __ARM_ARCH_5__
-	\item __ARM_ARCH_5E__
-	\item __ARM_ARCH_5T__
-	\item __ARM_ARCH_5TE__
-	\item __ARM_ARCH_5TEJ__
-	\item __ARM_ARCH_6__
-	\item __ARM_ARCH_6J__
-	\item __ARM_ARCH_6K__
-	\item __ARM_ARCH_6Z__
-	\item __ARM_ARCH_6ZK__
-	\item __ARM_ARCH_6T2__
-	\item __ARM_ARCH_7M__
-	\item __ARM_ARCH_7A__
+	\item \_\_ARM\_ARCH\_5\_\_
+	\item \_\_ARM\_ARCH\_5E\_\_
+	\item \_\_ARM\_ARCH\_5T\_\_
+	\item \_\_ARM\_ARCH\_5TE\_\_
+	\item \_\_ARM\_ARCH\_5TEJ\_\_
+	\item \_\_ARM\_ARCH\_6\_\_
+	\item \_\_ARM\_ARCH\_6J\_\_
+	\item \_\_ARM\_ARCH\_6K\_\_
+	\item \_\_ARM\_ARCH\_6Z\_\_
+	\item \_\_ARM\_ARCH\_6ZK\_\_
+	\item \_\_ARM\_ARCH\_6T2\_\_
+	\item \_\_ARM\_ARCH\_7M\_\_
+	\item \_\_ARM\_ARCH\_7A\_\_
 \end{itemize}
 
 \subsubsection{By Parameter Listing}
@@ -161,7 +161,7 @@ File Attributes
   Tag_ABI_enum_size: int
 \end{ptxshell}
 
-The important information is the \texttt{Tag_CPU_arch: v4T} line wich matches
+The important information is the \texttt{Tag\_CPU\_arch: v4T} line which matches
 our architecture.
 
 Note: running the command on the \texttt{libc-2.0.so} library is an example
