@@ -1,0 +1,129 @@
+%
+% Charset: utf8
+% Content type: Plain LATEX
+% Content: This chapter give some PTXdist specific hints how to use handle all
+%          the different BSP releases with different PTXdist releases.
+%
+% Copyright Dave Festing <dave_festing@hotmail.com>, 2012 and
+%           Jürgen Beisert <jbe@pengutronix.de>, 2012
+%
+% This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+% To view a copy of this license, visit:
+%           http://creativecommons.org/licenses/by/3.0/
+% or send a letter to:
+% Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+%
+% Refer the file CREDITS for all people working on this document.
+%
+% This file content will be part of the "OSELAS.BSP-Pengutronix-Mini2440-Quickstart.pdf"
+%
+% Note: This document uses some externaly defined LATEX commands. If you try to
+% run LATEX only on this file it will fail due to the absense of these commands.
+% All these commands are starting with 'ptxdist'.
+%
+
+\section{Using automagically the correct PTXdist Revision}	\label{sec:ptxdistreleases}
+
+After following the releases of this Mini2440 BSP our harddisk may contain
+various Mini2440 BSP releases, various corresonding OSELAS.Toolchains revisions
+and PTXdist revisions. How to avoid to get confused in this situation?
+
+One solution can be to do it in the same way as \ptxdist{} itself remembers the
+platform, the current configuration and the toolchain to be used to build the
+project: by symbolic filesystem links.
+
+Lets take a look into the project, after it is set up:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| ls -lF
+total 80
+-rw-r--r-- 1 jb user   408 Dec 23 14:00 CONTRIBUTORS
+-rw-r--r-- 1 jb user 18002 Dec 23 14:00 COPYING
+-rw-r--r-- 1 jb user  5100 Feb 21 21:27 Changelog
+-rw-r--r-- 1 jb user  4133 Feb 21 21:27 FAQ
+-rw-r--r-- 1 jb user   177 Oct 21 12:35 README
+drwxr-xr-x 3 jb user  4096 Feb 21 21:27 configs/
+drwxr-xr-x 3 jb user  4096 Oct 21 12:35 documentation/
+drwxr-xr-x 4 jb user  4096 Dec 23 14:03 local_src/
+drwxr-xr-x 2 jb user  4096 Feb 21 22:01 platform-mini2440/
+drwxr-xr-x 3 jb user  4096 Oct 21 12:35 projectroot/
+drwxr-xr-x 2 jb user  4096 Feb 21 21:27 protocol/
+drwxr-xr-x 2 jb user  4096 Feb 21 21:27 rules/
+lrwxrwxrwx 1 jb user    62 Feb 21 22:01 selected_platformconfig -> configs/platform-friendlyarm-mini2440/platformconfig-NAND-128M
+lrwxrwxrwx 1 jb user    17 Feb 21 22:01 selected_ptxconfig -> configs/ptxconfig
+lrwxrwxrwx 1 jb user   121 Feb 21 22:01 selected_toolchain -> /opt/OSELAS.Toolchain-2011.11.1/arm-v4t-linux-gnueabi/gcc-4.6.2-glibc-2.14.1-binutils-2.21.1a-kernel-2.6.39-sanitized/bin/
+\end{ptxshell}
+
+Note the three symbolic links \texttt{selected\_platformconfig},
+\texttt{selected\_ptxconfig} and \texttt{selected\_toolchain}. They point to the
+correct files and locations to build this project.
+
+Why not do the same with the \ptxdist{} tool itself?
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| ln -s /usr/local/lib/ptxdist-|\releasenumber |/bin/ptxdist .
+\end{ptxshell}
+
+This command will add a new link with the name \texttt{ptxdist}, pointing to the
+\ptxdist{} revision to be used in this project. All we now need to do is to call
+the local link instead of the global \ptxdist{}. This can be achived by using
+the trailing \texttt{./}
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| ./ptxdist do
+|\$| ./ptxdist menuconfig
+|\$| ./ptxdist images
+\end{ptxshell}
+
+You can imagine this will free us from thinking about the correct \ptxdist{}
+revision on each build or configure step in each \ptxdist{} project. Now, all
+projects and \ptxdist{} revisions can co-exist and we can use them all at the
+same time.
+
+And as we do not want to type longer commands than absolute required, we should
+shorten the symbolic link to \texttt{p}
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| ln -s /usr/local/lib/ptxdist-|\releasenumber |/bin/ptxdist p
+\end{ptxshell}
+
+Now, typing is less time-consuming:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| ./p do
+|\$| ./p menuconfig
+|\$| ./p images
+\end{ptxshell}
+
+And if we also do not want to enter the trailing \texttt{./} again and again (we
+are so lazy, aren't we?) we could add the following function to our own
+environment in \texttt{\~/.bashrc}:
+
+\begin{ptxshell}[escapechar=|]{^}
+function p ()
+{
+    if [ -h ./p ]; then
+        ./p |\$|{@};
+    else
+        echo "No local PTXdist symlink found. Create the correct one first"
+    fi
+}
+\end{ptxshell}
+
+Now it looks like a regular command again:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| p do
+|\$| p menuconfig
+|\$| p images
+\end{ptxshell}
+
+\begin{important}
+To avoid the trailing \texttt{./} we could also add the current directory to
+the search PATH. But to do so is a really bad idea. At least compiling the
+OSELAS.Toolchain fails with the current directory in the PATH. Use the function
+shown above. It also gives us a helpful error message instead silently
+searching for 'p' in our filesystem with different funny and confusing error
+messages at the end.
+\end{important}
+
