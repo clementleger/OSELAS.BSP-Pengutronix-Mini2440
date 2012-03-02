@@ -3,6 +3,7 @@
 	* Platform: back to development
 	* Kernel 3.0:
 		- back to maintenance
+		- keep in sync with stable release .23
 
 2012-02-22	Juergen Beisert <jbe@pengutronix.de>
 
