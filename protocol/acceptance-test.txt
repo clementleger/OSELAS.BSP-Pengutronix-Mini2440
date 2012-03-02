@@ -21,7 +21,7 @@ Preparations
     [x] binaries (programs, commands)
     [x] mentioned files in the manual are present on the target at runtime
 
-[x] does the manual use the same/correct file names for the archives?
+[ ] does the manual use the same/correct file names for the archives?
 [x] is the toolchain built in the way the manual mentions?
 [x] does the project build in the way the manual mentions?
 [x] does the project build on a 64 bit machine?
