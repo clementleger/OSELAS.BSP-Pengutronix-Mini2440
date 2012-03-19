@@ -28,6 +28,11 @@ A: No. Store them into a global location and run "ptxdist setup"
 Q: How to login?
 A: Just login as 'root', without a password.
 
+Q: I'm using an NFS root filesystem and cannot login. It always asks for a
+   password even if noone is defined and fails to login.
+A: Check if the exported filesystem is exported with the option
+   'no_root_squash'
+
 These questions came up while development of the Mini2440 boad support package.
 
 Q: I can't login
