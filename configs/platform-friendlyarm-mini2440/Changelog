@@ -4,6 +4,8 @@
 		- keep in sync with stable release .25
 	* Kernel 3.2:
 		- keep in sync with stable release .12
+	* Kernel 3.3:
+		- Use most recent Linux release
 
 2012-03-13	Juergen Beisert <jbe@pengutronix.de>
 
