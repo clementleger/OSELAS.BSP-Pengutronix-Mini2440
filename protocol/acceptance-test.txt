@@ -47,7 +47,7 @@ Base System
 [ ] kernel-3.3.4 is a release
 [ ] kernel-3.2.16 is a release
 [x] kernel-3.1.10 is a release
-[ ] kernel-3.0.30 is a release
+[ ] kernel-3.0.31 is a release
 [x] kernel-2.6.39.4 is a release
 [x] kernel-2.6.38.8 is a release
 
