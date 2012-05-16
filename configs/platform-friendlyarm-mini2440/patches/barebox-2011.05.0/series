@@ -12,5 +12,8 @@ fix_dhcp_env_race.diff
 # add boot support from SD/MMC card
 add_mmc_boot_support.diff
 
+# add a useful editor feature
+Add_a_editor_status_line.diff
+
 # odor marker
 set-marker.diff

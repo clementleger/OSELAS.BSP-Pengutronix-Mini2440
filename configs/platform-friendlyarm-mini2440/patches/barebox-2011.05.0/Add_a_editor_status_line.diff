@@ -1,0 +1,60 @@
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Subject: [PATCH] edit: Add a status line
+
+When invoked from a skript it's useful to know which file is edited. Also
+Add information how to exit the editor to the status line.
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+ commands/edit.c |   17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+Index: barebox-2011.05.0/commands/edit.c
+===================================================================
+--- barebox-2011.05.0.orig/commands/edit.c
++++ barebox-2011.05.0/commands/edit.c
+@@ -62,7 +62,7 @@ static int scrcol = 0;		/* the first col
+ 
+ static void pos(int x, int y)
+ {
+-	printf("%c[%d;%dH", 27, y + 1, x + 1);
++	printf("%c[%d;%dH", 27, y + 2, x + 1);
+ }
+ 
+ static char *screenline(char *line, int *pos)
+@@ -419,6 +419,17 @@ static int do_edit(struct command * cmdt
+ 	lastscrcol = 0;
+ 
+ 	printf("%c[2J", 27);
++
++	pos(0, -1);
++
++	printf("%c[7m %-25s <ctrl-d>: Save and quit <ctrl-c>: quit %c[0m",
++			27, argv[1], 27);
++	printf("%c[2;%dr", 27, screenheight);
++
++	screenheight--; /* status line */
++
++	pos(0, 0);
++
+ 	refresh(1);
+ 
+ 	while (1) {
+@@ -426,7 +437,7 @@ static int do_edit(struct command * cmdt
+ 
+ 		if (textx > curlen)
+ 			textx = curlen;
+-		if (textx < 0)
++		if (textx < 1)
+ 			textx = 0;
+ 
+ 		screenline(curline->data, &linepos);
+@@ -541,7 +552,7 @@ static int do_edit(struct command * cmdt
+ 	}
+ out:
+ 	free_buffer();
+-	printf("%c[2J", 27);
++	printf("%c[2J%c[r", 27, 27);
+ 	printf("\n");
+ 	return 0;
+ }

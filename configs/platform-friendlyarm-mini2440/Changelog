@@ -2,6 +2,7 @@
 
 	* Barebox:
 		- back to development
+		- add a status line to the built-in editor
 
 2012-05-12	Juergen Beisert <jbe@pengutronix.de>
 
