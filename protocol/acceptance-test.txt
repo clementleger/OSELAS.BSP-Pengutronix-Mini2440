@@ -57,6 +57,7 @@ Bootloader
 [x] bootloader comes up on UART0
 [ ] booting from NAND flash support without network cable plugged in
 [x] booting from NET via TFTP support
+[ ] booting from NET via NFS only (kernel and rootfs)
 [ ] booting from MMC/SD card without network cable plugged in
 [ ] default environment comes with reasonable settings
 
