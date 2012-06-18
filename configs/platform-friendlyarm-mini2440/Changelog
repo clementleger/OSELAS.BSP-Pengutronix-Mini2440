@@ -2,6 +2,8 @@
 
 	* Kernel 3.0:
 		- keep in sync with stable release .35
+	* Kernel 3.4:
+		- keep in sync with stable release .3
 
 2012-06-11	Juergen Beisert <jbe@pengutronix.de>
 
