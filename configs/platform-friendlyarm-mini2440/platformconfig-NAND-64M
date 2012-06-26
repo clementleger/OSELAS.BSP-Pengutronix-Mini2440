@@ -1,8 +1,8 @@
 #
 # Automatically generated make config: don't edit
-# PTXdist 2012.06.0
+# PTXdist 2012.06.0-00674-g587e8fd-dirty
 #
-PTXCONF_PLATFORMCONFIG_VERSION="2012.06.0"
+PTXCONF_PLATFORMCONFIG_VERSION="2012.06.0-00674-g587e8fd-dirty"
 PTXCONF_RUNTIME=y
 PTXCONF_BUILDTIME=y
 PTXCONF__platformconfig_MAGIC__=y
@@ -19,7 +19,7 @@ PTXCONF__platformconfig_MAGIC__=y
 # ------------------------------------
 #
 PTXCONF_PLATFORM="mini2440"
-PTXCONF_PLATFORM_VERSION="-2012.06.0"
+PTXCONF_PLATFORM_VERSION="-master"
 
 #
 # architecture                  
@@ -149,6 +149,7 @@ PTXCONF_FLASH_BLOCKSIZE="16k"
 #
 # image creation options        
 #
+# PTXCONF_IMAGE_BOOT_MLO_VFAT is not set
 # PTXCONF_IMAGE_CPIO is not set
 # PTXCONF_IMAGE_CPIO_GZ is not set
 # PTXCONF_IMAGE_EXT2 is not set
@@ -186,12 +187,14 @@ PTXCONF_CROSS_MODULE_INIT_TOOLS=y
 # PTXCONF_HOST_DOSFSTOOLS is not set
 # PTXCONF_HOST_E2FSPROGS is not set
 # PTXCONF_HOST_GENEXT2FS is not set
+# PTXCONF_HOST_GENIMAGE is not set
 # PTXCONF_HOST_GENPART is not set
 # PTXCONF_HOST_LIBICONV is not set
 # PTXCONF_HOST_GETTEXT is not set
 # PTXCONF_HOST_LIBBLKID is not set
 # PTXCONF_HOST_LIBBZ2 is not set
 # PTXCONF_HOST_LIBCAP is not set
+# PTXCONF_HOST_LIBCONFUSE is not set
 PTXCONF_HOST_LIBLZO=y
 PTXCONF_HOST_LIBUUID=y
 # PTXCONF_HOST_LZOP is not set
