@@ -1,3 +1,8 @@
+2012-07-05	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 3.2:
+		- keep in sync with stable release .22
+
 2012-06-26	Juergen Beisert <jbe@pengutronix.de>
 
 	* Platform: Back to development
