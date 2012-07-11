@@ -6,25 +6,20 @@ If no graphics console is enabled the LCD gets not activated otherwise.
 Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
 
 ---
- drivers/video/s3c2410fb.c |    2 ++
- 1 file changed, 2 insertions(+)
+ drivers/video/s3c2410fb.c |    3 +++
+ 1 file changed, 3 insertions(+)
 
 Index: linux-3.4/drivers/video/s3c2410fb.c
 ===================================================================
 --- linux-3.4.orig/drivers/video/s3c2410fb.c
 +++ linux-3.4/drivers/video/s3c2410fb.c
-@@ -970,12 +970,14 @@ static int __devinit s3c24xxfb_probe(str
- 		goto free_video_memory;
- 	}
- 
+@@ -983,6 +983,9 @@ static int __devinit s3c24xxfb_probe(str
+ 	if (ret)
+ 		dev_err(&pdev->dev, "failed to add debug attribute\n");
+ #endif
 +#ifndef CONFIG_FRAMEBUFFER_CONSOLE
- 	ret = register_framebuffer(fbinfo);
- 	if (ret < 0) {
- 		dev_err(&pdev->dev, "Failed to register framebuffer device: %d\n",
- 			ret);
- 		goto free_cpufreq;
- 	}
++	s3c2410fb_set_par(fbinfo);
 +#endif
+ 	printk(KERN_INFO "fb%d: %s frame buffer device\n",
+ 		fbinfo->node, fbinfo->fix.id);
  
- #ifdef CONFIG_FB_S3C2410_DEBUG
- 	/* create device files */

@@ -1,3 +1,13 @@
+2012-07-11	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 3.3:
+		- back to development
+		- fix totally broken LCD controller patch
+
+	* Kernel 3.4:
+		- back to development
+		- fix totally broken LCD controller patch
+
 2012-07-05	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 3.2:
