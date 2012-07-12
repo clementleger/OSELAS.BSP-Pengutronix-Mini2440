@@ -1,3 +1,7 @@
+2012-07-12	Juergen Beisert <jbe@pengutronix.de>
+
+	* platform: a local alsa-utils rule is no longer required
+
 2012-07-11	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 3.3:
