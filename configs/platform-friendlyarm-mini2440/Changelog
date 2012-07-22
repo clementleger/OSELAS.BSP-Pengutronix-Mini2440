@@ -1,3 +1,8 @@
+2012-07-229	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 3.5:
+		- Use most recent Linux release
+
 2012-07-19	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 3.0:
