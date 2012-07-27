@@ -1,4 +1,9 @@
-2012-07-229	Juergen Beisert <jbe@pengutronix.de>
+2012-07-27	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 3.2:
+		- keep in sync with stable release .24
+
+2012-07-22	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 3.5:
 		- Use most recent Linux release
