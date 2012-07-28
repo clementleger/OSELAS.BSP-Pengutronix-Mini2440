@@ -1,0 +1,148 @@
+%
+% Charset: utf8
+% Content type: Plain LATEX
+% Content: This chapter give some information how to setup a correct timezone
+%          information with the help of PTXdist
+%
+% Copyright Jürgen Beisert <jbe@pengutronix.de>, 2012 and with the help of
+%           Dave Festing <dave_festing@hotmail.com>, 2012
+%
+% This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+% To view a copy of this license, visit:
+%           http://creativecommons.org/licenses/by/3.0/
+% or send a letter to:
+% Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+%
+% Refer the file CREDITS for all people working on this document.
+%
+% This file content will be part of the "OSELAS.BSP-Pengutronix-Mini2440-Quickstart.pdf"
+%
+% Note: This document uses some externaly defined LATEX commands. If you try to
+% run LATEX only on this file it will fail due to the absense of these commands.
+% All these commands are starting with 'ptx...'.
+%
+\section{Using time zone support on the Mini2440}	\label{sec:timezone}
+
+The Mini2440 comes with a \textit{real time clock (RTC)} which keeps track of
+the time even when the Mini2440 is switched off (assumed here is a working
+battery). With the command \texttt{hwclock} we can set and get the current
+time into or from the RTC. The kernel from the Mini2440 BSP is configured to
+read the current time from the RTC at system startup to use it as its system
+time. The \texttt{date} command shows this system time.
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| date
+Sat Jul 28 13:16:08 UTC 2012
+|\$| hwclock
+Sat Jul 28 13:16:12 2012  0.000000 seconds
+|\$| hwclock -u
+Sat Jul 28 13:16:18 2012  0.000000 seconds
+\end{ptxshell}
+
+Both commands show the time for the \textit{Universal Time Coordinated (UTC)}
+timezone. But most of the time this is not what we want. We want to have a
+localized time. So, we have to give these commands some information about our
+local timezone. \ptxdist{} supports the installation of timezone information
+files. But this feature is not enabled by default, because we do not know where
+all the users of the Mini2440 live. And not all users live in central
+Europe...
+
+We need to understand that Linux always uses UTC time for its system time.
+There are various tools and library functions for handling
+the time and only these tools and functions will change the time to the local
+timezone on demand.
+With this knowledge we must set the time in the RTC always in UTC. But we
+shouldn't worry about that. There is no need to manually add or subtract the
+difference from our local time to the UTC. When the local timezone information
+is available in the system, all the tools do it automatically.
+
+Let us assume we live in New Zealand (main islands) and so we are 12 hours in
+advance of the UTC timezone. There are two ways available to get the correct
+timezone information installed:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| ptxdist menuconfig
+  Core (libc, locales) --->
+    <*> Timezone Files --->
+      (NZ) Timezone for /etc/localtime and /etc/timezone
+      [*]   Use local build timezone database
+      [*]   NZ
+\end{ptxshell}
+
+Most tools and library functions use the file \texttt{/etc/localtime} to
+get information about the local timezone. But the timezone information files
+are stored to \texttt{/usr/share/zoneinfo}.\\
+To keep the filesystem small the \texttt{/etc/localtime} file should be just a
+softlink to the corresponding file in the \texttt{/usr/share/zoneinfo}
+directory. That is why we need to setup the correct filename from the timezone
+information file into the \texttt{Timezone for /etc/localtime and /etc/timezone}
+menu line. Otherwise the created \texttt{/etc/localtime} softlink is broken as
+it points to nothing.
+
+After populating the root filesystem with these timzone extensions, the
+\texttt{date} and \texttt{hwclock} commands act differently:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\#| date
+Sun Jul 29 01:49:47 NZST 2012
+|\#| hwclock
+Sat Jul 28 13:49:48 2012  0.000000 seconds
+|\#| hwclock -u
+Sun Jul 29 01:49:50 2012  0.000000 seconds
+\end{ptxshell}
+
+Different to the UTC example shown above, they now show localized times. The
+\texttt{hwclock} command prints the RTC time 'as is' as it assumes the RTC
+stored time is already localized. \texttt{hwclock -u} acts different, as it
+assumes the RTC time is really UTC and also calculates the local time from the
+read value.
+
+If we want to use a more precise timezone (New Zealand has two of them), we
+should enable the \texttt{Pacific} entry in the \ptxdist{} menu.
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| ptxdist menuconfig
+  Core (libc, locales) --->
+    <*> Timezone Files --->
+      (Pacific/Auckland) Timezone for /etc/localtime and /etc/timezone
+      [*]   Use local build timezone database
+      [*]   Pacific
+\end{ptxshell}
+
+This one gives us the same result as the \texttt{NZ} example shown above, while
+changing it to:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| ptxdist menuconfig
+  Core (libc, locales) --->
+    <*> Timezone Files --->
+      (Pacific/Chatham) Timezone for /etc/localtime and /etc/timezone
+      [*]   Use local build timezone database
+      [*]   Pacific
+\end{ptxshell}
+
+selects a timezone information for the \textit{Chatham Islands} which are 12
+hours and 45 minutes in advance of UTC.
+
+\begin{ptxshell}[escapechar=|]{^}
+|\#| date
+Sun Jul 29 02:55:36 CHAST 2012
+|\#| hwclock
+Sat Jul 28 14:10:39 2012  0.000000 seconds
+|\#| hwclock -u
+Sun Jul 29 02:55:40 2012  0.000000 seconds
+\end{ptxshell}
+
+But we must keep in mind: if we want to set the time of the RTC, we always
+must set it in UTC. But if the local timezone information is present in the
+Mini2440's root filesystem this is very easy. We just have to set the system
+time with our current local time and then write the system time into the RTC
+with a parameter that will really store it in UTC. Thanks to the timezone
+information files, the \texttt{hwclock -uw} command will do it automatically
+for us.
+
+\begin{ptxshell}[escapechar=|]{^}
+|\#| date "2012-07-28 14:35"
+Sat Jul 28 14:35:00 CHAST 2012
+|\#| hwclock -uw
+\end{ptxshell}
