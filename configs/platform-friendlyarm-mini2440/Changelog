@@ -1,3 +1,8 @@
+2012-07-30	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 3.4:
+		- keep in sync with stable release .7
+
 2012-07-27	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 3.2:

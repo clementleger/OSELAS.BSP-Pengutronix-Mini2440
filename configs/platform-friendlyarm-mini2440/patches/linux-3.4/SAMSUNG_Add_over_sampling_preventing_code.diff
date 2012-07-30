@@ -15,7 +15,7 @@ Index: linux-3.4/arch/arm/plat-samsung/adc.c
 ===================================================================
 --- linux-3.4.orig/arch/arm/plat-samsung/adc.c
 +++ linux-3.4/arch/arm/plat-samsung/adc.c
-@@ -297,7 +297,8 @@ static irqreturn_t s3c_adc_irq(int irq, 
+@@ -299,7 +299,8 @@ static irqreturn_t s3c_adc_irq(int irq, 
  	data1 = readl(adc->regs + S3C2410_ADCDAT1);
  	adc_dbg(adc, "read %d: 0x%04x, 0x%04x\n", client->nr_samples, data0, data1);
  
