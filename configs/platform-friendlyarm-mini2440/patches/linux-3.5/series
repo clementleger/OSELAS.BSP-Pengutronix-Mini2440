@@ -1,5 +1,6 @@
 # keep in sync with stable
 patch-3.5.1.bz2
+patch-3.5.1-2.bz2
 
 fix_new_display_number.diff
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
