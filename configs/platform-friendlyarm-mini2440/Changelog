@@ -1,3 +1,8 @@
+2012-08-31	Juergen Beisert <jbe@pengutronix.de>
+
+	* platform: remove the CONFIG_DEBUG_SECTION_MISMATCH as it prevents
+	            kernel's buildsystem from optimization
+
 2012-08-27	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 3.0:
