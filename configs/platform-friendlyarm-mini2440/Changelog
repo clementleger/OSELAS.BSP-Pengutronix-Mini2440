@@ -1,3 +1,8 @@
+2012-09-13	Juergen Beisert <jbe@pengutronix.de>
+
+	* platform:
+		- local rule for host-libusb removed. It's now part of PTXdist
+
 2012-09-12	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 3.2:

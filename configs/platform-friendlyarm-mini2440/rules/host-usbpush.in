@@ -1,8 +1,5 @@
 ## SECTION=hosttools
 
-config HOST_LIBUSB
-	bool
-
 config HOST_LIBUSB_COMPAT
 	bool
 	select HOST_LIBUSB
