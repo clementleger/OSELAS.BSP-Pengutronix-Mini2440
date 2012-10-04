@@ -6,6 +6,8 @@
 		- keep in sync with stable release .44
 	* Kernel 3.4:
 		- keep in sync with stable release .12
+	* Kernel 3.5:
+		- keep in sync with stable release .5
 
 2012-09-20	Juergen Beisert <jbe@pengutronix.de>
 
