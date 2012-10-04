@@ -4,6 +4,8 @@
 		- Use most recent Linux release
 	* Kernel 3.0:
 		- keep in sync with stable release .44
+	* Kernel 3.4:
+		- keep in sync with stable release .12
 
 2012-09-20	Juergen Beisert <jbe@pengutronix.de>
 
