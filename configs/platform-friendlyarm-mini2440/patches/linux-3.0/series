@@ -51,6 +51,7 @@ patch-3.0.48-49.bz2
 patch-3.0.49-50.bz2
 patch-3.0.50-51.bz2
 patch-3.0.51-52.bz2
+patch-3.0.52-53.bz2
 
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
 add_lcd_w35i.diff
