@@ -1,3 +1,8 @@
+2012-12-04	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel 3.0:
+		- keep in sync with stable release .54
+
 2012-11-29	Juergen Beisert <jbe@pengutronix.de>
 
 	* Kernel 3.0:
