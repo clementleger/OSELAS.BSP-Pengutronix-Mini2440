@@ -1,0 +1,183 @@
+%
+% Charset: utf8
+% Content type: Plain LATEX
+% Content: This chapter describes how the customize the Mini2440 Board Support
+%          Package with the help of PTXdist.
+%
+% Copyright Dave Festing <dave_festing@hotmail.com>, 2012
+%
+% This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+% To view a copy of this license, visit:
+%           http://creativecommons.org/licenses/by/3.0/
+% or send a letter to:
+% Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+%
+% Refer the file CREDITS for all people working on this document.
+%
+% This file content will be part of the "OSELAS.BSP-Pengutronix-Mini2440-Quickstart.pdf"
+%
+% Note: This document uses some externaly defined LATEX commands. If you try to
+% run LATEX only on this file it will fail due to the absense of these commands
+% All these new commands are starting with 'ptxdist'.
+%
+
+\section{HowTo customise your root filesystem and update PTXdist with it}
+
+For the past year when I wanted to include a binary, such as msmtp, or add a
+config file, such as msmtprc, I just added these files to
+\texttt{\~/my\_PTXdist/platform-mini2440/root/} folder. The problem here is that
+anytime I did a \texttt{ptxdist clean root} I would lose these files.
+Fortunately, there is a proper way to do this.
+
+The 'secret' is revealed by looking into \texttt{/usr/local/lib/ptxdist-version/rules}
+and specifically at \texttt{rootfs.in} and \texttt{rootfs.make}. These two
+files give you the format to make your own \texttt{daves\_rootfs.in} and
+\texttt{daves\_rootfs.make} files which will live in \texttt{\~/your\_PTXdist/rules}
+folder.
+
+For example here is my added \texttt{daves\_rootfs.in} file:
+
+\begin{ptxshell}[escapechar=|]{^}
+## SECTION=rootfs
+
+menuconfig DAVES_ROOTFS
+	bool
+	prompt "files in dave's rootfs        "
+	help
+	  Dave's special files to make his target work
+
+if DAVES_ROOTFS
+
+config DAVES_ROOTFS_MSMTPRC_DAVE
+	bool
+	prompt "install /etc/msmtprc-dave"
+	help
+	  If enabled, it installs the "./projectroot/msmtprc" file
+
+config DAVES_ROOTFS_MSMTPRC_CHARLES
+	bool
+	prompt "install /etc/msmtprc-charles"
+	help
+	  If enabled, it installs the "./projectroot/msmtprc-charles" file
+
+config DAVES_ROOTFS_LIB_UDEV_RULESD_TTYACM0
+	bool
+	prompt "install /lib/udev/rules.d/50-udev-default.rules"
+	help
+	  If enabled, it installs the "./projectroot/lib/udev/rules.d/50-udev-default.rules"
+	  file if present, else a generic one from the ptxdist directory.
+
+config DAVES_ROOTFS_TEST_PHP
+	bool
+	prompt "install /home/test.php"
+	help
+	  If enabled, it installs the "./projectroot/home/test.php" file if present.
+
+endif
+\end{ptxshell}
+
+When you do \texttt{ptxdist menuconfig} and look in \texttt{Root Filesystem --->}
+you will see a new heading called:
+
+\begin{ptxshell}[escapechar=|]{^}
+ [ ] files in dave's rootfs ---->
+\end{ptxshell}
+
+Say \texttt{[y]} and in there you can tick your special files that you want
+to include.
+
+Next you have to make your own \texttt{daves\_rootfs.make} file. Here's an example:
+
+\begin{ptxshell}[escapechar=|]{^}
+# -*-makefile-*-
+#
+# Copyright (C) 2012 Dave Festing <dave_festing@hotmail.com>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-|\$|(PTXCONF_DAVES_ROOTFS) += daves_rootfs
+
+# dummy to make ipkg happy
+DAVES_ROOTFS_VERSION	:= 1.0.0
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+|\$|(STATEDIR)/daves_rootfs.targetinstall:
+	@|\$|(call targetinfo)
+
+	@|\$|(call install_init,  daves_rootfs)
+	@|\$|(call install_fixup, daves_rootfs,PRIORITY,optional)
+	@|\$|(call install_fixup, daves_rootfs,SECTION,base)
+	@|\$|(call install_fixup, daves_rootfs,AUTHOR,"Dave Festing <dave_festing@hotmail.com>")
+	@|\$|(call install_fixup, daves_rootfs,DESCRIPTION,missing)
+
+# my install_alternative files
+ifdef PTXCONF_DAVES_ROOTFS_MSMTPRC_DAVE
+	@|\$|(call install_alternative, daves_rootfs, 0, 0, 0644, /etc/msmtprc-dave)
+endif
+ifdef PTXCONF_DAVES_ROOTFS_MSMTPRC_CHARLES
+	@|\$|(call install_alternative, daves_rootfs, 0, 0, 0644, /etc/msmtprc-charles)
+endif
+ifdef PTXCONF_DAVES_ROOTFS_LIB_UDEV_RULESD_TTYACM0
+	@|\$|(call install_alternative, daves_rootfs, 0, 0, 0644, /lib/udev/rules.d/50-udev-default.rules)
+endif
+ifdef PTXCONF_DAVES_ROOTFS_TEST_PHP
+	@|\$|(call install_alternative, daves_rootfs, 0, 0, 0755, /home/test.php)
+endif
+
+	@|\$|(call install_finish, daves_rootfs)
+	@|\$|(call touch)
+
+# vim: syntax=make
+\end{ptxshell}
+
+Some comments about this file:
+
+\begin{ptxshell}[escapechar=|]{^}
+ifdef PTXCONF_DAVES_ROOTFS_LIB_UDEV_RULESD_TTYACM0
+	@|\$|(call install_alternative, daves_rootfs, 0, 0, 0644, /lib/udev/rules.d/50-udev-default.rules)
+endif
+\end{ptxshell}
+
+This is a special file to modify \texttt{50-udev-default.rules} so that I could
+plug in a USB dev board that thinks it is a modem. See \textit{Teensy and Atmega32U4}
+dev board from Adafruit for details. \texttt{install\_alternative} is the keyword
+that tells \ptxdist{}, in this case, to go looking for a file in
+\texttt{\~/your\_PTXdist/projectroot/lib/udev/rules.d} folder and over-write the
+existing \texttt{50-udev-default.rules} file from the \texttt{udev} package
+with this special one. And give it the permissions 0644.
+
+\section{Updating to a new PTXdist version}
+
+Copy all the files in your old \texttt{\~/your\_PTXdist/projectroot/} folder to
+somewhere for backup and then into your new \texttt{\~/your\_PTXdist/projectroot/}
+folder. Likewise, copy the \texttt{daves\_rootfs.in} and \texttt{daves\_rootfs.make}
+files somewhere for backup and then into your new \texttt{\~/your\_PTXdist/rules}
+folder.
+
+I believe that should just work. Updating \ptxdist{} versions may bring up
+changes that need sorting out. Certainly, updating kernel versions need more
+changes, but I guess that Pengutronix take care of these problems when they
+update their BSPs.
+
+Troubleshooting:
+
+One issue that will really upset \ptxdist{} is if the line endings are not
+Linux line endings. I still haven't worked out how these line endings ever got
+changed in the process of using the examples provided by Juergen at Pengutronix,
+but here is the command that made them work:
+
+\begin{ptxshell}[escapechar=|]{^}
+sed 's/.|\$|//' daves_new.in > daves_rootfs.in
+\end{ptxshell}
+
+Of course change all files names to something more appropriate to you!
