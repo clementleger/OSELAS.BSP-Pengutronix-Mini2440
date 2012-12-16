@@ -11,7 +11,7 @@ Index: barebox-2011.05.0/Makefile
  PATCHLEVEL = 05
  SUBLEVEL = 0
 -EXTRAVERSION =
-+EXTRAVERSION = -ptx-2012.06.0
++EXTRAVERSION = -ptx-2012.12.0
  NAME = Amissive Actinocutious Kiwi
  
  # *DOCUMENTATION*
