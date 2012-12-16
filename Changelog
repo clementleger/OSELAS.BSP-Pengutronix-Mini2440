@@ -2,6 +2,8 @@
 
 	* Board Support Package:
 		- use ptxdist-2012.12.0
+	* Platform:
+		- use the OSELAS.Toolchain-2012.12.0
 
 2012-06-26	Juergen Beisert <jbe@pengutronix.de>
 
