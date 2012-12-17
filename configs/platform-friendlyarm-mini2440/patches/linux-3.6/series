@@ -8,6 +8,7 @@ patch-3.6.5-6.bz2
 patch-3.6.6-7.bz2
 patch-3.6.7-8.bz2
 patch-3.6.8-9.bz2
+patch-3.6.9-10.bz2
 
 fix_new_display_number.diff
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
