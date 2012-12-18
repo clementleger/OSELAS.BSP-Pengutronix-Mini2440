@@ -257,8 +257,9 @@ nfsroot="/path/to/nfs/root"
 \end{ptxshell}
 
 With these settings Barebox will automatically load the kernel with the name
-\texttt{kernelimage} via network from a NFS server and instruct it to use
-the path given in \texttt{nfsroot} as its root filesystem.
+\texttt{kernelimage} via network from a server via TFTP protocol and instruct
+it to use the path given in \texttt{nfsroot} as its root filesystem on the
+same server via Network File System (NFS).
 \texttt{kernelimage\_type} defines the type of the kernel image, to make
 Barebox aware how to extract it.
 
