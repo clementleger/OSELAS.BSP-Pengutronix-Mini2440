@@ -21,6 +21,8 @@ patch-3.4.18-19.bz2
 patch-3.4.19-20.bz2
 patch-3.4.20-21.bz2
 patch-3.4.21-22.bz2
+patch-3.4.22-23.bz2
+patch-3.4.23-24.bz2
 
 fix_new_display_number.diff
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
