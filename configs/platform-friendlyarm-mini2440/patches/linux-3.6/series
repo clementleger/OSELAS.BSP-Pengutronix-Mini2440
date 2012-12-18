@@ -62,5 +62,8 @@ re_enable_the_buzzer.diff
 
 fix_dependency.diff
 
+# just a workaround
+interim_solution_for_zero_val.diff
+
 # odor marker
 set-marker.diff
