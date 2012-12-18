@@ -322,6 +322,21 @@ development for the Mini2440. We do not have to change anything locally on the
 Mini2440. As our target is using our local host's filesystem, we can also change
 everything locally and it will be visible at target's side instantly.
 
+Starting with \ptxdist{}-2012.10.0 there is more than one choice how to get
+the network based development to work.
+
+\begin{itemize}
+	\item a user mode NFS daemon, coming with \ptxdist{}
+	\item a classic NFS daemon, running on our development host
+\end{itemize}
+
+\subsection{Classic NFS daemon}
+
+Configuring and running the classic NFS daemon requires root permissions on the
+development host: files owned by root must be modified and system services must
+be run. If we don't have root permissions, the user-mode NFS daemon is a useful
+alternative. Refer \ref{sect:usermode_nfs}.
+
 What we need at our host's side:
 
 \begin{itemize}
@@ -403,7 +418,7 @@ who is allowed to use this directory. In the line mentioned above the asterisk (
 means \textit{everybody}. Here we can use an IP range instead of an asterisk to make the
 security hole a little bit smaller. Or, even smaller by only allowing one IP address.
 The third part are the permissions the remote host has
-on our localy exported path. \texttt{rw} means read write permission. The opposite is
+on our locally exported path. \texttt{rw} means read write permission. The opposite is
 \texttt{ro} which means read only. But in our case we need the \texttt{rw} in order to use
 the exported directory for our root filesystem requirements.
 
@@ -509,3 +524,71 @@ Have a \textbf{real close} look and see that you haven’t made a mistake. Check
 again the directory the server exports and also check the content of the \texttt{nfsroot}
 variable. The start of the path must match exactly. Any typo will result into this
 kind of failure.
+
+\subsection{Usermode NFS daemon}					\label{sect:usermode_nfs}
+
+The advantages of the user-mode NFS daemon are:
+
+\begin{itemize}
+	\item no Linux kernel support required
+	\item no root permissions required
+	\item less painful to configure
+	\item less security issues
+	\item all exported files have correct permissions and owners (at least from
+	the target's point of view)
+	\item \ptxdist{} provides everything required to make it work
+\end{itemize}
+
+Due to the different behaviour of the user-mode NFS daemon in contrast to the
+Linux kernel based classic NFS daemon, the target needs a different setup to
+make it work with the user-mode NFS daemon.
+
+From the target's point of view
+
+\begin{itemize}
+	\item a fixed path is used to mount the NFS root
+	\item different network ports are in use
+\end{itemize}
+
+The NFS root path the user-mode NFS daemon exports is just \texttt{/root}. This
+simplifies the path to be setup at the target. But as it is a user-mode NFS
+daemon it cannot use the standard network ports of the classic NFS daemon. That's
+why we need to define different port numbers for the bootloader and the kernel.
+
+The user-mode NFS daemon uses the network port 2049 for the \textit{NFS service
+port} and also network port 2049 for the \textit{mountd port}. We must ensure
+our target uses these network ports, when it contacts our host.
+
+Putting everything together for the Linux kernel:
+
+\begin{ptxshell}[escapechar=|]{^}
+nfsroot="/root,v3,tcp,port=2049,mountport=2049"
+\end{ptxshell}
+
+After the setup of the target is done, the next step is to start the user-mode
+NFS daemon at our host. Thanks to \ptxdist{} this step is very easy now:
+
+\begin{ptxshell}[escapechar=|]{^}
+|\$| ptxdist nfsroot
+
+Mount rootfs with nfsroot=/root,v3,tcp,port=2049,mountport=2049
+
+UNFS3 unfsd 0.9.22 (C) 2006, Pascal Schmidt <unfs3-server@ewetel.net>
+/home/me/|\ptxdistBSPName |/|\ptxdistPlatformDir |: ip 0.0.0.0 mask 0.0.0.0 options 5
+\end{ptxshell}
+
+Note: if a classic NFS daemon is already running, the user-mode NFS daemon might
+conflict with it. If the user-mode NFS daemon terminates with the message:
+
+\begin{ptxshell}[escapechar=|]{^}
+bind: Address already in use
+Couldn't bind to udp port 2049
+\end{ptxshell}
+
+then a classic NFS daemon is still running and should be stopped first.
+
+\begin{important}
+Even if the user-mode NFS daemon is used for the NFS root filesystem, currently
+a TFTP daemon for downloading the Linux kernel is still required. Maybe future
+releases will also remove this dependency.
+\end{important}
