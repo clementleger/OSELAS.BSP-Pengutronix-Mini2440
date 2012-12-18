@@ -11,7 +11,7 @@ Index: linux-3.5/Makefile
  PATCHLEVEL = 5
  SUBLEVEL = 7
 -EXTRAVERSION =
-+EXTRAVERSION = -ptx-master
++EXTRAVERSION = -ptx-2012.12.0
  NAME = Saber-toothed Squirrel
  
  # *DOCUMENTATION*
