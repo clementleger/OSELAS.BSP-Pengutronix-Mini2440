@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# PTXdist 2012.12.0
+# PTXdist 2013.01.0
 #
 PTXCONF_MODULES=y
 
@@ -34,7 +34,7 @@ PTXCONF_PROJECT_BUILD_DEVEL=y
 # PTXCONF_PROJECT_USE_DEVPKGS is not set
 PTXCONF_RUNTIME=y
 PTXCONF_BUILDTIME=y
-PTXCONF_CONFIGFILE_VERSION="2012.12.0"
+PTXCONF_CONFIGFILE_VERSION="2013.01.0"
 PTXCONF__ptxconfig_MAGIC__=y
 
 #
@@ -1212,6 +1212,7 @@ PTXCONF_MTD_UTILS_UBI_UTILS=y
 # PTXCONF_MTD_UTILS_MKFS_UBIFS is not set
 PTXCONF_MTD_UTILS_MTDINFO=y
 # PTXCONF_NANOCOM is not set
+# PTXCONF_P7ZIP is not set
 # PTXCONF_PARTED is not set
 # PTXCONF_PCIUTILS is not set
 # PTXCONF_PCMCIAUTILS is not set
@@ -1224,6 +1225,10 @@ PTXCONF_PROCPS_PS=y
 # PTXCONF_PROCPS_W is not set
 # PTXCONF_PROCPS_PGREP is not set
 # PTXCONF_PS3_UTILS is not set
+
+#
+# BusyBox' killall is selected! (psmisc)
+#
 # PTXCONF_PV is not set
 # PTXCONF_SCHED_SWITCH is not set
 # PTXCONF_SCHEDTOOL is not set
@@ -1236,6 +1241,10 @@ PTXCONF_PROCPS_PS=y
 # PTXCONF_SMARTMONTOOLS is not set
 # PTXCONF_SUDO is not set
 # PTXCONF_SYSTEMD is not set
+
+#
+# BusyBox' tar is selected!
+#
 # PTXCONF_TIMEOUT is not set
 # PTXCONF_TMUX is not set
 # PTXCONF_U_BOOT_TOOLS is not set
@@ -1333,6 +1342,7 @@ PTXCONF_UTIL_LINUX_NG_UMOUNT=y
 # PTXCONF_GMAKE is not set
 # PTXCONF_JS is not set
 # PTXCONF_LUA is not set
+# PTXCONF_PERL is not set
 # PTXCONF_PHP5 is not set
 # PTXCONF_PYTHON is not set
 
@@ -1424,10 +1434,12 @@ PTXCONF_IPROUTE2_NSTAT=y
 # PTXCONF_MEMCACHED is not set
 # PTXCONF_MICROCOM is not set
 # PTXCONF_MII_DIAG is not set
+# PTXCONF_MSMTP is not set
 # PTXCONF_MTR is not set
 # PTXCONF_NET_SNMP is not set
 # PTXCONF_NETCAT is not set
 # PTXCONF_NETKIT_FTP is not set
+# PTXCONF_NETTLE is not set
 # PTXCONF_NETWORKMANAGER is not set
 # PTXCONF_NFSUTILS is not set
 # PTXCONF_NMAP is not set
@@ -1571,6 +1583,7 @@ PTXCONF_E2FSPROGS_INSTALL_TUNE2FS=y
 # PTXCONF_JED is not set
 # PTXCONF_JOE is not set
 # PTXCONF_NANO is not set
+# PTXCONF_VIM is not set
 
 #
 # System Libraries              
@@ -1602,6 +1615,7 @@ PTXCONF_ALSA_LIB_ALISP=y
 # PTXCONF_INOTIFY_TOOLS is not set
 # PTXCONF_JSON_C is not set
 # PTXCONF_LCMS is not set
+# PTXCONF_LIBARCHIVE is not set
 # PTXCONF_LIBASSUAN is not set
 PTXCONF_LIBBLKID=y
 # PTXCONF_LIBCAP is not set
