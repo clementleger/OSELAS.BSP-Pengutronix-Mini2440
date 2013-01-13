@@ -50,8 +50,5 @@ fix_dependency.diff
 # due to work on the PWM framework the buzzer was lost in 3.6
 re_enable_the_buzzer.diff
 
-# fix ADC calculation
-interim_solution_for_zero_val.diff
-
 # odor marker
 set-marker.diff

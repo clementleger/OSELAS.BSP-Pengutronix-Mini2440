@@ -9,6 +9,7 @@
 	* Kernel 3.7:
 		- back to development
 		- keep in sync with stable release .2
+		- interim ADC patch removed, its solved in 3.7.2
 
 2013-01-04	Juergen Beisert <jbe@pengutronix.de>
 
