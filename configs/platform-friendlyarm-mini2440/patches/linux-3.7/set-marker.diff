@@ -11,7 +11,7 @@ Index: linux-3.7/Makefile
  PATCHLEVEL = 7
  SUBLEVEL = 1
 -EXTRAVERSION =
-+EXTRAVERSION = -ptx-2012.12.0
++EXTRAVERSION = -ptx-master
  NAME = Terrified Chipmunk
  
  # *DOCUMENTATION*
