@@ -2,6 +2,8 @@
 
 	* Kernel 3.8:
 		- Use most recent Linux release
+	* Kernel 3.2:
+		- keep in sync with stable release .39
 
 2013-02-22	Juergen Beisert <jbe@pengutronix.de>
 
