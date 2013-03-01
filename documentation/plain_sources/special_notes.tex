@@ -28,22 +28,23 @@
 
 The predifined Mini2440 platform configuration always uses the latest Linux
 kernel release. If users want to stay with an older Linux kernel release,
-they are also available. Here is a list of currently available Linux kernel
-releases in the \ptxdistBSPName{}:
+they are still available and also some of them are still maintained. Here is a
+list of currently available Linux kernel releases in the \ptxdistBSPName{}:
 
 \begin{itemize}
 	\item \curKernelRev{} (default)
 	\item 3.7, stable patch level 9
-	\item 3.6, stable patch level 11
-	\item 3.5, stable patch level 7
+	\item 3.6 *), stable patch level 11
+	\item 3.5 *), stable patch level 7
 	\item 3.4, stable patch level 33
-	\item 3.3, stable patch level 8
+	\item 3.3 *), stable patch level 8
 	\item 3.2, stable patch level 39
-	\item 3.1, stable patch level 10
+	\item 3.1 *), stable patch level 10
 	\item 3.0, stable patch level 66
-	\item 2.6.39, stable patch level 4
-	\item 2.6.38, stable patch level 8
+	\item 2.6.39 *), stable patch level 4
+	\item 2.6.38 *), stable patch level 8
 \end{itemize}
+*) end of life, no further stable releases will be available
 
 If we want to build the BSP with a non-default kernel release, we just run
 \texttt{ptxdist platformconfig} and change the kernel setting prior to building.
