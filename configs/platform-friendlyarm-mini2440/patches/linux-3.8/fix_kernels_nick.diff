@@ -1,0 +1,21 @@
+This is a temp fix only. I guess changing the nick name in 3.8.5 is a mistake.
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+
+---
+ Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: linux-3.8/Makefile
+===================================================================
+--- linux-3.8.orig/Makefile
++++ linux-3.8/Makefile
+@@ -2,7 +2,7 @@ VERSION = 3
+ PATCHLEVEL = 8
+ SUBLEVEL = 5
+ EXTRAVERSION =
+-NAME = Displaced Humerus Anterior
++NAME = Unicycling Gorilla
+ 
+ # *DOCUMENTATION*
+ # To see a list of typical targets execute "make help"

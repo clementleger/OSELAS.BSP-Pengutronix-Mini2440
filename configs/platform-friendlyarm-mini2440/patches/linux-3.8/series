@@ -3,6 +3,8 @@ patch-3.8.1.bz2
 patch-3.8.1-2.bz2
 patch-3.8.2-3.bz2
 patch-3.8.3-4.bz2
+patch-3.8.4-5.bz2
+fix_kernels_nick.diff
 
 # fix a compilation error. Maybe part of future stable releases
 ASoC_samsung_Fix_compilation_error_on_S3C2440.patch
