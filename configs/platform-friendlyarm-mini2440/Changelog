@@ -8,6 +8,8 @@
 		- keep in sync with stable release .42
 	* Kernel 3.8:
 		- keep in sync with stable release .10
+	* Kernel 3.9:
+		- Use most recent Linux release
 
 2013-04-17	Juergen Beisert <jbe@pengutronix.de
 
