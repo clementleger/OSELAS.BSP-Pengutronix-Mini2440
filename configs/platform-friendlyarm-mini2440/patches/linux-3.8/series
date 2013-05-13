@@ -12,6 +12,7 @@ patch-3.8.8-9.bz2
 patch-3.8.9-10.bz2
 patch-3.8.10-11.bz2
 patch-3.8.11-12.bz2
+patch-3.8.12-13.bz2
 
 # fix a compilation error. Maybe part of future stable releases
 ASoC_samsung_Fix_compilation_error_on_S3C2440.patch
