@@ -17,6 +17,10 @@ PACKAGES-$(PTXCONF_UDEV) += udev
 #
 # Paths and names
 #
+ifdef PTXCONF_SYSTEMD
+UDEV_VERSION	= $(SYSTEMD_VERSION)
+UDEV		= $(SYSTEMD)
+else
 ifdef PTXCONF_UDEV_LEGACY
 UDEV_VERSION	:= 172
 UDEV_MD5	:= bd122d04cf758441f498aad0169a454f
@@ -78,6 +82,8 @@ UDEV_CONF_OPT += \
 	--$(call ptx/endis,PTXCONF_UDEV_MTD_PROBE)-mtd_probe
 endif
 
+endif # PTXCONF_SYSTEMD
+
 UDEV_RULES-y := \
 	50-udev-default.rules \
 	60-persistent-alsa.rules \
@@ -89,6 +95,21 @@ UDEV_RULES-y := \
 	75-tty-description.rules \
 	78-sound-card.rules \
 	95-udev-late.rules
+
+ifndef PTXCONF_UDEV_LEGACY
+UDEV_RULES-y += \
+	42-usb-hid-pm.rules
+endif
+
+ifdef PTXCONF_SYSTEMD
+
+UDEV_RULES-y += \
+	70-power-switch.rules \
+	70-uaccess.rules \
+	71-seat.rules \
+	73-seat-late.rules
+
+endif
 
 UDEV_RULES-$(PTXCONF_UDEV_ACCELEROMETER)	+= 61-accelerometer.rules
 ifdef PTXCONF_UDEV_LEGACY
@@ -135,6 +156,11 @@ endif
 # Target-Install
 # ----------------------------------------------------------------------------
 
+ifdef PTXCONF_SYSTEMD
+$(STATEDIR)/udev.extract.post: $(STATEDIR)/systemd.install.post
+$(STATEDIR)/udev.install.unpack: $(STATEDIR)/systemd.install.post
+endif
+
 $(STATEDIR)/udev.targetinstall:
 	@$(call targetinfo)
 
@@ -152,8 +178,13 @@ ifdef PTXCONF_UDEV_LEGACY
 	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/udevd)
 	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/udevadm)
 else
+ifdef PTXCONF_SYSTEMD
+	@$(call install_copy, udev, 0, 0, 0755, -, /lib/systemd/systemd-udevd)
+	@$(call install_copy, udev, 0, 0, 0755, -, /usr/bin/udevadm)
+else
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/udevd)
 	@$(call install_copy, udev, 0, 0, 0755, -, /bin/udevadm)
+endif
 endif
 
 	@$(foreach rule, $(UDEV_RULES-y), \
@@ -168,19 +199,27 @@ ifdef PTXCONF_UDEV_KEYMAPS
 endif
 
 ifdef PTXCONF_UDEV_CUST_RULES
-	@if [ -d $(PTXDIST_PLATFORMCONFIGDIR)/projectroot/lib/udev/rules.d/ ]; then \
-		$(call install_tree, udev, 0, 0, \
-			$(PTXDIST_PLATFORMCONFIGDIR)/projectroot/lib/udev/rules.d, \
-			/lib/udev/rules.d); \
-	else \
+	@if [ ! -d $(PTXDIST_PLATFORMCONFIGDIR)/projectroot/lib/udev/rules.d/ \
+		-a ! -d $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/ ]; then \
 		echo "UDEV_CUST_RULES is enabled but Directory containing" \
 			"customized udev rules is missing!"; \
 		exit 1; \
+	else \
+		if [ -d "$(PTXDIST_PLATFORMCONFIGDIR)/projectroot/lib/udev/rules.d/" ]; then \
+			$(call install_tree, udev, 0, 0, \
+				$(PTXDIST_PLATFORMCONFIGDIR)/projectroot/lib/udev/rules.d, \
+				/lib/udev/rules.d); \
+		fi; \
+		if [ -d "$(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/" ]; then \
+			$(call install_tree, udev, 0, 0, \
+				$(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d, \
+				/lib/udev/rules.d); \
+		fi \
 	fi
 endif
 
 	@$(foreach helper, $(UDEV_HELPER-y), \
-		$(call install_copy, udev, 0, 0, 0644, -, \
+		$(call install_copy, udev, 0, 0, 0755, -, \
 			/lib/udev//$(helper));)
 
 ifdef PTXCONF_UDEV_ACL
@@ -212,30 +251,6 @@ ifdef PTXCONF_INITMETHOD_UPSTART
 	@$(call install_alternative, udev, 0, 0, 0644, /etc/init/udevtrigger.conf)
 	@$(call install_alternative, udev, 0, 0, 0644, /etc/init/udev-finish.conf)
 endif
-endif
-ifdef PTXCONF_UDEV_SYSTEMD
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/systemd/system/udev-kernel.socket)
-	@$(call install_link, udev, ../udev-kernel.socket, \
-		/lib/systemd/system/sockets.target.wants/udev-kernel.socket)
-
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/systemd/system/udev-control.socket)
-	@$(call install_link, udev, ../udev-control.socket, \
-		/lib/systemd/system/sockets.target.wants/udev-control.socket)
-
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/systemd/system/udev.service)
-	@$(call install_link, udev, ../udev.service, \
-		/lib/systemd/system/basic.target.wants/udev.service)
-
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/systemd/system/udev-trigger.service)
-	@$(call install_link, udev, ../udev-trigger.service, \
-		/lib/systemd/system/basic.target.wants/udev-trigger.service)
-
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/systemd/system/udev-settle.service)
 endif
 	@$(call install_finish, udev)
 
