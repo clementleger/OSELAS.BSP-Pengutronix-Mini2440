@@ -11,6 +11,7 @@
 		- keep in sync with stable release .45
 	* Kernel 3.8:
 		- keep in sync with stable release .13
+		- end of life reached
 	* Kernel 3.9:
 		- keep in sync with stable release .2
 
