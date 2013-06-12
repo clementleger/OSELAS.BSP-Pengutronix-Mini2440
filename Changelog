@@ -1,3 +1,8 @@
+2013-06-12	Juergen Beisert <jbe@pengutronix.de>
+
+	* Board Support Package:
+		- use ptxdist-2013.06.0
+
 2013-05-08	Juergen Beisert <jbe@pengutronix.de>
 
 	* Board Support Package: use ptxdist-2013.05.0
