@@ -4,6 +4,8 @@ patch-3.9.1-2.bz2
 patch-3.9.2-3.bz2
 patch-3.9.3-4.bz2
 patch-3.9.4-5.bz2
+patch-3.9.5-6.bz2
+fix_kernel_name.diff
 
 # add full board feature support
 fix_new_display_number.diff
