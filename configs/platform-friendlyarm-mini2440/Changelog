@@ -6,6 +6,8 @@
 		- keep in sync with stable release .48
 	* Kernel 3.4:
 		- keep in sync with stable release .54
+	* Kernel 3.9:
+		- keep in sync with stable release .11
 
 2013-06-29	Juergen Beisert <jbe@pengutronix.de
 
