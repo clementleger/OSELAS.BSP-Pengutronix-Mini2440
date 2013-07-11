@@ -8,6 +8,9 @@
 		- keep in sync with stable release .54
 	* Kernel 3.9:
 		- keep in sync with stable release .11
+	* Kernel 3.10:
+		- Use most recent Linux release
+		- keep in sync with stable release .2
 
 2013-06-29	Juergen Beisert <jbe@pengutronix.de
 
