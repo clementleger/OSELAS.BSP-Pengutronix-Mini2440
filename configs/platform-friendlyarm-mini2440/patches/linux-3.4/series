@@ -50,6 +50,9 @@ patch-3.4.47-48.bz2
 patch-3.4.48-49.bz2
 patch-3.4.49-50.bz2
 patch-3.4.50-51.bz2
+patch-3.4.51-52.bz2
+patch-3.4.52-53.bz2
+patch-3.4.53-54.bz2
 
 fix_new_display_number.diff
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
