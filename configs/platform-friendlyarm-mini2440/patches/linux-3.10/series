@@ -2,6 +2,9 @@
 patch-3.10.1.bz2
 patch-3.10.1-2.bz2
 
+# fix a regression in 3.10 until it hits mainline
+ARM_S3C24XX_Add_missing_clkdev_entries_for_s3c2440_UART.patch
+
 # add full board feature support
 fix_new_display_number.diff
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
