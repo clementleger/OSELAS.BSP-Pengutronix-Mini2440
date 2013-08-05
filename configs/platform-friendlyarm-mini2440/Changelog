@@ -8,6 +8,8 @@
 		- keep in sync with stable release .56
 	* Kernel 3.9:
 		- end of life reached
+	* Kernel 3.10:
+		- keep in sync with stable release .5
 
 2013-07-22	Juergen Beisert <jbe@pengutronix.de
 

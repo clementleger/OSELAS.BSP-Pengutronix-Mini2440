@@ -44,7 +44,7 @@ Base System
 [x] qml demo is a release
     [x] rule file uses the release
 [x] bootloader is a release
-[ ] kernel-3.10.2 is a release
+[ ] kernel-3.10.5 is a release
 [ ] kernel-3.9.11 is a release
 [ ] kernel-3.8.13 is a release
 [ ] kernel-3.7.10 is a release
