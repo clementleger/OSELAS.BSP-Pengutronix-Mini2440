@@ -12,6 +12,9 @@ patch-3.9.8-9.bz2
 patch-3.9.9-10.bz2
 patch-3.9.10-11.bz2
 
+# fix a long term bug since Linux-3.5
+VIVT_processors.patch
+
 # add full board feature support
 fix_new_display_number.diff
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
