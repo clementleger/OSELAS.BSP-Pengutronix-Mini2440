@@ -2,6 +2,7 @@
 
 	* Kernel 3.5:
 		- back to development
+		- fix a cache flush issue for ARMv4 CPUs
 	* Kernel 3.6:
 		- back to development
 
