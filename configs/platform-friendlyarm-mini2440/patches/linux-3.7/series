@@ -10,6 +10,9 @@ patch-3.7.7-8.bz2
 patch-3.7.8-9.bz2
 patch-3.7.9-10.bz2
 
+# fix a long term bug since Linux-3.5
+VIVT_processors.patch
+
 fix_new_display_number.diff
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
 PATCH_2_4_s3c2440_mini2440_Add_touchscreen_support_for_mini2440.diff
