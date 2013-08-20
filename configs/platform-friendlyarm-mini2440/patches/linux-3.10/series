@@ -4,6 +4,12 @@ patch-3.10.1-2.bz2
 patch-3.10.2-3.bz2
 patch-3.10.3-4.bz2
 patch-3.10.4-5.bz2
+patch-3.10.5-6.bz2
+patch-3.10.6-7.bz2
+patch-3.10.7-8.bz2
+
+# keep the kernel's name
+fix_kernel_name.diff
 
 # add full board feature support
 fix_new_display_number.diff

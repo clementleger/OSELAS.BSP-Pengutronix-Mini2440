@@ -1,16 +1,23 @@
+From: Juergen Beisert <jbe@pengutronix.de>
+Subject: Keep the 3.10 kernel name.
+
+Don't know why it was changed.
+
+Singed-off-by: Juergen Beisert <jbe@pengutronix.de>
+
 ---
  Makefile |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: linux-3.9/Makefile
+Index: linux-3.10/Makefile
 ===================================================================
---- linux-3.9.orig/Makefile
-+++ linux-3.9/Makefile
+--- linux-3.10.orig/Makefile
++++ linux-3.10/Makefile
 @@ -2,7 +2,7 @@ VERSION = 3
- PATCHLEVEL = 9
- SUBLEVEL = 6
+ PATCHLEVEL = 10
+ SUBLEVEL = 8
  EXTRAVERSION =
--NAME = Black Squirrel Wakeup Call
+-NAME = TOSSUG Baby Fish
 +NAME = Unicycling Gorilla
  
  # *DOCUMENTATION*
