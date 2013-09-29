@@ -6,6 +6,8 @@
 		- keep in sync with stable release .63
 	* Kernel 3.10:
 		- keep in sync with stable release .13
+	* Kernel 3.11:
+		- use most recent Linux release
 
 2013-09-24	Juergen Beisert <jbe@pengutronix.de
 
