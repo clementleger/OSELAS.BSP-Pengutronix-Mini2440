@@ -12,6 +12,7 @@ patch-3.10.9-10.bz2
 patch-3.10.10-11.bz2
 patch-3.10.11-12.bz2
 patch-3.10.12-13.bz2
+patch-3.10.13-14.bz2
 
 # keep the kernel's name
 fix_kernel_name.diff
