@@ -96,9 +96,9 @@ Audio Support
 
 [ ] the platform installs a reasonable default mixer setting
 [ ] 'alsamixer' can control the audio mixer
-[ ] 'aplay' can playback various sound files at different speeds
+[f] 'aplay' can playback various sound files at different speeds
     and mono and stereo
-[ ] 'madplay' plays an MP3
+[f] 'madplay' plays an MP3
 
 USB Host
 --------
@@ -203,4 +203,5 @@ RTC
 Buzzer
 ------
 
-[ ] makes noise as expected
+[f] makes noise as expected
+    note: broken in kernel 3.11.x
