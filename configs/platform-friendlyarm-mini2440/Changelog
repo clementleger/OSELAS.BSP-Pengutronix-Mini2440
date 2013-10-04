@@ -8,6 +8,8 @@
 		- keep in sync with stable release .14
 	* Kernel 3.11:
 		- keep in sync with stable release .3
+	* Kernels:
+		- release all kernels and mark them accordingly
 
 2013-09-29	Juergen Beisert <jbe@pengutronix.de
 

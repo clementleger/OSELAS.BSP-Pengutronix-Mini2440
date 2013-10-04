@@ -11,7 +11,7 @@ Index: linux-3.9/Makefile
  PATCHLEVEL = 9
  SUBLEVEL = 11
 -EXTRAVERSION =
-+EXTRAVERSION = -ptx-master
++EXTRAVERSION = -ptx-2013.10.0
  NAME = Unicycling Gorilla
  
  # *DOCUMENTATION*

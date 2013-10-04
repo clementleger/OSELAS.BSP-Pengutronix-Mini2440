@@ -11,7 +11,7 @@ Index: linux-3.11/Makefile
  PATCHLEVEL = 11
  SUBLEVEL = 3
 -EXTRAVERSION =
-+EXTRAVERSION = -ptx-master
++EXTRAVERSION = -ptx-2013.10.0
  NAME = Linux for Workgroups
  
  # *DOCUMENTATION*
