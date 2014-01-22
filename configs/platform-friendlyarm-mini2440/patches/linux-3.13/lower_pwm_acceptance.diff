@@ -1,0 +1,23 @@
+From: Juergen Beisert <jbe@pengutronix.de>
+Subject: PWM based beeper: lower the acceptance to show the menu entry
+
+Using PWM seems to be a pain. Forever.
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+---
+ drivers/input/misc/Kconfig |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: linux-3.13/drivers/input/misc/Kconfig
+===================================================================
+--- linux-3.13.orig/drivers/input/misc/Kconfig
++++ linux-3.13/drivers/input/misc/Kconfig
+@@ -461,7 +461,7 @@ config INPUT_PCF8574
+ 
+ config INPUT_PWM_BEEPER
+ 	tristate "PWM beeper support"
+-	depends on PWM && HAVE_PWM
++	depends on PWM
+ 	help
+ 	  Say Y here to get support for PWM based beeper devices.
+ 

@@ -1,0 +1,52 @@
+From: Chris Ruehl <chris.ruehl@xxxxxxxxxxxx>
+Subject: clean up code
+
+Signed-off-by: Chris Ruehl <chris.ruehl@xxxxxxxxxxxx>
+Acked-by: Juergen Beisert <jbe@pengutronix.de>
+---
+ drivers/net/ethernet/davicom/dm9000.c |   11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
+
+Index: linux-3.13/drivers/net/ethernet/davicom/dm9000.c
+===================================================================
+--- linux-3.13.orig/drivers/net/ethernet/davicom/dm9000.c
++++ linux-3.13/drivers/net/ethernet/davicom/dm9000.c
+@@ -745,9 +745,9 @@ static const struct ethtool_ops dm9000_e
+ 	.get_link		= dm9000_get_link,
+ 	.get_wol		= dm9000_get_wol,
+ 	.set_wol		= dm9000_set_wol,
+- 	.get_eeprom_len		= dm9000_get_eeprom_len,
+- 	.get_eeprom		= dm9000_get_eeprom,
+- 	.set_eeprom		= dm9000_set_eeprom,
++	.get_eeprom_len		= dm9000_get_eeprom_len,
++	.get_eeprom		= dm9000_get_eeprom,
++	.set_eeprom		= dm9000_set_eeprom,
+ };
+ 
+ static void dm9000_show_carrier(board_info_t *db,
+@@ -795,7 +795,7 @@ dm9000_poll_work(struct work_struct *w)
+ 		}
+ 	} else
+ 		mii_check_media(&db->mii, netif_msg_link(db), 0);
+-	
++
+ 	if (netif_running(ndev))
+ 		dm9000_schedule_poll(db);
+ }
+@@ -1320,7 +1320,7 @@ dm9000_open(struct net_device *dev)
+ 
+ 	mii_check_media(&db->mii, netif_msg_link(db), 1);
+ 	netif_start_queue(dev);
+-	
++
+ 	dm9000_schedule_poll(db);
+ 
+ 	return 0;
+@@ -1634,7 +1634,6 @@ dm9000_probe(struct platform_device *pde
+ 
+ 	if (!is_valid_ether_addr(ndev->dev_addr)) {
+ 		/* try reading from mac */
+-		
+ 		mac_src = "chip";
+ 		for (i = 0; i < 6; i++)
+ 			ndev->dev_addr[i] = ior(db, i+DM9000_PAR);

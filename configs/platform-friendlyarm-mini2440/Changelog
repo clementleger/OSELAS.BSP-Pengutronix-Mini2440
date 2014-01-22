@@ -24,6 +24,7 @@
 	* Kernel 3.12:
 		- use most recent Linux release
 		- keep in sync with stable release .8
+	* Kernel 3.13: use most recent Linux release
 
 2013-10-04	Juergen Beisert <jbe@pengutronix.de
 
