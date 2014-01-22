@@ -1,0 +1,112 @@
+From: Juergen Beisert <jbe@pengutronix.de>
+Subject: Mini2440: Enable buzzer
+
+This feature is currently disabled, as the kernel has trouble with it and
+ends up with:
+
+[...]
+Unable to handle kernel NULL pointer dereference at virtual address 00000084
+pgd = c0004000
+[00000084] *pgd=00000000
+Internal error: Oops: 5 [#1] PREEMPT ARM
+Modules linked in:
+CPU: 0 PID: 1 Comm: swapper Not tainted 3.11.0-ptx-master #7
+task: c3828000 ti: c382a000 task.ti: c382a000
+PC is at get_device_parent+0x74/0x18c
+LR is at get_device_parent+0x54/0x18c
+pc : [<c017a18c>]    lr : [<c017a16c>]    psr: 60000053
+sp : c382bd80  ip : 00000070  fp : 00000000
+r10: c03e7430  r9 : c03bc47c  r8 : c385fe0c
+r7 : 00000000  r6 : c03e7438  r5 : c3875840  r4 : c3875840
+r3 : c03f3bd4  r2 : 00000000  r1 : 00000000  r0 : c03f4a6c
+Flags: nZCv  IRQs on  FIQs off  Mode SVC_32  ISA ARM  Segment kernel
+Control: c000717f  Table: 30004000  DAC: 00000017
+Process swapper (pid: 1, stack limit = 0xc382a1b8)
+Stack: (0xc382bd80 to 0xc382c000)
+bd80: c3877d40 c3875840 00000000 c03f3bd4 00000000 c017a504 00000000 c014e7d4
+bda0: c382be24 c3875848 00000000 00000000 c3804880 c3875840 00000000 c03f3bd4
+bdc0: 00000000 c385fe0c c03bc47c 00000000 00000000 c017aa98 c385fe0c 00000000
+bde0: 00000000 00000024 c03ca19c c017ab2c 00000000 c0363963 c382be24 c385fe0c
+be00: c385fe0c c017ab50 c0363963 c382be24 00000000 c382be24 c385fe0c c015ea80
+be20: c0363963 00000000 c385fe0c c015e23c 00000000 00590000 60000053 c385fdf0
+be40: c03e7430 00590004 c017ce2c c015ee9c c03e7420 c386afd0 00000001 c03e7430
+be60: c03e7464 c03f3cc8 c017ce2c c017dc3c c017dc28 c017cce4 c03e7430 c03e7464
+be80: c03f3cc8 c017ce94 00000000 c382be98 c03f3cc8 c017b508 c383e10c c386b270
+bea0: c03f3cc8 c03f3cc8 c386bf60 c03f4b80 00000000 c017c4c4 c03515e4 c03515e4
+bec0: c03f3cc8 c03d37f8 c03d8044 c04058c0 c03ca19c c017d17c 00000000 c041e8e4
+bee0: c03d37f8 c03d8044 c04058c0 c03ca19c 00000000 c03ca1f4 00000003 c0008740
+bf00: c039e704 00000000 c039e714 c382bf20 c002ea00 c014a738 20000053 ffffffff
+bf20: 00000064 c04a73f8 c04a7401 c002ec0c 00000000 c039ec24 c039e5e4 00000064
+bf40: 00000003 00000003 00000001 00000003 00000003 c03d37f8 c03d8044 c04058c0
+bf60: 00000064 c03bc47c c03d3810 c03bcab4 00000003 00000003 c03bc47c c382bf38
+bf80: 01234567 00000000 00000000 c02b4114 00000000 00000000 00000000 00000000
+bfa0: 00000000 c02b411c 00000000 c0009270 00000000 00000000 00000000 00000000
+bfc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+bfe0: 00000000 00000000 00000000 00000000 00000013 00000000 33cc33cc 33cc33cc
+[<c017a18c>] (get_device_parent+0x74/0x18c) from [<c017a504>] (device_add+0xc4/0x5c4)
+[<c017a504>] (device_add+0xc4/0x5c4) from [<c017aa98>] (device_create_groups_vargs+0x7c/0xc4)
+[<c017aa98>] (device_create_groups_vargs+0x7c/0xc4) from [<c017ab2c>] (device_create_vargs+0x20/0x28)
+[<c017ab2c>] (device_create_vargs+0x20/0x28) from [<c017ab50>] (device_create+0x1c/0x24)
+[<c017ab50>] (device_create+0x1c/0x24) from [<c015ea80>] (pwmchip_sysfs_export+0x2c/0x5c)
+[<c015ea80>] (pwmchip_sysfs_export+0x2c/0x5c) from [<c015e23c>] (pwmchip_add+0x140/0x18c)
+[<c015e23c>] (pwmchip_add+0x140/0x18c) from [<c015ee9c>] (s3c_pwm_probe+0x11c/0x1e4)
+[<c015ee9c>] (s3c_pwm_probe+0x11c/0x1e4) from [<c017dc3c>] (platform_drv_probe+0x14/0x18)
+[<c017dc3c>] (platform_drv_probe+0x14/0x18) from [<c017cce4>] (driver_probe_device+0xa0/0x1e8)
+[<c017cce4>] (driver_probe_device+0xa0/0x1e8) from [<c017ce94>] (__driver_attach+0x68/0x88)
+[<c017ce94>] (__driver_attach+0x68/0x88) from [<c017b508>] (bus_for_each_dev+0x54/0x8c)
+[<c017b508>] (bus_for_each_dev+0x54/0x8c) from [<c017c4c4>] (bus_add_driver+0xc8/0x21c)
+[<c017c4c4>] (bus_add_driver+0xc8/0x21c) from [<c017d17c>] (driver_register+0x9c/0x12c)
+[<c017d17c>] (driver_register+0x9c/0x12c) from [<c03ca1f4>] (pwm_init+0x58/0x84)
+[<c03ca1f4>] (pwm_init+0x58/0x84) from [<c0008740>] (do_one_initcall+0xa4/0x154)
+[<c0008740>] (do_one_initcall+0xa4/0x154) from [<c03bcab4>] (kernel_init_freeable+0xe8/0x1a4)
+[<c03bcab4>] (kernel_init_freeable+0xe8/0x1a4) from [<c02b411c>] (kernel_init+0x8/0xe0)
+[<c02b411c>] (kernel_init+0x8/0xe0) from [<c0009270>] (ret_from_fork+0x14/0x24)
+Code: e2822001 e5832004 e59530a8 e5932040 (e5b23084)
+ ---[ end trace 838eedcf07d1c6f5 ]---
+note: swapper[1] exited with preempt_count 1
+Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+---
+ arch/arm/mach-s3c24xx/mach-mini2440.c |   14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+Index: linux-3.11/arch/arm/mach-s3c24xx/mach-mini2440.c
+===================================================================
+--- linux-3.11.orig/arch/arm/mach-s3c24xx/mach-mini2440.c
++++ linux-3.11/arch/arm/mach-s3c24xx/mach-mini2440.c
+@@ -602,6 +602,15 @@ static struct s3c_hwmon_pdata mini2440_a
+ 	.in[7] = &mini2440_adc_chcfg[7],
+ };
+ 
++static struct platform_device mini2440_buzzer_device = {
++	.name = "pwm-beeper",
++	.id = -1,
++	.dev = {
++		.parent = &s3c_device_timer[0].dev,
++		.platform_data = (void *)0,	/* channel 0 */
++	},
++};
++
+ static struct platform_device *mini2440_devices[] __initdata = {
+ 	&s3c_device_ohci,
+ 	&s3c_device_wdt,
+@@ -618,6 +627,8 @@ static struct platform_device *mini2440_
+ 	&mini2440_audio,
+ 	&s3c_device_adc,
+ 	&s3c_device_hwmon,
++	&s3c_device_timer[0],
++	&mini2440_buzzer_device,
+ };
+ 
+ static void __init mini2440_map_io(void)
+@@ -781,6 +792,9 @@ static void __init mini2440_init(void)
+ 	i2c_register_board_info(0, mini2440_i2c_devs,
+ 				ARRAY_SIZE(mini2440_i2c_devs));
+ 
++	/* PWM to the buzzer */
++	s3c_gpio_cfgpin(S3C2410_GPB(0), S3C2410_GPB0_TOUT0);
++
+ 	platform_add_devices(mini2440_devices, ARRAY_SIZE(mini2440_devices));
+ 
+ 	if (features.count)	/* the optional features */

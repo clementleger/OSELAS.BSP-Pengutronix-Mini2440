@@ -21,6 +21,9 @@
 		- back to development
 		- keep in sync with stable release .10
 		- mark this kernel as 'end-of-life'
+	* Kernel 3.12:
+		- use most recent Linux release
+		- keep in sync with stable release .8
 
 2013-10-04	Juergen Beisert <jbe@pengutronix.de
 
