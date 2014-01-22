@@ -11,7 +11,9 @@
 	* Kernel-3.2:
 		- back to development
 		- keep in sync with stable release .54
-	* Kernel-3.4: back to development
+	* Kernel-3.4:
+		- back to development
+		- keep in sync with stable release .77
 
 2013-10-04	Juergen Beisert <jbe@pengutronix.de
 
