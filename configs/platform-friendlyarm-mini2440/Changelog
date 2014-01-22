@@ -3,6 +3,7 @@
 	* Platform:
 		- back to development
 		- use ptxdist-2014.01.0
+		- update to OSELAS.Toolchain()-2013.12
 
 2013-10-04	Juergen Beisert <jbe@pengutronix.de
 
