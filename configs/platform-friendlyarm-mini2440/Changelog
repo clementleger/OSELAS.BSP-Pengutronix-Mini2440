@@ -2,6 +2,8 @@
 
 	* Kernel-3.4:
 		- keep in sync with stable release .78
+	* Kernel 3.13:
+		- keep in sync with stable release .1
 
 2014-01-27	Juergen Beisert <jbe@pengutronix.de
 
