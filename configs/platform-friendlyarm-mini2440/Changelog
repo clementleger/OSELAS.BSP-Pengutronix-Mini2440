@@ -1,3 +1,8 @@
+2014-01-30	Juergen Beisert <jbe@pengutronix.de
+
+	* Kernel-3.4:
+		- keep in sync with stable release .78
+
 2014-01-27	Juergen Beisert <jbe@pengutronix.de
 
 	* Kernel-3.10:
