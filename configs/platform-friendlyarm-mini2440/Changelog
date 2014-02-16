@@ -4,6 +4,8 @@
 		- keep in sync with stable release .55
 	* Kernel-3.4:
 		- keep in sync with stable release .80
+	* Kernel-3.10:
+		- add missing patch .18 to .19
 
 2014-02-06	Juergen Beisert <jbe@pengutronix.de
 
