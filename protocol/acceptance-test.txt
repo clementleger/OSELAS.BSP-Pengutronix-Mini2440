@@ -45,7 +45,7 @@ Base System
     [x] rule file uses the release
 [x] bootloader is a release
 [ ] kernel-3.13.2 is a release
-[ ] kernel-3.12.10 is a release
+[ ] kernel-3.12.11 is a release
 [ ] kernel-3.11.10 is a release
 [ ] kernel-3.10.30 is a release
 [x] kernel-3.9.11 is a release

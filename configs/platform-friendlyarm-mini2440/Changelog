@@ -7,6 +7,8 @@
 	* Kernel-3.10:
 		- add missing patch .18 to .19
 		- keep in sync with stable release .30
+	* Kernel 3.12:
+		- keep in sync with stable release .11
 
 2014-02-06	Juergen Beisert <jbe@pengutronix.de
 
