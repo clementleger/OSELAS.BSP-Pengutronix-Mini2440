@@ -9,7 +9,7 @@ Index: linux-3.13/Makefile
 @@ -1,7 +1,7 @@
  VERSION = 3
  PATCHLEVEL = 13
- SUBLEVEL = 3
+ SUBLEVEL = 4
 -EXTRAVERSION =
 +EXTRAVERSION = -ptx-master
  NAME = One Giant Leap for Frogkind
