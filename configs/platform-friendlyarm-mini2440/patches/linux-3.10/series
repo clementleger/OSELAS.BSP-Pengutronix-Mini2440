@@ -29,6 +29,7 @@ patch-3.10.26-27.xz
 patch-3.10.27-28.xz
 patch-3.10.28-29.xz
 patch-3.10.29-30.xz
+patch-3.10.30-31.xz
 
 # keep the kernel's name
 fix_kernel_name.diff
