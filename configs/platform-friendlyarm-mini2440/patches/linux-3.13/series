@@ -3,6 +3,7 @@ patch-3.13.1.xz
 patch-3.13.1-2.xz
 patch-3.13.2-3.xz
 patch-3.13.3-4.xz
+patch-3.13.4-5.xz
 
 # add full board feature support
 fix_new_display_number.diff
