@@ -4,6 +4,8 @@
 		- keep in sync with stable release .82
 	* Kernel-3.10:
 		- keep in sync with stable release .32
+	* Kernel 3.12:
+		- keep in sync with stable release .13
 
 2014-02-20	Juergen Beisert <jbe@pengutronix.de
 
