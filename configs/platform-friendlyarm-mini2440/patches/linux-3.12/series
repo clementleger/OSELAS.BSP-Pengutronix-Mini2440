@@ -12,6 +12,7 @@ patch-3.12.9-10.xz
 patch-3.12.10-11.xz
 patch-3.12.11-12.xz
 patch-3.12.12-13.xz
+patch-3.12.13-14.xz
 
 # add full board feature support
 fix_new_display_number.diff
