@@ -35,7 +35,7 @@ list of currently available Linux kernel releases in the \ptxdistBSPName{}:
 	\item \curKernelRev{}, stable patch level 0 (default)
 	\item 3.13, stable patch level 9
 	\item 3.12, stable patch level 16
-	\item 3.11 *), stable patch level 10
+	\item 3.11 *), stable patch level 10 **)
 	\item 3.10, stable patch level 37
 	\item 3.9 *), stable patch level 11
 	\item 3.8 *), stable patch level 13
@@ -51,6 +51,7 @@ list of currently available Linux kernel releases in the \ptxdistBSPName{}:
 	\item 2.6.38 *), stable patch level 8
 \end{itemize}
 *) end of life, no further stable releases will be available
+**) don't use this kernel release. It is broken on the \perCpuName{} SoC
 
 If we want to build the BSP with a non-default kernel release, we just run
 \texttt{ptxdist platformconfig} and change the kernel setting prior to building.
