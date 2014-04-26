@@ -2,6 +2,8 @@
 
 	* Kernel-3.2:
 		- keep in sync with stable release .57
+	* Kernel-3.4:
+		- keep in sync with stable release .87
 
 2014-04-04	Juergen Beisert <jbe@pengutronix.de
 
