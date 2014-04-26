@@ -10,6 +10,9 @@
 		- mark this kernel as broken on the Mini2440
 	* Kernel 3.12:
 		- keep in sync with stable release .17
+	* Kernel 3.13:
+		- keep in sync with stable release .11
+		- end of life reached
 
 2014-04-04	Juergen Beisert <jbe@pengutronix.de
 
