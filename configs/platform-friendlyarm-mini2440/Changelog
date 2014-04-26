@@ -13,6 +13,8 @@
 	* Kernel 3.13:
 		- keep in sync with stable release .11
 		- end of life reached
+	* Kernel 3.14:
+		- keep in sync with stable release .1
 
 2014-04-04	Juergen Beisert <jbe@pengutronix.de
 
