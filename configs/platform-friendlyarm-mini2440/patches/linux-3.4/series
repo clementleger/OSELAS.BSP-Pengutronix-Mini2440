@@ -86,6 +86,7 @@ patch-3.4.83-84.xz
 patch-3.4.84-85.xz
 patch-3.4.85-86.xz
 patch-3.4.86-87.xz
+patch-3.4.87-88.xz
 
 fix_new_display_number.diff
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
