@@ -1,3 +1,9 @@
+2014-04-30	Juergen Borleis <jbe@pengutronix.de
+
+	* Kernel-3.11, 3.12, 3.13, 3.14
+		- disable all symbols for debugging/ksymoops to make these
+		  kernel fit again into the 2 MiB NAND kernel partition
+
 2014-04-27	Juergen Borleis <jbe@pengutronix.de
 
 	* Kernel-3.4:
