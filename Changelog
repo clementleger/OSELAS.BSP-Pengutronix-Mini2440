@@ -1,6 +1,7 @@
 2014-04-30	Juergen Borleis <jbe@pengutronix.de
 
 	* Board Support Package: Back to development also for the QT config
+	* Board Support Package: use ptxdist-2014.04.0 also for the QT config
 
 2014-04-26	Juergen Borleis <jbe@pengutronix.de
 
