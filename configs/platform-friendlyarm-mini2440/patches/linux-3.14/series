@@ -1,6 +1,18 @@
 # keep in sync with stable
 patch-3.14.1.xz
 patch-3.14.1-2.xz
+patch-3.14.2-3.xz
+patch-3.14.3-4.xz
+patch-3.14.4-5.xz
+fix_name.diff
+patch-3.14.5-6.xz
+patch-3.14.6-7.xz
+patch-3.14.7-8.xz
+patch-3.14.8-9.xz
+patch-3.14.9-10.xz
+patch-3.14.10-11.xz
+patch-3.14.11-12.xz
+patch-3.14.12-13.xz
 
 # add full board feature support
 fix_new_display_number.diff
