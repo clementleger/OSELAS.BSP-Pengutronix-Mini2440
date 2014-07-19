@@ -4,6 +4,8 @@
 		- keep in sync with stable release .61
 	* Kernel-3.4:
 		- keep in sync with stable release .99
+	* Kernel 3.10:
+		- mark this kernel as broken on the Mini2440
 
 2014-04-30	Juergen Borleis <jbe@pengutronix.de
 
