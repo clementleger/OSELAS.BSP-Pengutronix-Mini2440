@@ -10,6 +10,7 @@
 		- keep in sync with stable release .24
 	* Kernel 3.14:
 		- keep in sync with stable release .13
+		- use most recent Linux release for the 64 MiB Mini2440 as well
 
 2014-04-30	Juergen Borleis <jbe@pengutronix.de
 
