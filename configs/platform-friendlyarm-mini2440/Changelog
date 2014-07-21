@@ -1,6 +1,9 @@
 2014-07-20	Juergen Borleis <jbe@pengutronix.de
 
 	* Platform: use ptxdist-2014.07.0
+	* Kernel 3.15:
+		- use most recent Linux release
+		- keep in sync with stabel release .6
 
 2014-07-19	Juergen Borleis <jbe@pengutronix.de
 

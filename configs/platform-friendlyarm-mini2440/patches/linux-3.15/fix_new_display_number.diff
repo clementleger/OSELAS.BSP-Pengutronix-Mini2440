@@ -1,0 +1,24 @@
+From: Juergen Beisert <jbe@pengutronix.de>
+Subject: Just cosmetic
+
+Keep this display as number 6, to be in sync with the older kernels
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+---
+ arch/arm/mach-s3c24xx/mach-mini2440.c |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+Index: linux-3.15/arch/arm/mach-s3c24xx/mach-mini2440.c
+===================================================================
+--- linux-3.15.orig/arch/arm/mach-s3c24xx/mach-mini2440.c
++++ linux-3.15/arch/arm/mach-s3c24xx/mach-mini2440.c
+@@ -170,8 +170,7 @@ static struct s3c2410fb_display mini2440
+ 		.lcdcon5	= (S3C2410_LCDCON5_FRM565 |
+ 				   S3C2410_LCDCON5_HWSWP),
+ 	},
+-	/* mini2440 + 3.5" TFT (LCD-W35i, LQ035Q1DG06 type) + touchscreen*/
+-	[3] = {
++	[6] = { /* LCD-W35i 3.5" display (LQ035Q1DG06)*/
+ 		_LCD_DECLARE(
+ 			/* clock */
+ 			7,

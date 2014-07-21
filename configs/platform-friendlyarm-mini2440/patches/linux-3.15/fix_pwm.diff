@@ -1,0 +1,28 @@
+From: Juergen Beisert <jbe@pengutronix.de>
+Subject: samsung-plat: Avoid division by zero
+
+The pwm-beeper driver crashes the PWM driver by calling with a period time of
+zero nanoseconds.
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+
+---
+ drivers/pwm/pwm-samsung.c |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+Index: linux-3.15/drivers/pwm/pwm-samsung.c
+===================================================================
+--- linux-3.15.orig/drivers/pwm/pwm-samsung.c
++++ linux-3.15/drivers/pwm/pwm-samsung.c
+@@ -297,7 +297,10 @@ static int pwm_samsung_config(struct pwm
+ 		unsigned long tin_rate;
+ 		u32 period;
+ 
+-		period = NSEC_PER_SEC / period_ns;
++		if (period_ns)
++			period = NSEC_PER_SEC / period_ns;
++		else
++			period = 0;
+ 
+ 		dev_dbg(our_chip->chip.dev, "duty_ns=%d, period_ns=%d (%u)\n",
+ 						duty_ns, period_ns, period);
