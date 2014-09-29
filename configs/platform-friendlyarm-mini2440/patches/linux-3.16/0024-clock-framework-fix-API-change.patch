@@ -1,0 +1,49 @@
+From: Juergen Borleis <juergen@kreuzholzen.de>
+Date: Wed, 28 Jan 2015 19:31:30 +0100
+Subject: [PATCH] clock framework: fix API change
+
+Signed-off-by: Juergen Borleis <juergen@kreuzholzen.de>
+---
+ arch/arm/plat-samsung/adc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm/plat-samsung/adc.c b/arch/arm/plat-samsung/adc.c
+index e79f62a707b4..2cc401836e9a 100644
+--- a/arch/arm/plat-samsung/adc.c
++++ b/arch/arm/plat-samsung/adc.c
+@@ -390,7 +390,7 @@ static int s3c_adc_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	clk_enable(adc->clk);
++	clk_prepare_enable(adc->clk);
+ 
+ 	tmp = adc->prescale | S3C2410_ADCCON_PRSCEN;
+ 
+@@ -414,7 +414,7 @@ static int s3c_adc_remove(struct platform_device *pdev)
+ {
+ 	struct adc_device *adc = platform_get_drvdata(pdev);
+ 
+-	clk_disable(adc->clk);
++	clk_disable_unprepare(adc->clk);
+ 	regulator_disable(adc->vdd);
+ 
+ 	return 0;
+@@ -437,7 +437,7 @@ static int s3c_adc_suspend(struct device *dev)
+ 
+ 	disable_irq(adc->irq);
+ 	spin_unlock_irqrestore(&adc->lock, flags);
+-	clk_disable(adc->clk);
++	clk_disable_unprepare(adc->clk);
+ 	regulator_disable(adc->vdd);
+ 
+ 	return 0;
+@@ -455,7 +455,7 @@ static int s3c_adc_resume(struct device *dev)
+ 	ret = regulator_enable(adc->vdd);
+ 	if (ret)
+ 		return ret;
+-	clk_enable(adc->clk);
++	clk_prepare_enable(adc->clk);
+ 	enable_irq(adc->irq);
+ 
+ 	tmp = adc->prescale | S3C2410_ADCCON_PRSCEN;

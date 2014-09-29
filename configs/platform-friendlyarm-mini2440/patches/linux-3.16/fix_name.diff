@@ -1,0 +1,23 @@
+From: Juergen Borleis <jbe@pengutronix.de>
+Subject: Keep the 3.16 kernel name.
+
+Don't know why it was changed.
+
+Singed-off-by: Juergen Borleis <jbe@pengutronix.de>
+---
+ Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: linux-3.16/Makefile
+===================================================================
+--- linux-3.16.orig/Makefile
++++ linux-3.16/Makefile
+@@ -2,7 +2,7 @@ VERSION = 3
+ PATCHLEVEL = 16
+ SUBLEVEL = 1
+ EXTRAVERSION =
+-NAME = Museum of Fishiegoodies
++NAME = Shuffling Zombie Juror
+ 
+ # *DOCUMENTATION*
+ # To see a list of typical targets execute "make help"

@@ -1,0 +1,28 @@
+From: Chris Ruehl <chris.ruehl@xxxxxxxxxxxx>
+Date: Wed, 28 Jan 2015 19:02:31 +0100
+Subject: [PATCH] net: dm9000: Only call PHY reset for TYPE-B on shutdown
+
+Unconditional call of PHY reset can triggers a fault to detect
+the link for DM9000A on reboot, only a hard reset can solve it.
+This patch check the version of the chip and call the PHY reset
+only for the B version of the chip.
+
+Signed-off-by: Chris Ruehl <chris.ruehl@xxxxxxxxxxxx>
+---
+ drivers/net/ethernet/davicom/dm9000.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/davicom/dm9000.c b/drivers/net/ethernet/davicom/dm9000.c
+index 08c19af4a098..892b6b72170b 100644
+--- a/drivers/net/ethernet/davicom/dm9000.c
++++ b/drivers/net/ethernet/davicom/dm9000.c
+@@ -1356,7 +1356,8 @@ dm9000_shutdown(struct net_device *dev)
+ 	board_info_t *db = netdev_priv(dev);
+ 
+ 	/* RESET device */
+-	dm9000_phy_write(dev, 0, MII_BMCR, BMCR_RESET);	/* PHY RESET */
++	if (db->type == TYPE_DM9000B)
++		dm9000_phy_write(dev, 0, MII_BMCR, BMCR_RESET); /* PHY RESET */
+ 	iow(db, DM9000_GPR, 0x01);	/* Power-Down PHY */
+ 	dm9000_mask_interrupts(db);
+ 	iow(db, DM9000_RCR, 0x00);	/* Disable RX */

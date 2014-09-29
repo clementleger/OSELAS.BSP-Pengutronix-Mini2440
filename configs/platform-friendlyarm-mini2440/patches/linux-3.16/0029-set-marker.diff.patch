@@ -1,0 +1,21 @@
+From: Juergen Borleis <jbe@pengutronix.de>
+Date: Wed, 28 Jan 2015 19:02:32 +0100
+Subject: [PATCH] set-marker.diff
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index d0901b46b4bf..615df649327f 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ VERSION = 3
+ PATCHLEVEL = 16
+ SUBLEVEL = 3
+-EXTRAVERSION =
++EXTRAVERSION = -ptx-master
+ NAME = Shuffling Zombie Juror
+ 
+ # *DOCUMENTATION*

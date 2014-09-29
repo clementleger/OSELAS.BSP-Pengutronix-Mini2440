@@ -1,0 +1,29 @@
+From: MyungJoo Ham <myungjoo.ham@samsung.com>
+Date: Wed, 28 Jan 2015 19:02:23 +0100
+Subject: [PATCH] rtc: rtc-s3c: Disable alarm entries that are not chosen.
+
+When rtc_setalarm is called, the entries that are not chosen (entries
+without valid time values) should be disabled. However, in the previous
+rtc-s3c driver, they are not explicitly disabled (did not changed). This
+patch allows to disable such entries even if they were previously used.
+
+Signed-off-by: MyungJoo Ham <myungjoo.ham@samsung.com>
+Signed-off-by: Kyungmin Park <kyungmin.park@samsung.com>
+---
+ drivers/rtc/rtc-s3c.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/rtc/rtc-s3c.c b/drivers/rtc/rtc-s3c.c
+index 4958a363b2c7..21210164a163 100644
+--- a/drivers/rtc/rtc-s3c.c
++++ b/drivers/rtc/rtc-s3c.c
+@@ -313,7 +313,8 @@ static int s3c_rtc_setalarm(struct device *dev, struct rtc_wkalrm *alrm)
+ 		 1900 + tm->tm_year, tm->tm_mon + 1, tm->tm_mday,
+ 		 tm->tm_hour, tm->tm_min, tm->tm_sec);
+ 
+-	alrm_en = readb(base + S3C2410_RTCALM) & S3C2410_RTCALM_ALMEN;
++	/* Disable entires that are not chosen by alarm */
++	alrm_en = S3C2410_RTCALM_ALMEN;
+ 	writeb(0x00, base + S3C2410_RTCALM);
+ 
+ 	if (tm->tm_sec < 60 && tm->tm_sec >= 0) {

@@ -1,0 +1,22 @@
+From: Juergen Beisert <jbe@pengutronix.de>
+Date: Wed, 28 Jan 2015 19:02:31 +0100
+Subject: [PATCH] PWM based beeper: adapt it to the new PWM framework and its
+ symbols
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+---
+ arch/arm/mach-s3c24xx/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/mach-s3c24xx/Kconfig b/arch/arm/mach-s3c24xx/Kconfig
+index 532755570d41..e3ad53d04d53 100644
+--- a/arch/arm/mach-s3c24xx/Kconfig
++++ b/arch/arm/mach-s3c24xx/Kconfig
+@@ -61,6 +61,7 @@ config CPU_S3C2440
+ 	select S3C2410_COMMON_CLK
+ 	select S3C2410_PM if PM
+ 	select S3C2440_DMA if S3C24XX_DMA
++	select S3C24XX_PWM
+ 	help
+ 	  Support for S3C2440 Samsung Mobile CPU based systems.
+ 
