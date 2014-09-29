@@ -6,6 +6,8 @@
 		- keep in sync with stable release .104
 	* Kernel 3.12:
 		- keep in sync with stable release .28
+	* Kernel 3.14:
+		- keep in sync with stable release .19
 
 2014-07-20	Juergen Borleis <jbe@pengutronix.de
 
