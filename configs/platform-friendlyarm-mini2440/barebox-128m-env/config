@@ -50,6 +50,10 @@ fi
 
 autoboot_timeout=3
 
+if [ -e /dev/nor0 ]; then
+       nor_parts="512k(barebox)"
+fi
+
 #
 # "mini2440" kernel parameter
 # 0 .. 9 = screen type
