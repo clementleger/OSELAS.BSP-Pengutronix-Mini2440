@@ -8,6 +8,7 @@
 		- end of life reached
 	* Kernel 3.16:
 		- keep in sync with stabel release .7
+		- end of life reached
 	* Kernel 3.14/3.15/3.16:
 		- just fix a typo in the patch stack
 
