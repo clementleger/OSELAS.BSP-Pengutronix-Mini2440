@@ -1,19 +1,21 @@
+From cec4945c9b81c2381897ec667fffea1cf585f23f Mon Sep 17 00:00:00 2001
 From: Sascha Hauer <s.hauer@pengutronix.de>
-Subject: [PATCH] edit: Add a status line
+Date: Sun, 2 Nov 2014 16:38:11 +0100
+Subject: [PATCH 06/10] edit: Add a status line
 
 When invoked from a skript it's useful to know which file is edited. Also
 Add information how to exit the editor to the status line.
 
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
- commands/edit.c |   17 ++++++++++++++---
+ commands/edit.c | 17 ++++++++++++++---
  1 file changed, 14 insertions(+), 3 deletions(-)
 
-Index: barebox-2011.05.0/commands/edit.c
-===================================================================
---- barebox-2011.05.0.orig/commands/edit.c
-+++ barebox-2011.05.0/commands/edit.c
-@@ -62,7 +62,7 @@ static int scrcol = 0;		/* the first col
+diff --git a/commands/edit.c b/commands/edit.c
+index 3519b09..d4ce1c3 100644
+--- a/commands/edit.c
++++ b/commands/edit.c
+@@ -62,7 +62,7 @@ static int scrcol = 0;		/* the first column on screen */
  
  static void pos(int x, int y)
  {
@@ -22,7 +24,7 @@ Index: barebox-2011.05.0/commands/edit.c
  }
  
  static char *screenline(char *line, int *pos)
-@@ -419,6 +419,17 @@ static int do_edit(struct command * cmdt
+@@ -419,6 +419,17 @@ static int do_edit(struct command * cmdtp, int argc, char *argv[])
  	lastscrcol = 0;
  
  	printf("%c[2J", 27);
@@ -40,7 +42,7 @@ Index: barebox-2011.05.0/commands/edit.c
  	refresh(1);
  
  	while (1) {
-@@ -426,7 +437,7 @@ static int do_edit(struct command * cmdt
+@@ -426,7 +437,7 @@ static int do_edit(struct command * cmdtp, int argc, char *argv[])
  
  		if (textx > curlen)
  			textx = curlen;
@@ -49,7 +51,7 @@ Index: barebox-2011.05.0/commands/edit.c
  			textx = 0;
  
  		screenline(curline->data, &linepos);
-@@ -541,7 +552,7 @@ static int do_edit(struct command * cmdt
+@@ -541,7 +552,7 @@ static int do_edit(struct command * cmdtp, int argc, char *argv[])
  	}
  out:
  	free_buffer();
@@ -58,3 +60,6 @@ Index: barebox-2011.05.0/commands/edit.c
  	printf("\n");
  	return 0;
  }
+-- 
+1.8.1
+

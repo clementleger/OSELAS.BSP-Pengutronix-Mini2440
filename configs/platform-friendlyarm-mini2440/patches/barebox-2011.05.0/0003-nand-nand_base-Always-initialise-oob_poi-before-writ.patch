@@ -1,5 +1,8 @@
+From 7f75e03496f68fe456fa101d4a79eefb2e2786d6 Mon Sep 17 00:00:00 2001
 From: "THOMSON, Adam (Adam)" <adam.thomson@alcatel-lucent.com>
-Subject: [PATCH] nand: nand_base: Always initialise oob_poi before writing OOB data
+Date: Sun, 2 Nov 2014 16:38:11 +0100
+Subject: [PATCH 03/10] nand: nand_base: Always initialise oob_poi before
+ writing OOB data
 
 In nand_do_write_ops() code it is possible for a caller to provide
 ops.oobbuf populated and ops.mode == MTD_OOB_AUTO, which currently
@@ -25,16 +28,15 @@ to 0xFF to make sure no left over data is inadvertently written
 back to OOB data.
 
 Signed-off-by: Adam Thomson <adam.thomson@alcatel-lucent.com>
-
 ---
- drivers/mtd/nand/nand_base.c |    6 +++---
+ drivers/mtd/nand/nand_base.c | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-Index: barebox-2011.05.0/drivers/mtd/nand/nand_base.c
-===================================================================
---- barebox-2011.05.0.orig/drivers/mtd/nand/nand_base.c
-+++ barebox-2011.05.0/drivers/mtd/nand/nand_base.c
-@@ -1645,9 +1645,9 @@ static int nand_do_write_ops(struct mtd_
+diff --git a/drivers/mtd/nand/nand_base.c b/drivers/mtd/nand/nand_base.c
+index 22d2127..1c18e40 100644
+--- a/drivers/mtd/nand/nand_base.c
++++ b/drivers/mtd/nand/nand_base.c
+@@ -1645,9 +1645,9 @@ static int nand_do_write_ops(struct mtd_info *mtd, loff_t to,
  	    (chip->pagebuf << chip->page_shift) < (to + ops->len))
  		chip->pagebuf = -1;
  
@@ -47,3 +49,6 @@ Index: barebox-2011.05.0/drivers/mtd/nand/nand_base.c
  
  	while(1) {
  		int bytes = mtd->writesize;
+-- 
+1.8.1
+

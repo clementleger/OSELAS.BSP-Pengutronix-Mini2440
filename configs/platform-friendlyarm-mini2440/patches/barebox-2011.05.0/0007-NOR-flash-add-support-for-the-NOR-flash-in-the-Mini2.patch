@@ -1,0 +1,42 @@
+From 9e250475f608948711b9572ad9a5780e1574933d Mon Sep 17 00:00:00 2001
+From: Guille Rodriguez <guille.rodriguez@gmail.com>
+Date: Sun, 2 Nov 2014 17:33:12 +0100
+Subject: [PATCH 07/10] NOR flash: add support for the NOR flash in the
+ Mini2440 board
+
+Signed-off-by: Guille Rodriguez <guille.rodriguez@gmail.com>
+---
+ arch/arm/boards/mini2440/mini2440.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/arch/arm/boards/mini2440/mini2440.c b/arch/arm/boards/mini2440/mini2440.c
+index bf12ea8..5fc42de 100644
+--- a/arch/arm/boards/mini2440/mini2440.c
++++ b/arch/arm/boards/mini2440/mini2440.c
+@@ -65,6 +65,13 @@ static struct device_d nand_dev = {
+ 	.platform_data	= &nand_info,
+ };
+ 
++static struct device_d nor_dev = {
++	.id = -1,
++	.name = "cfi_flash",
++	.map_base = CS0_BASE,
++	.size = 2 * 1024 * 1024,
++};
++
+ /*
+  * dm9000 network controller onboard
+  * Connected to CS line 4 and interrupt line EINT7,
+@@ -282,6 +289,9 @@ static int mini2440_devices_init(void)
+ #endif
+ 
+ #endif
++#ifdef CONFIG_DRIVER_CFI
++	register_device(&nor_dev);
++#endif
+ 	register_device(&mci_dev);
+ 	armlinux_add_dram(&sdram_dev);
+ 	armlinux_set_bootparams((void *)sdram_dev.map_base + 0x100);
+-- 
+1.8.1
+

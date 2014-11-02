@@ -1,0 +1,31 @@
+From ad9449cd5ab5d45ce7a7bb6fdb6e9b8347a29503 Mon Sep 17 00:00:00 2001
+From: Guille Rodriguez <guille.rodriguez@gmail.com>
+Date: Sun, 2 Nov 2014 17:42:58 +0100
+Subject: [PATCH 09/10] Init: make it possible to disable autoboot from board
+ config script
+
+Intendet to stop auto booting in the emergency boot case via NOR flash.
+
+Signed-off-by: Guille Rodriguez <guille.rodriguez@gmail.com>
+---
+ arch/arm/boards/mini2440/env/bin/init | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm/boards/mini2440/env/bin/init b/arch/arm/boards/mini2440/env/bin/init
+index b66f7d9..47c9493 100644
+--- a/arch/arm/boards/mini2440/env/bin/init
++++ b/arch/arm/boards/mini2440/env/bin/init
+@@ -24,6 +24,10 @@ if [ -f /env/bin/init_board ]; then
+ 	/env/bin/init_board
+ fi
+ 
++if [ "$autoboot_disable" -eq 1 ]; then
++	exit
++fi
++
+ echo
+ echo -n "Hit any key to stop autoboot: "
+ timeout -a $autoboot_timeout
+-- 
+1.8.1
+

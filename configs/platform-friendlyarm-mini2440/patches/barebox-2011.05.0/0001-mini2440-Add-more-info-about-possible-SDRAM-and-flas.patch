@@ -1,19 +1,21 @@
+From f9e0fe306dd80cf9dfb43e7be056e805638dc073 Mon Sep 17 00:00:00 2001
 From: Juergen Beisert <juergen@kreuzholzen.de>
-Subject: mini2440: Add more info about possible SDRAM and flash devices
+Date: Sun, 2 Nov 2014 16:38:11 +0100
+Subject: [PATCH 01/10] mini2440: Add more info about possible SDRAM and flash
+ devices
 
 It seems there are various combinations of the mini2440 in the wild. Not only
 the SDRAM differ, but more important the NAND also differs.
 
 Signed-off-by: Juergen Beisert <juergen@kreuzholzen.de>
-
 ---
- arch/arm/boards/mini2440/mini2440.c |   56 +++++++++++++++++++++++++-----------
+ arch/arm/boards/mini2440/mini2440.c | 56 ++++++++++++++++++++++++++-----------
  1 file changed, 39 insertions(+), 17 deletions(-)
 
-Index: barebox-2011.04.0/arch/arm/boards/mini2440/mini2440.c
-===================================================================
---- barebox-2011.04.0.orig/arch/arm/boards/mini2440/mini2440.c
-+++ barebox-2011.04.0/arch/arm/boards/mini2440/mini2440.c
+diff --git a/arch/arm/boards/mini2440/mini2440.c b/arch/arm/boards/mini2440/mini2440.c
+index 448aa40..2eb6eba 100644
+--- a/arch/arm/boards/mini2440/mini2440.c
++++ b/arch/arm/boards/mini2440/mini2440.c
 @@ -312,27 +312,49 @@ console_initcall(mini2440_console_init);
  
  This system is based on a Samsung S3C2440 CPU. The card is shipped with:
@@ -81,3 +83,6 @@ Index: barebox-2011.04.0/arch/arm/boards/mini2440/mini2440.c
  - NOR Flash (up to 22 address lines available)
     - AM29LV160DB, 2 MiB
     - SST39VF1601, 2 MiB
+-- 
+1.8.1
+

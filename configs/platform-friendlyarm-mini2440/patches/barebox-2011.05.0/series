@@ -1,19 +1,10 @@
-# just more info
-add_more_info.diff
-
-# last minute additions
-distinguish_64M_and_128M_NAND.diff
-
-# fix some corner cases
-fix_generic_nand_issue.diff
-
-fix_dhcp_env_race.diff
-
-# add boot support from SD/MMC card
-add_mmc_boot_support.diff
-
-# add a useful editor feature
-Add_a_editor_status_line.diff
-
-# odor marker
-set-marker.diff
+0001-mini2440-Add-more-info-about-possible-SDRAM-and-flas.patch
+0002-Distinguish-the-various-NAND-sizes.patch
+0003-nand-nand_base-Always-initialise-oob_poi-before-writ.patch
+0004-DHCP-and-NFSroot-TFTP.patch
+0005-patch-for-mmc-mount-rootds.patch
+0006-edit-Add-a-status-line.patch
+0007-NOR-flash-add-support-for-the-NOR-flash-in-the-Mini2.patch
+0008-Environment-add-a-local-copy-for-easier-modification.patch
+0009-Init-make-it-possible-to-disable-autoboot-from-board.patch
+0010-Add-the-unique-release-marker.patch

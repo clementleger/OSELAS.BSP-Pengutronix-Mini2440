@@ -1,0 +1,26 @@
+From 67583107e19f234fd28d6377b8156bf03d0f85cf Mon Sep 17 00:00:00 2001
+From: Juergen Borleis <jbe@pengutronix.de>
+Date: Sun, 2 Nov 2014 17:56:16 +0100
+Subject: [PATCH 10/10] Add the unique release marker
+
+Signed-off-by: Juergen Borleis <jbe@pengutronix.de>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 88e9ee5..933d43c 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ VERSION = 2011
+ PATCHLEVEL = 05
+ SUBLEVEL = 0
+-EXTRAVERSION =
++EXTRAVERSION = -ptx-2014.11.0
+ NAME = Amissive Actinocutious Kiwi
+ 
+ # *DOCUMENTATION*
+-- 
+1.8.1
+

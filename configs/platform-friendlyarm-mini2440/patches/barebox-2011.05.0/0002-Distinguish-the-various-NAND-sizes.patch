@@ -1,5 +1,7 @@
+From eb823a34ec4782c7521effb9eb61f8fc0ea8b2e8 Mon Sep 17 00:00:00 2001
 From: Juergen Beisert <juergen@kreuzholzen.de>
-Subject: Distinguish the various NAND sizes
+Date: Sun, 2 Nov 2014 16:38:11 +0100
+Subject: [PATCH 02/10] Distinguish the various NAND sizes
 
 Its important to distinguish the NAND size, as the 64 MiB NAND has 16 kiB block
 size and the 128 MiB and above have 128 kiB block sizes.
@@ -24,16 +26,15 @@ Note: Using this patch needs some adaptions in the default environment.
 At least the "nand_parts" variable must be adapted!
 
 Signed-off-by: Juergen Beisert <juergen@kreuzholzen.de>
-
 ---
- arch/arm/boards/mini2440/mini2440.c |   16 +++++++++++++++-
- arch/arm/mach-s3c24xx/Kconfig       |   22 ++++++++++++++++++++++
+ arch/arm/boards/mini2440/mini2440.c | 16 +++++++++++++++-
+ arch/arm/mach-s3c24xx/Kconfig       | 22 ++++++++++++++++++++++
  2 files changed, 37 insertions(+), 1 deletion(-)
 
-Index: barebox-2011.04.0/arch/arm/boards/mini2440/mini2440.c
-===================================================================
---- barebox-2011.04.0.orig/arch/arm/boards/mini2440/mini2440.c
-+++ barebox-2011.04.0/arch/arm/boards/mini2440/mini2440.c
+diff --git a/arch/arm/boards/mini2440/mini2440.c b/arch/arm/boards/mini2440/mini2440.c
+index 2eb6eba..bf12ea8 100644
+--- a/arch/arm/boards/mini2440/mini2440.c
++++ b/arch/arm/boards/mini2440/mini2440.c
 @@ -259,15 +259,29 @@ static int mini2440_devices_init(void)
  	register_device(&sdram_dev);
  	register_device(&dm9000_dev);
@@ -65,10 +66,10 @@ Index: barebox-2011.04.0/arch/arm/boards/mini2440/mini2440.c
  	register_device(&mci_dev);
  	armlinux_add_dram(&sdram_dev);
  	armlinux_set_bootparams((void *)sdram_dev.map_base + 0x100);
-Index: barebox-2011.04.0/arch/arm/mach-s3c24xx/Kconfig
-===================================================================
---- barebox-2011.04.0.orig/arch/arm/mach-s3c24xx/Kconfig
-+++ barebox-2011.04.0/arch/arm/mach-s3c24xx/Kconfig
+diff --git a/arch/arm/mach-s3c24xx/Kconfig b/arch/arm/mach-s3c24xx/Kconfig
+index 33d230c..fd44683 100644
+--- a/arch/arm/mach-s3c24xx/Kconfig
++++ b/arch/arm/mach-s3c24xx/Kconfig
 @@ -67,6 +67,28 @@ config MACH_A9M2410DEV
  
  endchoice
@@ -98,3 +99,6 @@ Index: barebox-2011.04.0/arch/arm/mach-s3c24xx/Kconfig
  endmenu
  
  menu "S3C24X0 Features              "
+-- 
+1.8.1
+

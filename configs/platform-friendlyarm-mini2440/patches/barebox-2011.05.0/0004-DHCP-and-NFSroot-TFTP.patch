@@ -1,0 +1,44 @@
+From 6090ca546676dff547d478f0eefaf765a890b224 Mon Sep 17 00:00:00 2001
+From: Juergen Beisert <jbe@pengutronix.de>
+Date: Sun, 2 Nov 2014 16:38:11 +0100
+Subject: [PATCH 04/10] DHCP and NFSroot/TFTP
+
+Setting up NFS root/TFTP related variables is successfull only if the network
+interface is already configured. For the case someone is using DHCP, this
+fails, because all these vars are still empty.
+
+Signed off by: Juergen Beisert <jbe@pengutronix.de>
+---
+ arch/arm/boards/mini2440/env/config | 2 +-
+ defaultenv/bin/boot                 | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boards/mini2440/env/config b/arch/arm/boards/mini2440/env/config
+index ff6f1ea..884348d 100644
+--- a/arch/arm/boards/mini2440/env/config
++++ b/arch/arm/boards/mini2440/env/config
+@@ -38,7 +38,7 @@ if [ -n $user ]; then
+ 	nfsroot="${eth0.serverip}:/home/${user}/nfsroot/${machine}"
+ 	rootfsimage="${user}"-"${rootfsimage}"
+ else
+-	nfsroot="${eth0.serverip}:/path/to/nfs/root"
++	nfsroot="/path/to/nfs/root"
+ fi
+ 
+ autoboot_timeout=3
+diff --git a/defaultenv/bin/boot b/defaultenv/bin/boot
+index de4fa24..3d0dc9d 100644
+--- a/defaultenv/bin/boot
++++ b/defaultenv/bin/boot
+@@ -21,7 +21,7 @@ if [ x$ip = xdhcp ]; then
+ elif [ x$ip = xnone ]; then
+ 	bootargs="$bootargs ip=none"
+ else
+-	bootargs="$bootargs ip=$eth0.ipaddr::$eth0.gateway:$eth0.netmask:::"
++	bootargs="$bootargs ip=$eth0.ipaddr:$eth0.serverip:$eth0.gateway:$eth0.netmask:::"
+ fi
+ 
+ 
+-- 
+1.8.1
+
