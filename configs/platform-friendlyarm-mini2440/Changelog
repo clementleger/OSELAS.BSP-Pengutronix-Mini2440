@@ -4,6 +4,8 @@
 		- keep in sync with stable release .31
 	* Kernel 3.14:
 		- keep in sync with stable release .23
+	* Kernel 3.15:
+		- end of life reached
 	* Kernel 3.16:
 		- keep in sync with stabel release .7
 	* Kernel 3.14/3.15/3.16:
