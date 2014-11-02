@@ -13,7 +13,7 @@ index d0901b46b4bf..615df649327f 100644
 @@ -1,7 +1,7 @@
  VERSION = 3
  PATCHLEVEL = 16
- SUBLEVEL = 3
+ SUBLEVEL = 7
 -EXTRAVERSION =
 +EXTRAVERSION = -ptx-master
  NAME = Shuffling Zombie Juror
