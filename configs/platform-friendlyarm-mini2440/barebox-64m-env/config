@@ -52,6 +52,9 @@ autoboot_timeout=3
 
 if [ -e /dev/nor0 ]; then
        nor_parts="512k(barebox)"
+
+       # Skip autoboot if not booting from NAND
+       autoboot_disable=1
 fi
 
 #
