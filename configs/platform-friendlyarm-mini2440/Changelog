@@ -2,6 +2,8 @@
 
 	* Kernel 3.12:
 		- keep in sync with stable release .31
+	* Kernel 3.14:
+		- keep in sync with stable release .23
 
 2014-09-29	Juergen Borleis <jbe@pengutronix.de
 
