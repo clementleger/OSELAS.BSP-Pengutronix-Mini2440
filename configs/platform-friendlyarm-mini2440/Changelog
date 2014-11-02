@@ -6,6 +6,8 @@
 		- keep in sync with stable release .23
 	* Kernel 3.16:
 		- keep in sync with stabel release .7
+	* Kernel 3.14/3.15/3.16:
+		- just fix a typo in the patch stack
 
 2014-09-29	Juergen Borleis <jbe@pengutronix.de
 

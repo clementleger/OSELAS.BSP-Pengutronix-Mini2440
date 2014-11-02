@@ -72,7 +72,7 @@ index c23c09597539..77b88a4e1156 100644
  				   S3C2410_LCDCON5_HWSWP),
  	},
 -	[3] = {	/* mini2440 + 3.5" TFT + TS -- New model as Nov 2009 "T35" */
-+	[3] = {	/* mini2440 + 3.5" TFT + TS -- New model as Nov 2009 -- TD035STED4: T35 */
++	[3] = {	/* mini2440 + 3.5" TFT + TS -- New model as of Nov 2009 -- TD035STED4: T35 */
  		_LCD_DECLARE(
  			7,			/* The 3.5 is quite fast */
  			240, 21, 25, 6,		/* x timing */
