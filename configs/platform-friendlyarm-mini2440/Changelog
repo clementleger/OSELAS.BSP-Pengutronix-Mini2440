@@ -1,3 +1,8 @@
+2014-11-02	Juergen Borleis <jbe@pengutronix.de
+
+	* Kernel 3.12:
+		- keep in sync with stable release .31
+
 2014-09-29	Juergen Borleis <jbe@pengutronix.de
 
 	* Kernel-3.2:
