@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# PTXdist 2014.07.0
+# PTXdist 2015.01.0
 #
 
 #
@@ -45,7 +45,7 @@ PTXCONF_PROJECT_BUILD_DEVEL=y
 # PTXCONF_PROJECT_USE_DEVPKGS is not set
 PTXCONF_RUNTIME=y
 PTXCONF_BUILDTIME=y
-PTXCONF_CONFIGFILE_VERSION="2014.07.0"
+PTXCONF_CONFIGFILE_VERSION="2015.01.0"
 PTXCONF__ptxconfig_MAGIC__=y
 
 #
@@ -139,6 +139,7 @@ PTXCONF_HOST_M4=y
 # PTXCONF_HOST_MTOOLS is not set
 # PTXCONF_HOST_MYSQL is not set
 PTXCONF_HOST_NCURSES=y
+# PTXCONF_HOST_NINJA is not set
 # PTXCONF_HOST_OPENSSL is not set
 # PTXCONF_HOST_OPKG_UTILS is not set
 # PTXCONF_HOST_OPKG is not set
@@ -208,6 +209,7 @@ PTXCONF_CROSS_PKG_CONFIG_WRAPPER=y
 # PTXCONF_MEMTEST is not set
 # PTXCONF_MEMTEST86P is not set
 # PTXCONF_MEMTESTER is not set
+# PTXCONF_OPENOCD is not set
 # PTXCONF_OPROFILE is not set
 # PTXCONF_POWERTOP is not set
 # PTXCONF_PRELINK is not set
@@ -1178,6 +1180,7 @@ PTXCONF_BUSYBOX_LOGGER=y
 # BusyBox' gunzip is selected!
 #
 PTXCONF_HTOP=y
+# PTXCONF_HUB_CTRL is not set
 # PTXCONF_I2C_TOOLS is not set
 # PTXCONF_INITNG is not set
 # PTXCONF_KBD is not set
@@ -1261,6 +1264,7 @@ PTXCONF_PROCPS_PS=y
 # BusyBox' killall is selected! (psmisc)
 #
 # PTXCONF_PV is not set
+# PTXCONF_RNG_TOOLS is not set
 # PTXCONF_SCHED_SWITCH is not set
 # PTXCONF_SCHEDTOOL is not set
 # PTXCONF_SCREEN is not set
@@ -1411,6 +1415,7 @@ PTXCONF_UTIL_LINUX_NG_UMOUNT=y
 # PTXCONF_FRODO is not set
 # PTXCONF_JAMVM is not set
 # PTXCONF_MONO is not set
+# PTXCONF_ORACLE_JAVA7_JRE is not set
 # PTXCONF_SUN_JAVA6_JRE is not set
 # PTXCONF_TCL is not set
 
@@ -1475,6 +1480,7 @@ PTXCONF_IPROUTE2_NSTAT=y
 # PTXCONF_LIBCOAP is not set
 # PTXCONF_LIBCURL is not set
 # PTXCONF_LIBMICROHTTPD is not set
+# PTXCONF_LIBMMS is not set
 # PTXCONF_LIBNET is not set
 # PTXCONF_LIBNETFILTER_CONNTRACK is not set
 # PTXCONF_LIBNETFILTER_LOG is not set
@@ -1484,11 +1490,11 @@ PTXCONF_IPROUTE2_NSTAT=y
 # PTXCONF_LIBPCAP is not set
 # PTXCONF_LIBSOUP is not set
 # PTXCONF_LIBSSH2 is not set
+# PTXCONF_LIBWEBSOCKETS is not set
 # PTXCONF_LIBZMQ is not set
 # PTXCONF_LIGHTTPD is not set
 # PTXCONF_LINKS is not set
 # PTXCONF_LLDPD is not set
-# PTXCONF_LOWPAN_TOOLS is not set
 # PTXCONF_LSH is not set
 # PTXCONF_MEMCACHED is not set
 # PTXCONF_MICROCOM is not set
@@ -1515,6 +1521,7 @@ PTXCONF_IPROUTE2_NSTAT=y
 # PTXCONF_PPP is not set
 # PTXCONF_PROFTPD is not set
 # PTXCONF_PUREFTPD is not set
+# PTXCONF_PYTHON_DJANGO is not set
 # PTXCONF_RADVD is not set
 # PTXCONF_RSYNC is not set
 # PTXCONF_RSYNC3 is not set
@@ -1535,6 +1542,7 @@ PTXCONF_IPROUTE2_NSTAT=y
 # PTXCONF_WIRELESS is not set
 # PTXCONF_WIRESHARK is not set
 # PTXCONF_WPA_SUPPLICANT is not set
+# PTXCONF_WPAN_TOOLS is not set
 # PTXCONF_ZSYNC is not set
 
 #
@@ -1547,6 +1555,7 @@ PTXCONF_IPROUTE2_NSTAT=y
 # Disk and File Utilities       
 #
 # PTXCONF_ACL is not set
+# PTXCONF_ARCHIVEMOUNT is not set
 # PTXCONF_ATTR is not set
 # PTXCONF_CIFS_UTILS is not set
 # PTXCONF_DDRESCUE is not set
@@ -1598,7 +1607,9 @@ PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT3=y
 # PTXCONF_E2FSPROGS_INSTALL_MKLOSTANDFOUND is not set
 # PTXCONF_E2FSPROGS_INSTALL_RESIZE2FS is not set
 PTXCONF_E2FSPROGS_INSTALL_TUNE2FS=y
+# PTXCONF_F2FS_TOOLS is not set
 # PTXCONF_FAM is not set
+# PTXCONF_FUSE_ZIP is not set
 # PTXCONF_FUSE is not set
 # PTXCONF_HDPARM is not set
 # PTXCONF_IPKG is not set
@@ -1677,6 +1688,7 @@ PTXCONF_ALSA_LIB_ALISP=y
 # PTXCONF_EXPAT is not set
 # PTXCONF_FLEX is not set
 # PTXCONF_GETTEXT is not set
+# PTXCONF_GFLAGS is not set
 # PTXCONF_GPM is not set
 # PTXCONF_GPSD is not set
 # PTXCONF_ICU is not set
@@ -1691,11 +1703,13 @@ PTXCONF_LIBBLKID=y
 # PTXCONF_LIBCAP_NG is not set
 # PTXCONF_LIBCAP is not set
 # PTXCONF_LIBCGROUP is not set
+# PTXCONF_LIBCONFIG is not set
 # PTXCONF_LIBCONFUSE is not set
 # PTXCONF_LIBDAEMON is not set
 # PTXCONF_LIBEDIT is not set
 # PTXCONF_LIBELF is not set
 # PTXCONF_LIBEVENT is not set
+# PTXCONF_LIBEXIF is not set
 # PTXCONF_LIBEZV24 is not set
 # PTXCONF_LIBFFI is not set
 # PTXCONF_LIBFTDI is not set
@@ -1767,6 +1781,7 @@ PTXCONF_LIBUUID=y
 # PTXCONF_LIBXML2 is not set
 # PTXCONF_LIBXMLCONFIG is not set
 # PTXCONF_LIBXSLT is not set
+# PTXCONF_LIBZIP is not set
 # PTXCONF_LOG4CPLUS is not set
 PTXCONF_NCURSES=y
 
@@ -1873,6 +1888,7 @@ PTXCONF_EVTEST=y
 PTXCONF_RING_BELL=y
 # PTXCONF_RT_TESTS is not set
 # PTXCONF_TIOBENCH is not set
+# PTXCONF_UNIXBENCH is not set
 
 #
 # Games                         
@@ -1933,6 +1949,9 @@ PTXCONF_FBUTILS_FBCONVERT=y
 # PTXCONF_GST_PLUGINS_BASE1 is not set
 # PTXCONF_GST_PLUGINS_GOOD1 is not set
 # PTXCONF_GST_PLUGINS_UGLY1 is not set
+# PTXCONF_GST_RTSP_SERVER1 is not set
+# PTXCONF_GST_VALIDATE1 is not set
+# PTXCONF_GSTREAMER_VAAPI1 is not set
 # PTXCONF_GSTREAMER1 is not set
 
 #
@@ -1949,6 +1968,7 @@ PTXCONF_FBUTILS_FBCONVERT=y
 # PTXCONF_GLIBMM is not set
 # PTXCONF_GTK_ENGINES is not set
 # PTXCONF_GTK is not set
+# PTXCONF_GTK2 is not set
 # PTXCONF_GTKMM is not set
 # PTXCONF_LIBCROCO is not set
 # PTXCONF_LIBGEE is not set
@@ -2144,10 +2164,17 @@ PTXCONF_FREETYPE=y
 # PTXCONF_LIBCACA is not set
 # PTXCONF_LIBDMTX is not set
 # PTXCONF_LIBDRM is not set
+# PTXCONF_LIBEPOXY is not set
+# PTXCONF_LIBEVDEV is not set
+# PTXCONF_LIBINPUT is not set
 # PTXCONF_LIBMPEG2 is not set
 # PTXCONF_LIBOGG is not set
+# PTXCONF_LIBPCIACCESS is not set
+# PTXCONF_LIBSHOUT is not set
 # PTXCONF_LIBSNDFILE is not set
 # PTXCONF_LIBTHEORA is not set
+# PTXCONF_LIBVA_INTEL_DRIVER is not set
+# PTXCONF_LIBVA is not set
 # PTXCONF_LIBVORBIS is not set
 # PTXCONF_LIBXKBCOMMON is not set
 # PTXCONF_MESA_DEMOS is not set
@@ -2172,6 +2199,7 @@ PTXCONF_TSLIB_TS_TEST=y
 # wayland                       
 #
 # PTXCONF_WAYLAND is not set
+# PTXCONF_WESTON is not set
 
 #
 # ------------------------------------
