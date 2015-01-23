@@ -36,7 +36,31 @@ Note: This chapter is not finished yet.
 
 \section{NOR flash memory case}
 
-Not yet supported.
+It is possible to install Barebox to the Mini2440's NOR flash memory in order to
+use it as a fall-back or rescue bootloader, in case the main copy of Barebox in
+the NAND flash is corrupted. This step is optional -- you can also leave the
+default vivi bootloader in NOR.
+
+To install Barebox to NOR, you can just use the following command:
+
+\begin{ptxshell}[escapechar=|]{^}
+mini2440:/ update -t barebox -d nor
+\end{ptxshell}
+
+Note that the NOR flash is internally disabled when the Mini2440 boots from
+NAND. It will only work:
+
+\begin{itemize}
+	\item If the system boots from NOR and the default vivi bootloader is then
+	used to download Barebox to RAM
+	\item Once Barebox is installed to NOR, when the system boots Barebox
+	directly from NOR
+\end{itemize}
+
+Since the copy of Barebox in NOR should only be used as a fall-back in case the
+NAND flash is corrupted, by default the init script will not autoboot Linux
+when the Mini2440 boots from NOR. Instead it will drop you directly at the
+Barebox shell.
 
 \section{NAND flash memory case}
 
