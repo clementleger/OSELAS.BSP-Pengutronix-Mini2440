@@ -64,6 +64,7 @@ patch-3.2.61-62.xz
 patch-3.2.62-63.xz
 patch-3.2.63-64.xz
 patch-3.2.64-65.xz
+patch-3.2.65-66.xz
 
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
 add_lcd_w35i.diff
