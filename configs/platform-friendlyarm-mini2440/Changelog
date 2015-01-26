@@ -10,6 +10,9 @@
 		- update to OSELAS.Toolchain()-2014.12
 		- use the new autoversion feature of PTXdist
 	* Kernel-3.2:
+		- keep in sync with stable release .66
+	* Kernel-3.4:
+		- keep in sync with stable release .105
 
 2015-01-21	Juergen Borleis <jbe@pengutronix.de
 

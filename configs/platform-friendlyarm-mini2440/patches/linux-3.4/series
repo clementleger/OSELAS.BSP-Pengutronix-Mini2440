@@ -103,6 +103,7 @@ patch-3.4.100-101.xz
 patch-3.4.101-102.xz
 patch-3.4.102-103.xz
 patch-3.4.103-104.xz
+patch-3.4.104-105.xz
 
 fix_new_display_number.diff
 PATCH_1_4_s3c2440_mini2440_Add_support_for_new_LCD_panels.diff
