@@ -1,6 +1,7 @@
 2015-01-26	Juergen Borleis <jbe@pengutronix.de
 
 	* Board Support Package: use ptxdist-2015.01.0
+	* Board Support Package: use the new autoversion feature of PTXdist
 
 2014-07-20	Juergen Borleis <jbe@pengutronix.de
 
