@@ -11,7 +11,7 @@ Index: linux-3.14/Makefile
  PATCHLEVEL = 14
  SUBLEVEL = 31
 -EXTRAVERSION =
-+EXTRAVERSION = -ptx-master
++EXTRAVERSION = -ptx-2015.01.0
  NAME = Shuffling Zombie Juror
  
  # *DOCUMENTATION*

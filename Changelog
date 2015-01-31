@@ -4,6 +4,8 @@
 		- fix line break
 		- add info about Linux version and OSELAS.Toolchain relationship
 		- add the Quickstart to the repository
+	* Board Support Package: Using platform-FriendlyARM-Mini2440-2015.01.0
+	* Board Support Package: Release January 2015 (2015.01.0)
 
 2015-01-26	Juergen Borleis <jbe@pengutronix.de
 

@@ -1,3 +1,9 @@
+OSELAS.BSP-Pengutronix-Mini2440-2015.01.0
+
+ - Sound does not work as expected any more since Linux-3.2. No workaround yet.
+   If you rely on sound, please use the 3.1 or 3.0 (longterm) instead
+ - The backlight cannot be controlled as the Quickstart mentioned
+
 OSELAS.BSP-Pengutronix-Mini2440-2013.10.0
 
  - Sound does not work as expected any more since Linux-3.2. No workaround yet.
