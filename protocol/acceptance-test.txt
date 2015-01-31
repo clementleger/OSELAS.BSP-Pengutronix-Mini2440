@@ -46,7 +46,7 @@ Base System
 [x] bootloader is a release
 [ ] kernel-3.16.7 is a release
 [ ] kernel-3.15.7 is a release
-[ ] kernel-3.14.29 is a release
+[ ] kernel-3.14.31 is a release
 [ ] kernel-3.13.11 is a release
 [ ] kernel-3.12.37 is a release
 [ ] kernel-3.11.10 is a release

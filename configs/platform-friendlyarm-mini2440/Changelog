@@ -4,6 +4,8 @@
 		- adapt the local udev rule to the curent PTXdist version
 	* Kernel 3.12:
 		- keep in sync with stable release .37
+	* Kernel 3.14:
+		- keep in sync with stable release .31
 
 2015-01-26	Juergen Borleis <jbe@pengutronix.de
 
