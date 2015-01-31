@@ -96,20 +96,20 @@ UDEV_RULES-y := \
 	78-sound-card.rules \
 	95-udev-late.rules
 
-ifndef PTXCONF_UDEV_LEGACY
-UDEV_RULES-y += \
+UDEV_RULES-$(PTXCONF_UDEV_LEGACY) += \
 	42-usb-hid-pm.rules
-endif
 
-ifdef PTXCONF_SYSTEMD
+UDEV_RULES-$(PTXCONF_SYSTEMD) += \
+	60-drm.rules \
+	64-btrfs.rules \
+	70-mouse.rules \
+	80-net-setup-link.rules
 
-UDEV_RULES-y += \
+UDEV_RULES-$(PTXCONF_SYSTEMD_LOGIND) += \
 	70-power-switch.rules \
 	70-uaccess.rules \
 	71-seat.rules \
 	73-seat-late.rules
-
-endif
 
 UDEV_RULES-$(PTXCONF_UDEV_ACCELEROMETER)	+= 61-accelerometer.rules
 ifdef PTXCONF_UDEV_LEGACY
@@ -118,6 +118,7 @@ else
 UDEV_RULES-$(PTXCONF_UDEV_ACL)			+= 70-udev-acl.rules
 endif
 UDEV_RULES-$(PTXCONF_UDEV_DRIVERS_RULES)	+= 80-drivers.rules
+UDEV_RULES-$(PTXCONF_UDEV_HWDB)			+= 60-keyboard.rules
 UDEV_RULES-$(PTXCONF_UDEV_KEYMAPS)		+= 95-keyboard-force-release.rules
 UDEV_RULES-$(PTXCONF_UDEV_KEYMAPS)		+= 95-keymap.rules
 UDEV_RULES-$(PTXCONF_UDEV_MTD_PROBE)		+= 75-probe_mtd.rules
@@ -157,7 +158,8 @@ endif
 # ----------------------------------------------------------------------------
 
 ifdef PTXCONF_SYSTEMD
-$(STATEDIR)/udev.extract.post: $(STATEDIR)/systemd.install.post
+$(STATEDIR)/systemd.prepare: $(STATEDIR)/udev.prepare
+$(STATEDIR)/udev.install: $(STATEDIR)/systemd.install.post
 $(STATEDIR)/udev.install.unpack: $(STATEDIR)/systemd.install.post
 endif
 
@@ -173,6 +175,9 @@ $(STATEDIR)/udev.targetinstall:
 ifdef PTXCONF_UDEV_ETC_CONF
 	@$(call install_alternative, udev, 0, 0, 0644, /etc/udev/udev.conf)
 endif
+ifdef PTXCONF_UDEV_HWDB
+	@$(call install_copy, udev, 0, 0, 0644, -, /etc/udev/hwdb.bin)
+endif
 
 ifdef PTXCONF_UDEV_LEGACY
 	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/udevd)
@@ -180,7 +185,7 @@ ifdef PTXCONF_UDEV_LEGACY
 else
 ifdef PTXCONF_SYSTEMD
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/systemd/systemd-udevd)
-	@$(call install_copy, udev, 0, 0, 0755, -, /usr/bin/udevadm)
+	@$(call install_copy, udev, 0, 0, 0755, -, /bin/udevadm)
 else
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/udevd)
 	@$(call install_copy, udev, 0, 0, 0755, -, /bin/udevadm)
