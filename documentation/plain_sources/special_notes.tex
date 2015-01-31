@@ -97,6 +97,29 @@ for reference for the \textit{bz2} format.
 	\item 2.6.38: \texttt{7d471477bfa67546f902da62227fa976}
 \end{itemize}
 
+\begin{important}
+Be aware of a specific kernel and toolchain relationship. Our OSELAS toolchains
+are configured to create code which has minimal run-time requirements to the
+Linux kernel version. The currently configured OSELAS.Toolchain release creates
+code which needs at least a Linux-\ptxdistMinimalToolchainKernel{} at runtime.
+\end{important}
+
+If you want to keep an older Linux version, you must change back to an older
+OSELAS.Toolchain release. Here is a list of OSELAS.Toolchain releases and their
+minimal Linux kernel run-time requirements:
+
+\begin{itemize}
+	\item OSELAS.Toolchain-2014.12.x: Linux-3.16
+	\item OSELAS.Toolchain-2013.12.x: Linux-3.12
+	\item OSELAS.Toolchain-2012.12.x: Linux-3.6
+	\item OSELAS.Toolchain-2011.11.x: Linux-2.6.39
+	\item OSELAS.Toolchain-2011.03.x: Linux-2.6.36
+\end{itemize}
+
+Please note: we only do build tests with the most recent OSELAS.Toolchain
+release. If you change back to an older OSELAS.Toolchain version building the
+BSP may fail.
+
 % ----------------------------------------------------------------------------
 
 \section{Available Userland Configuration}	\label{sec:userland}
