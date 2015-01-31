@@ -2,6 +2,8 @@
 
 	* Platform:
 		- adapt the local udev rule to the curent PTXdist version
+	* Kernel 3.12:
+		- keep in sync with stable release .37
 
 2015-01-26	Juergen Borleis <jbe@pengutronix.de
 
