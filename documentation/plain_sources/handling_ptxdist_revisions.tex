@@ -96,7 +96,7 @@ Now, typing is less time-consuming:
 |\$| ./p images
 \end{ptxshell}
 
-And if we also do not want to enter the trailing \texttt{./} again and again (we
+And if we also do not want to enter the leading \texttt{./} again and again (we
 are so lazy, aren't we?) we could add the following function to our own
 environment in \texttt{\~/.bashrc}:
 
@@ -120,7 +120,7 @@ Now it looks like a regular command again:
 \end{ptxshell}
 
 \begin{important}
-To avoid the trailing \texttt{./} we could also add the current directory to
+To avoid the leading \texttt{./} we could also add the current directory to
 the search PATH. But to do so is a really bad idea. At least compiling the
 OSELAS.Toolchain fails with the current directory in the PATH. Use the function
 shown above. It also gives us a helpful error message instead silently
